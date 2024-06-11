@@ -39,26 +39,17 @@ jobs:
         id: context
         shell: bash
         run: |
-          # Everything defaults to false
-          # Depending on the event type and action context
-          # values can be set to true
-          is_push_master="false"
-          is_fork="false"
-          is_dependabot="false"
-          is_ci="false"
+          is_push_master="${{ github.event_name == 'push' && github.ref_name == 'master' }}"
+          is_dependabot="${{ startsWith(github.head_ref, 'dependabot')}}"
+          is_ci="${{ contains(toJSON('["workflow_dispatch", "pull_request"]'), github.event_name)}}"
 
-          if [[ "${{ github.event_name}}" == 'pull_request' ]]; then
-            is_fork="${{ github.event.pull_request.head.repo.fork }}"
-            is_dependabot="${{ startsWith(github.head_ref, 'dependabot')}}"
-            is_ci="true"
-          elif [[ "${{ github.event_name}}" == 'push' ]]; then
-            is_push_master="${{ github.ref_name == 'master' }}"
-            is_fork="false"
-          elif [[ "${{ github.event_name}}" == 'workflow_dispatch' ]]; then
-            is_fork="false"
-            is_dependabot="false"
-            is_ci="true"
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then
+            is_fork=${{ github.event.pull_request.head.repo.fork }}
+          else
+            is_fork="${{ github.event.repository.full_name != 'mozilla/addons-server' }}"
           fi
+
+          echo "github.event.repository.full_name ${{ github.event.repository.full_name }}"
 
           echo "is_push_master=${is_push_master}" >> $GITHUB_OUTPUT
           echo "is_fork=${is_fork}" >> $GITHUB_OUTPUT
