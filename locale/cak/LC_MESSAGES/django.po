@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT 1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
 "PO-Revision-Date: 2024-01-11 20:49+0000\n"
 "Last-Translator: Juan Sián <ajtzibsyan@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -449,16 +449,16 @@ msgstr "Man Xilitäj ta"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>Kojakuyu', man xqïl ta ri nakanoj.</h1> <p> Ri ruxaq o Yakb'äl xak'utuj man k'o ta pa ruxaq qak'amaya'l. Rik'in jub'a' xapïtz' pa ruwi' jun ojer ximonel o man ütz ta xatz'ib'aj ri ochochib'äl. "
 "</p> <ul> <li>We xatz'ib'aj ri ochochib'äl tanik'oj chik.</li> <li> We xawojqaj jun ximonel pa jun ruxaq k'amaya'l %(open_bug_link)stataqa' jun rutzijol k'ayewal %(close_bug_link)s. Tatz'ijoj chi "
-"qe akuchi' atpetenäq chuqa' achike nakanoj, richin niqatïj qaq'ij richin niqab'än ruk'ojlem. </li> </ul> <p>O yatikïr yab'e pa ri ruxaq k'ïy kiwinaq.</p> <ul> <li>¿La nawajo' jun <a href=\"%(rec)s"
-"\">kicholajem taq tz'aqat ya'on kejqalem</a>?</li> <li> ¿La nawajo' <a href=\"%(search)s\">ye'akanoj taq tz'aqat</a>? Yatikïr natz'ët ri <a href=\"%(search)s\">ruxaq kanob'äl</a> o xa xe nawokisaj "
-"ri ruk'ojlem kanoxïk ajsik. </li> <li> We nawajo' natikirisaj rik'in majun, jät pa ri <a href=\"%(home)s\">kitikirib'al ruxaq taq tz'aqat</a>. </li> </ul>"
+"qe akuchi' atpetenäq chuqa' achike nakanoj, richin niqatïj qaq'ij richin niqab'än ruk'ojlem. </li> </ul> <p>O yatikïr yab'e pa ri ruxaq k'ïy kiwinaq.</p> <ul> <li>¿La nawajo' jun <a "
+"href=\"%(rec)s\">kicholajem taq tz'aqat ya'on kejqalem</a>?</li> <li> ¿La nawajo' <a href=\"%(search)s\">ye'akanoj taq tz'aqat</a>? Yatikïr natz'ët ri <a href=\"%(search)s\">ruxaq kanob'äl</a> o xa "
+"xe nawokisaj ri ruk'ojlem kanoxïk ajsik. </li> <li> We nawajo' natikirisaj rik'in majun, jät pa ri <a href=\"%(home)s\">kitikirib'al ruxaq taq tz'aqat</a>. </li> </ul>"
 
 msgid "Oops"
 msgstr "Uy"
@@ -938,9 +938,8 @@ msgstr "{addon} {version} xxutüx."
 msgid "Rejection scheduled"
 msgstr "Ruk'isib'äl Q'ijul richin Nik'utuüx Etamab'äl"
 
-#, fuzzy
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} xk'utüx runik'oxik."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr ""
 
 #, fuzzy
 msgid "Version re-signed"
@@ -1004,6 +1003,18 @@ msgid "User {user} content restored."
 msgstr ""
 
 msgid "User {user} unbanned."
+msgstr ""
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
 msgstr ""
 
 msgid "Firefox"
@@ -1085,8 +1096,8 @@ msgstr ""
 msgid "Deprecated LWT"
 msgstr "Man okel ta ri LWT"
 
-msgid "Theme (Static)"
-msgstr "Wachinel (Molob'a')"
+msgid "Theme"
+msgstr "Wachinel"
 
 msgid "Deprecated Site Permission"
 msgstr ""
@@ -1116,18 +1127,10 @@ msgstr ""
 msgid "Deprecated LWTs"
 msgstr "Man okel ta ri LWTs"
 
-msgid "Themes (Static)"
-msgstr "Taq Wachinel (Molob'a')"
+msgid "Themes"
+msgstr "Taq wachinel"
 
 msgid "Deprecated Site Permissions"
-msgstr ""
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
 msgstr ""
 
 msgid "Alerts & Updates"
@@ -1419,9 +1422,6 @@ msgstr "Xjuch'"
 
 msgid "All"
 msgstr "Ronojel"
-
-msgid "Theme"
-msgstr "Wachinel"
 
 #, fuzzy
 msgid "No action"
@@ -1851,9 +1851,6 @@ msgstr "Yaköl wuj"
 msgid "Extension Development"
 msgstr "Kib'anik K'amal"
 
-msgid "Themes"
-msgstr "Taq wachinel"
-
 msgid "Developer Policies"
 msgstr "Kina'ojil B'anonela'"
 
@@ -1911,19 +1908,25 @@ msgstr "Jikib'an pa:"
 msgid "Email Address Verification"
 msgstr ""
 
+msgid "Status:"
+msgstr "B'anikil:"
+
 msgid "Your email address is verified."
 msgstr ""
 
-msgid "Please verify your email by clicking \"Verify email\" above."
+msgid "Please verify your email."
 msgstr ""
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr ""
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
 msgstr ""
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 #, python-format
@@ -1938,7 +1941,7 @@ msgid ""
 "email."
 msgstr ""
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
 msgstr ""
 
 msgid "Date"
@@ -1955,6 +1958,16 @@ msgstr ""
 
 msgid "Status"
 msgstr "B'anikil"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr ""
+
+msgid "Refresh results"
+msgstr ""
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr ""
 
 msgid "Recent Activity for My Add-ons"
 msgstr "K'ak'a' Samaj pa Taq Nutz'aqat"
@@ -2756,8 +2769,8 @@ msgstr "JWT jask'um"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr ""
 "Richin ye'ab'än API taq k'utunïk, tataqa' jun <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> achi'el rub'anikil b'i'aj richin niya' q'ij. K'o chi nab'än jun JWT toq natäq jun k'utunïk, achi'el "
 "nitzijöx pa <a href=\"%(docs_url)s\">API wujinem</a>."
@@ -2894,9 +2907,6 @@ msgstr "Ruk'isib'äl k'exoj:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Yetz'etetäj pa re ruxaq k'amaya'l re' toq xkik'owisaj runik'oxik b'itz'ib'. Ja ri ruxaq yerusamajij ri yonil taq k'exoj."
-
-msgid "Status:"
-msgstr "B'anikil:"
 
 msgid "Listed Version:"
 msgstr "Cholajin Ruwäch:"
@@ -3103,15 +3113,6 @@ msgstr "Kinuk'samaj Chilab'en taq K'amal"
 
 msgid "Contribute"
 msgstr "Kato'on"
-
-msgid "Review Add-ons"
-msgstr "Kenik'öx taq Tz'aqat"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Ri yenik'on yeto'on chi nakuqub'a' ak'u'x chi kij chuqa' chi e ütz ri taq tz'aqat richin nawokisaj. ¡Chuqa' niqa chi kiwäch ri nima'q taq rutzil!"
-
-msgid "Join us!"
-msgstr "¡Tatunu' pe awi'!"
 
 msgid "Write Some Code"
 msgstr "Titz'ib'äx B'itz'ib'"
@@ -4136,6 +4137,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr ""
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr ""
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr ""
@@ -4329,6 +4334,10 @@ msgstr ""
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr ""
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr ""
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr ""
@@ -4498,7 +4507,7 @@ msgid "See all extensions"
 msgstr "Ketz'et ronojel ri taq k'amal"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -4506,7 +4515,7 @@ msgid "Privacy & Security extensions"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
+msgid "Fantastic tab managers"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -5181,22 +5190,6 @@ msgstr "Rutz'aqat Mozilla"
 msgid "Back to Add-ons"
 msgstr "Titzolin pa Taq Tz'aqat"
 
-msgid "Legal Notices"
-msgstr "Taqanel Rutzijol"
-
-msgid "Report Trademark Abuse"
-msgstr "Taya' Rutzijol Itzel Rokisaxik ri Retal B'i'aj"
-
-msgid "Report a bug"
-msgstr "Tiya' rutzijol jun sachoj"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Man keta ri' we <a href=\"https://www.mozilla.org/about/legal/\">jun wi ri nitzijöx</a>, ri rupam re ruxaq re' ya'on q'ij chi re rik'in ri ajilab'äl <br /> <a href=\"https://creativecommons.org/"
-"licenses/by-sa/3.0/\"> Creative Commons Atribution Share-Alike License v3.0 </a> o jun chik ruwäch nipe."
-
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Titzolin pa ri ruxaq {0} Tz'aqat"
 
@@ -5217,6 +5210,9 @@ msgstr ""
 
 msgid "Forum"
 msgstr "Molna'oj"
+
+msgid "Report a bug"
+msgstr "Tiya' rutzijol jun sachoj"
 
 msgid "Review Guide"
 msgstr ""

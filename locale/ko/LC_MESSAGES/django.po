@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: addons-ko\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
 "PO-Revision-Date: 2024-02-09 15:32+0000\n"
 "Last-Translator: jinyi.translate <jinyi.translate@gmail.com>\n"
 "Language-Team: none\n"
@@ -446,10 +446,10 @@ msgstr "찾을 수 없습니다."
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>죄송합니다. 찾으려 하는 것을 발견하지 못했습니다.</h1> <p> 찾고자 하는 페이지나 파일이 사이트에 없습니다. 너무 오래된 링크를 클릭했거나 주소를 정확히 입력하지 않았을 수도 있습니다. </p> <ul> "
 "<li>주소를 입력한 것이라면 주소 철자를 다시 한번 점검해 보세요.</li> <li> 다른 사이트에 올라온 링크를 따라서 온 것이라면 %(open_bug_link)s이슈 등록%(close_bug_link)s을 부탁드립니다. 사이트의 이름과 "
@@ -936,9 +936,8 @@ msgstr "{addon} {version} 거부가 예약되었습니다."
 msgid "Rejection scheduled"
 msgstr "거부가 예약됨"
 
-#, fuzzy
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version}의 검토가 요청되었습니다."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr ""
 
 #, fuzzy
 msgid "Version re-signed"
@@ -1002,6 +1001,18 @@ msgid "User {user} content restored."
 msgstr ""
 
 msgid "User {user} unbanned."
+msgstr ""
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
 msgstr ""
 
 msgid "Firefox"
@@ -1083,8 +1094,8 @@ msgstr ""
 msgid "Deprecated LWT"
 msgstr "비추천 LWT"
 
-msgid "Theme (Static)"
-msgstr "테마(정적)"
+msgid "Theme"
+msgstr "테마"
 
 msgid "Deprecated Site Permission"
 msgstr ""
@@ -1115,18 +1126,10 @@ msgstr "사용되지 않는 플러그인"
 msgid "Deprecated LWTs"
 msgstr "비추천 LWTs"
 
-msgid "Themes (Static)"
-msgstr "테마(정적)"
+msgid "Themes"
+msgstr "테마"
 
 msgid "Deprecated Site Permissions"
-msgstr ""
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
 msgstr ""
 
 msgid "Alerts & Updates"
@@ -1406,9 +1409,6 @@ msgstr "승인하기"
 
 msgid "All"
 msgstr "모두"
-
-msgid "Theme"
-msgstr "테마"
 
 msgid "No action"
 msgstr "작업 없음"
@@ -1835,9 +1835,6 @@ msgstr "문서 자료"
 msgid "Extension Development"
 msgstr "확장 기능 개발"
 
-msgid "Themes"
-msgstr "테마"
-
 msgid "Developer Policies"
 msgstr "개발자 정책"
 
@@ -1895,19 +1892,25 @@ msgstr "검사일:"
 msgid "Email Address Verification"
 msgstr ""
 
+msgid "Status:"
+msgstr "상태:"
+
 msgid "Your email address is verified."
 msgstr ""
 
-msgid "Please verify your email by clicking \"Verify email\" above."
+msgid "Please verify your email."
 msgstr ""
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr ""
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
 msgstr ""
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 #, python-format
@@ -1922,7 +1925,7 @@ msgid ""
 "email."
 msgstr ""
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
 msgstr ""
 
 msgid "Date"
@@ -1939,6 +1942,16 @@ msgstr ""
 
 msgid "Status"
 msgstr "상태"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr ""
+
+msgid "Refresh results"
+msgstr ""
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr ""
 
 msgid "Recent Activity for My Add-ons"
 msgstr "내 부가 기능의 최근 활동 내역"
@@ -2749,8 +2762,8 @@ msgstr "JWT 시크릿"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr "API 요청을하려면 <a href=\"%(jwt_url)s\">JSON 웹 토큰(JWT)</a>을 인증 헤더로 보냅니다. <a href=\"%(docs_url)s\">API 문서</a>에 설명 된대로 모든 요청에 대해 JWT를 생성해야합니다."
 
 #, python-format
@@ -2885,9 +2898,6 @@ msgstr "마지막 업데이트:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "코드 검토를 통과 한 후 이 사이트에 나열됩니다. 자동 업데이트는 이 사이트에서 처리합니다."
-
-msgid "Status:"
-msgstr "상태:"
 
 msgid "Listed Version:"
 msgstr "나열된 버전:"
@@ -3091,15 +3101,6 @@ msgstr "추천 확장 프로그램"
 
 msgid "Contribute"
 msgstr "기부하기"
-
-msgid "Review Add-ons"
-msgstr "부가 기능 검토"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "자원 검토자는 부가 기능을 안전하고 안정적으로 사용하도록 도와줍니다. 그들도 큰 혜택을 누립니다!"
-
-msgid "Join us!"
-msgstr "가입하기!"
 
 msgid "Write Some Code"
 msgstr "코드 작성"
@@ -4081,6 +4082,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "일반적인 TOS 계약의 넌센스를 잘라냅니다. 이 영리한 확장 기능은 동의해야 하는 내용을 빠르게 이해하는 데 도움이 됩니다."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr ""
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "더 명확하고 쉽게 읽으십시오. 웹 페이지에서 텍스트 주변의 어수선함을 제거하십시오."
@@ -4272,6 +4277,10 @@ msgstr ""
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr ""
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr ""
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "일부 웹사이트는 Android에서 동영상을 재생하는 데 문제가 있습니다. 고쳐졌습니다."
@@ -4437,7 +4446,7 @@ msgid "See all extensions"
 msgstr "모든 확장 기능 보기"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -4445,7 +4454,7 @@ msgid "Privacy & Security extensions"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
+msgid "Fantastic tab managers"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -5101,23 +5110,6 @@ msgstr "Mozilla 부가 기능"
 msgid "Back to Add-ons"
 msgstr "부가 기능으로 돌아가기"
 
-msgid "Legal Notices"
-msgstr "법적 고지"
-
-msgid "Report Trademark Abuse"
-msgstr "상표권 침해 신고"
-
-msgid "Report a bug"
-msgstr "오류 보고"
-
-#, fuzzy
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"일부 아이콘은 <a href=\"http://www.famfamfam.com/lab/icons/silk/\">famfamfam Silk Icon Set</a>의 것을 사용하고 있으며, <a href=\"http://creativecommons.org/licenses/by/2.5/\">Creative Commons "
-"Attribution 2.5 License</a>를 따르고 있습니다."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "{0} 부가 기능 대문으로 돌아가기"
@@ -5139,6 +5131,9 @@ msgstr ""
 
 msgid "Forum"
 msgstr "포럼"
+
+msgid "Report a bug"
+msgstr "오류 보고"
 
 msgid "Review Guide"
 msgstr ""

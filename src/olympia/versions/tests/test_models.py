@@ -60,6 +60,7 @@ from ..models import (
     Version,
     VersionCreateError,
     VersionPreview,
+    VersionProvenance,
     VersionReviewerFlags,
     source_upload_path,
 )
@@ -474,7 +475,7 @@ class TestVersion(AMOPaths, TestCase):
         assert version.needshumanreview_set.filter(is_active=True).count() == 1
         assert (
             version.needshumanreview_set.get().reason
-            == NeedsHumanReview.REASON_PENDING_REJECTION_SOURCES_PROVIDED
+            == NeedsHumanReview.REASONS.PENDING_REJECTION_SOURCES_PROVIDED
         )
 
     @mock.patch('olympia.versions.tasks.VersionPreview.delete_preview_files')
@@ -967,6 +968,43 @@ class TestVersion(AMOPaths, TestCase):
             auto_approval_disabled_until_next_approval=False,
             auto_approval_delayed_until=datetime.now() + timedelta(hours=1),
         )
+        assert version.should_have_due_date
+
+    def test_should_have_due_date_listed_theme(self):
+        addon = addon_factory(
+            status=amo.STATUS_NULL,
+            type=amo.ADDON_STATICTHEME,
+            file_kw={'status': amo.STATUS_AWAITING_REVIEW},
+        )
+        version = addon.versions.get()
+
+        # Listed version of an incomplete add-on should not have a due date.
+        assert not version.should_have_due_date
+
+        # Unless they have the explicit a NeedsHumanReview flag active.
+        needs_human_review = NeedsHumanReview.objects.create(version=version)
+        assert version.should_have_due_date
+
+        needs_human_review.update(is_active=False)
+        assert not version.should_have_due_date
+
+    def test_should_have_due_date_unlisted_theme(self):
+        addon = addon_factory(
+            status=amo.STATUS_NULL,
+            type=amo.ADDON_STATICTHEME,
+            version_kw={'channel': amo.CHANNEL_UNLISTED},
+            file_kw={'status': amo.STATUS_AWAITING_REVIEW},
+        )
+        version = addon.versions.get()
+
+        # Unlisted version of an incomplete add-on should have a due date.
+        assert version.should_have_due_date
+
+        # Whether they have the explicit a NeedsHumanReview flag active or not.
+        needs_human_review = NeedsHumanReview.objects.create(version=version)
+        assert version.should_have_due_date
+
+        needs_human_review.update(is_active=False)
         assert version.should_have_due_date
 
     def _test_should_have_due_date_disabled(self, channel):
@@ -1802,7 +1840,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         assert version.license_id is None
 
     def test_app_versions(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -1816,7 +1854,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         assert app.max.version == '*'
 
     def test_compatibility_just_app(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -1832,7 +1870,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         assert app.max.version == '*'
 
     def test_compatibility_min_max_too(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -1856,7 +1894,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         assert app.max.version == '67'
 
     def test_compatible_apps_is_pre_generated(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         # We mock File.from_upload() to prevent it from accessing
         # version.compatible_apps early - we want to test that the cache has
         # been generated regardless.
@@ -1892,8 +1930,47 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         assert app.min.version == '42.0'
         assert app.max.version == '*'
 
+    def test_compatible_apps_cloned_if_passed_existing_instances(self):
+        # If we're passed ApplicationsVersions instances that already exist in
+        # the database (with a pk) in `compatibility` then we clone them
+        # instead of re-using them.
+        existing_version = version_factory(
+            addon=self.addon,
+            application=amo.FIREFOX.id,
+            min_app_version='48.0',
+            max_app_version='*',
+        )
+
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
+        new_version = Version.from_upload(
+            self.upload,
+            self.addon,
+            amo.CHANNEL_LISTED,
+            compatibility=existing_version.compatible_apps,
+            parsed_data=parsed_data,
+        )
+        # Make sure we're not testing with cached data
+        del existing_version._compatible_apps
+
+        assert existing_version.compatible_apps  # Still there, untouched.
+        assert amo.FIREFOX in new_version.compatible_apps
+        assert (
+            new_version.compatible_apps[amo.FIREFOX].min
+            == existing_version.compatible_apps[amo.FIREFOX].min
+        )
+        assert (
+            new_version.compatible_apps[amo.FIREFOX].max
+            == existing_version.compatible_apps[amo.FIREFOX].max
+        )
+        # Shouldn't be the same instance.
+        assert existing_version.compatible_apps != new_version.compatible_apps
+
+        # Really make sure - includes the one from the original version in
+        # fixtures too.
+        assert ApplicationsVersions.objects.count() == 3
+
     def test_version_number(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -1904,7 +1981,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         assert version.version == '0.0.1'
 
     def test_filename(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -2098,7 +2175,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         assert upload_version.needshumanreview_set.filter(is_active=True).count() == 1
         assert (
             upload_version.needshumanreview_set.get().reason
-            == NeedsHumanReview.REASON_INHERITANCE
+            == NeedsHumanReview.REASONS.INHERITANCE
         )
 
         activity_log = (
@@ -2287,7 +2364,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
     def test_dont_record_install_origins_when_waffle_switch_is_off(self):
         # Switch should be off by default.
         assert waffle.switch_is_active('record-install-origins') is False
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         parsed_data['install_origins'] = ['https://foo.com', 'https://bar.com']
         version = Version.from_upload(
             self.upload,
@@ -2300,7 +2377,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
 
     @override_switch('record-install-origins', active=True)
     def test_record_install_origins(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         parsed_data['install_origins'] = ['https://foo.com', 'https://bar.com']
         version = Version.from_upload(
             self.upload,
@@ -2317,7 +2394,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
 
     @override_switch('record-install-origins', active=True)
     def test_record_install_origins_base_domain(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         parsed_data['install_origins'] = [
             'https://foô.com',
             'https://foo.bar.co.uk',
@@ -2341,7 +2418,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
 
     @override_switch('record-install-origins', active=True)
     def test_record_install_origins_error(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         parsed_data['install_origins'] = None  # Invalid
         with self.assertRaises(VersionCreateError):
             Version.from_upload(
@@ -2357,7 +2434,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         self, send_initial_submission_acknowledgement_email_mock
     ):
         self.addon.current_version.delete(hard=True)
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -2376,7 +2453,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         self, send_initial_submission_acknowledgement_email_mock
     ):
         self.addon.current_version.delete(hard=True)
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -2394,7 +2471,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
     def test_dont_send_initial_submission_acknowledgement_email_second_version(
         self, send_initial_submission_acknowledgement_email_mock
     ):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -2410,7 +2487,7 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         self, send_initial_submission_acknowledgement_email_mock
     ):
         self.addon.current_version.delete()
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -2420,6 +2497,22 @@ class TestExtensionVersionFromUpload(TestVersionFromUpload):
         )
         assert version.pk
         assert send_initial_submission_acknowledgement_email_mock.delay.call_count == 0
+
+    def test_version_provenance(self):
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
+        version = Version.from_upload(
+            self.upload,
+            self.addon,
+            amo.CHANNEL_LISTED,
+            selected_apps=[self.selected_app],
+            parsed_data=parsed_data,
+            client_info='Something/42.0',
+        )
+        assert version.pk
+        assert VersionProvenance.objects.filter(version=version).exists()
+        provenance = VersionProvenance.objects.get(version=version)
+        assert provenance.client_info == 'Something/42.0'
+        assert provenance.source == self.upload.source
 
 
 class TestExtensionVersionFromUploadUnlistedDelay(TestVersionFromUpload):
@@ -2620,7 +2713,7 @@ class TestExtensionVersionFromUploadTransactional(TransactionTestCase, UploadMix
         addon = addon_factory()
         user = user_factory(username='fancyuser')
         upload = self.get_upload('webextension_no_id.xpi', user=user)
-        parsed_data = parse_addon(upload, addon, user=user)
+        parsed_data = parse_addon(upload, addon=addon, user=user)
 
         with transaction.atomic():
             version = Version.from_upload(
@@ -2640,7 +2733,7 @@ class TestExtensionVersionFromUploadTransactional(TransactionTestCase, UploadMix
         addon = addon_factory()
         user = user_factory(username='fancyuser')
         upload = self.get_upload('webextension_no_id.xpi', user=user)
-        parsed_data = parse_addon(upload, addon, user=user)
+        parsed_data = parse_addon(upload, addon=addon, user=user)
 
         with transaction.atomic():
             version = Version.from_upload(
@@ -2664,7 +2757,7 @@ class TestExtensionVersionFromUploadTransactional(TransactionTestCase, UploadMix
         addon = addon_factory()
         user = user_factory(username='fancyuser')
         upload = self.get_upload('webextension_no_id.xpi', user=user)
-        parsed_data = parse_addon(upload, addon, user=user)
+        parsed_data = parse_addon(upload, addon=addon, user=user)
 
         # Simulating an atomic transaction similar to what
         # create_version_for_upload does
@@ -2736,7 +2829,7 @@ class TestPermissionsFromUpload(TestVersionFromUpload):
         self.current = self.addon.current_version
 
     def test_permissions_includes_devtools(self):
-        parsed_data = parse_addon(self.upload, self.addon, user=self.fake_user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.fake_user)
         version = Version.from_upload(
             self.upload,
             self.addon,
@@ -2776,7 +2869,7 @@ class TestStaticThemeFromUpload(UploadMixin, TestCase):
             status=amo.STATUS_NOMINATED,
             file_kw={'status': amo.STATUS_AWAITING_REVIEW},
         )
-        parsed_data = parse_addon(self.upload, self.addon, user=self.user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.user)
         Version.from_upload(
             self.upload,
             self.addon,
@@ -2789,7 +2882,7 @@ class TestStaticThemeFromUpload(UploadMixin, TestCase):
     @mock.patch('olympia.versions.models.generate_static_theme_preview')
     def test_new_version_while_public(self, generate_static_theme_preview_mock):
         self.addon = addon_factory(type=amo.ADDON_STATICTHEME)
-        parsed_data = parse_addon(self.upload, self.addon, user=self.user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.user)
         Version.from_upload(
             self.upload,
             self.addon,
@@ -2808,7 +2901,7 @@ class TestStaticThemeFromUpload(UploadMixin, TestCase):
         self.upload = self.get_upload(
             abspath=os.path.join(settings.ROOT, path), user=self.user
         )
-        parsed_data = parse_addon(self.upload, self.addon, user=self.user)
+        parsed_data = parse_addon(self.upload, addon=self.addon, user=self.user)
         Version.from_upload(
             self.upload,
             self.addon,
@@ -3257,3 +3350,88 @@ class TestDeniedInstallOrigin(TestCase):
         assert DeniedInstallOrigin.find_denied_origins(
             ['https://example.com', 'rofl', 'https://foo.com']
         ) == {'https://example.com'}
+
+
+@mock.patch('olympia.versions.models.statsd.incr')
+class TestVersionProvenance(TestCase):
+    def setUp(self):
+        self.addon = addon_factory()
+        self.version = self.addon.current_version
+
+    def test_from_version_no_client_info(self, incr_mock):
+        provenance = VersionProvenance.from_version(
+            version=self.version, source=amo.UPLOAD_SOURCE_GENERATED, client_info=None
+        )
+        assert VersionProvenance.objects.get() == provenance
+        assert provenance.version == self.version
+        assert provenance.source == amo.UPLOAD_SOURCE_GENERATED
+        assert provenance.client_info is None
+        assert incr_mock.call_count == 0
+
+    def test_from_version_client_info_no_webext_version(self, incr_mock):
+        provenance = VersionProvenance.from_version(
+            version=self.version,
+            source=amo.UPLOAD_SOURCE_DEVHUB,
+            client_info='Mozilla/5.0 (Whatever; rv:126.0) Gecko/20100101 Firefox/126.0',
+        )
+        assert VersionProvenance.objects.get() == provenance
+        assert provenance.version == self.version
+        assert provenance.source == amo.UPLOAD_SOURCE_DEVHUB
+        assert (
+            provenance.client_info
+            == 'Mozilla/5.0 (Whatever; rv:126.0) Gecko/20100101 Firefox/126.0'
+        )
+        assert incr_mock.call_count == 0
+
+    def test_from_version_client_info_very_long(self, incr_mock):
+        provenance = VersionProvenance.from_version(
+            version=self.version,
+            source=amo.UPLOAD_SOURCE_ADDON_API,
+            client_info='abc' * 1000,
+        )
+        assert VersionProvenance.objects.get() == provenance
+        assert provenance.version == self.version
+        assert provenance.source == amo.UPLOAD_SOURCE_ADDON_API
+        assert (
+            provenance.client_info == 'abc' * 85  # 255 max length.
+        )
+        assert incr_mock.call_count == 0
+
+    def test_from_version_with_webext_version(self, incr_mock):
+        provenance = VersionProvenance.from_version(
+            version=self.version,
+            source=amo.UPLOAD_SOURCE_SIGNING_API,
+            client_info='web-ext/42.0',
+        )
+        assert VersionProvenance.objects.get() == provenance
+        assert provenance.version == self.version
+        assert provenance.source == amo.UPLOAD_SOURCE_SIGNING_API
+        assert provenance.client_info == 'web-ext/42.0'
+        assert incr_mock.call_count == 1
+        assert incr_mock.call_args[0][0] == 'signing.submission.webext_version.42_0'
+
+    def test_from_version_with_webext_version_old_signing_api(self, incr_mock):
+        provenance = VersionProvenance.from_version(
+            version=self.version,
+            source=amo.UPLOAD_SOURCE_ADDON_API,
+            client_info='web-ext/8.0.2',
+        )
+        assert VersionProvenance.objects.get() == provenance
+        assert provenance.version == self.version
+        assert provenance.source == amo.UPLOAD_SOURCE_ADDON_API
+        assert provenance.client_info == 'web-ext/8.0.2'
+        assert incr_mock.call_count == 1
+        assert incr_mock.call_args[0][0] == 'addons.submission.webext_version.8_0_2'
+
+    def test_from_version_with_webext_version_other(self, incr_mock):
+        provenance = VersionProvenance.from_version(
+            version=self.version,
+            source=amo.UPLOAD_SOURCE_GENERATED,
+            client_info='web-ext/1',
+        )
+        assert VersionProvenance.objects.get() == provenance
+        assert provenance.version == self.version
+        assert provenance.source == amo.UPLOAD_SOURCE_GENERATED
+        assert provenance.client_info == 'web-ext/1'
+        assert incr_mock.call_count == 1
+        assert incr_mock.call_args[0][0] == 'other.webext_version.1'

@@ -1,6 +1,7 @@
-version: "2.4"
-
 x-env-mapping: &env
+  # https://docs.docker.com/compose/environment-variables/envvars-precedence/
+  env_file:
+    - .env
   environment:
     - CELERY_BROKER_URL=amqp://olympia:olympia@rabbitmq/olympia
     - CELERY_RESULT_BACKEND=redis://redis:6379/1
@@ -12,61 +13,67 @@ x-env-mapping: &env
     - OLYMPIA_SITE_URL=http://olympia.test
     - PYTHONDONTWRITEBYTECODE=1
     - PYTHONUNBUFFERED=1
+    - PYTHONBREAKPOINT=ipdb.set_trace
     - TERM=xterm-256color
-    - CIRCLECI=${CIRCLECI}
     - HISTFILE=/data/olympia/docker/artifacts/bash_history
     - HISTSIZE=50000
     - HISTIGNORE=ls:exit:"cd .."
     - HISTCONTROL=erasedups
-    # Note: docker compose uses the values exported from .env for GID/UID if
-    # they exist. ./docker/fix_olympia_user.sh uses those variables to fix
-    # the uid/gid of the user to match the host if necessary.
-    - UID=${UID:-9500}
-    - GID=${UID:-9500}
+    - CIRCLECI
+    - HOST_UID
 
 services:
   worker: &worker
     <<: *env
-    image: mozilla/addons-server:latest
+    image: ${DOCKER_TAG:-}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${DOCKER_TARGET:-}
+      x-bake:
+        pull: true
+        platforms: linux/amd64
     # We drop down to a different user through supervisord, but starting as
     # root allows us to fix the ownership of files generated at image build
-    # time through the ./docker/fix_olympia_user.sh script.
+    # time through the ./docker/entrypoint.sh script.
     user: root
     platform: linux/amd64
+    entrypoint: ["/data/olympia/docker/entrypoint.sh"]
     command:
-      - /bin/sh
-      - -c
-      - |
-        ./docker/fix_olympia_user.sh
-        supervisord -n -c /data/olympia/docker/supervisor-celery.conf
+      - supervisord -n -c /data/olympia/docker/supervisor-celery.conf
     volumes:
       - .:/data/olympia
-      - ./deps:/deps
-      - ./package.json:/deps/package.json
-      - ./package-lock.json:/deps/package-lock.json
+      - /data/olympia/src/olympia.egg-info
+      - storage:/data/olympia/storage
     extra_hosts:
      - "olympia.test:127.0.0.1"
+    restart: on-failure:5
+    # entrypoint.sh takes some time
+    # we can wait for supervisor to start
+    # indicating the service is ready
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "if [ -f /data/olympia/supervisord.pid ]; then echo 'File exists'; else echo 'File not found'; exit 1; fi"
+      ]
+      interval: 5s
+      timeout: 10s
+      retries: 30
 
   web:
     <<: *worker
-    platform: linux/amd64
     command:
-      - /bin/sh
-      - -c
-      - |
-        ./docker/fix_olympia_user.sh
-        supervisord -n -c /data/olympia/docker/supervisor.conf
-
+      - supervisord -n -c /data/olympia/docker/supervisor.conf
   nginx:
     image: nginx
     volumes:
       - ./docker/nginx/addons.conf:/etc/nginx/conf.d/addons.conf
       - ./static:/srv/static
       - ./site-static:/srv/site-static
-      - ./storage/shared_storage/uploads:/srv/user-media
-      - ./storage/files:/srv/user-media/addons
-      - ./storage/guarded-addons:/srv/user-media/guarded-addons
-      - ./storage/sitemaps:/srv/user-media/sitemaps
+      - storage:/shared_storage/uploads:/srv/user-media
+      - storage:/files:/srv/user-media/addons
+      - storage:/guarded-addons:/srv/user-media/guarded-addons
+      - storage:/sitemaps:/srv/user-media/sitemaps
     ports:
       - "80:80"
     networks:
@@ -89,6 +96,8 @@ services:
       - MYSQL_DATABASE=olympia
     ports:
     - "3306:3306"
+    volumes:
+      - data_mysqld:/var/lib/mysql
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
@@ -104,12 +113,16 @@ services:
       - "discovery.type=single-node"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     mem_limit: 2g
+    volumes:
+      - data_elasticsearch:/usr/share/elasticsearch/data
 
   redis:
     image: redis:6.2
+    volumes:
+      - data_redis:/data
 
   rabbitmq:
-    image: rabbitmq:3.8
+    image: rabbitmq:3.12
     hostname: olympia
     expose:
       - "5672"
@@ -117,6 +130,8 @@ services:
       - RABBITMQ_DEFAULT_USER=olympia
       - RABBITMQ_DEFAULT_PASS=olympia
       - RABBITMQ_DEFAULT_VHOST=olympia
+    volumes:
+      - data_rabbitmq:/var/lib/rabbitmq
 
   autograph:
     image: mozilla/autograph:3.3.2
@@ -141,3 +156,22 @@ services:
       # exposed using webpack and not by the node app server).
       - 7011:7011
     command: yarn amo:olympia
+
+networks:
+  default:
+
+volumes:
+  data_redis:
+  data_elasticsearch:
+  data_mysqld:
+    # Keep this value in sync with Makefile-os
+    # External volumes must be manually created/destroyed
+    name: addons-server_data_mysqld
+    external: true
+  data_rabbitmq:
+  storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./storage

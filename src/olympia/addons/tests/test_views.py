@@ -69,6 +69,7 @@ from olympia.versions.models import (
     AppVersion,
     License,
     VersionPreview,
+    VersionProvenance,
     VersionReviewerFlags,
 )
 
@@ -760,7 +761,7 @@ class TestAddonViewSetDetail(AddonAndVersionViewSetDetailMixin, TestCase):
 class RequestMixin:
     client_request_verb = None
 
-    def request(self, *, data=None, format=None, **kwargs):
+    def request(self, *, data=None, format=None, user_agent='web-ext/12.34', **kwargs):
         verb = getattr(self.client, self.client_request_verb, None)
         if not verb:
             raise NotImplementedError
@@ -768,7 +769,7 @@ class RequestMixin:
             self.url,
             data={**getattr(self, 'minimal_data', {}), **(data or kwargs)},
             format=format,
-            HTTP_USER_AGENT='web-ext/12.34',
+            HTTP_USER_AGENT=user_agent,
         )
 
 
@@ -946,6 +947,10 @@ class TestAddonViewSetCreate(UploadMixin, AddonViewSetCreateUpdateMixin, TestCas
         )
         self.statsd_incr_mock.assert_any_call('addons.submission.addon.unlisted')
         self.statsd_incr_mock.assert_any_call('addons.submission.webext_version.12_34')
+        provenance = VersionProvenance.objects.get()
+        assert provenance.version == expected_version
+        assert provenance.source == amo.UPLOAD_SOURCE_ADDON_API
+        assert provenance.client_info == 'web-ext/12.34'
 
     def test_invalid_upload(self):
         self.upload.update(valid=False)
@@ -1012,6 +1017,30 @@ class TestAddonViewSetCreate(UploadMixin, AddonViewSetCreateUpdateMixin, TestCas
         )
         self.statsd_incr_mock.assert_any_call('addons.submission.addon.listed')
         self.statsd_incr_mock.assert_any_call('addons.submission.webext_version.12_34')
+        provenance = VersionProvenance.objects.get()
+        assert provenance.version == expected_version
+        assert provenance.source == amo.UPLOAD_SOURCE_ADDON_API
+        assert provenance.client_info == 'web-ext/12.34'
+
+    def test_no_client_info(self):
+        self.upload.update(channel=amo.CHANNEL_LISTED)
+        response = self.request(
+            data={
+                'categories': ['bookmarks'],
+                'version': {
+                    'upload': self.upload.uuid,
+                    'license': self.license.slug,
+                },
+            },
+            user_agent='',
+        )
+        assert response.status_code == 201, response.content
+        addon = Addon.objects.get()
+        expected_version = addon.find_latest_version(channel=None)
+        provenance = VersionProvenance.objects.get()
+        assert provenance.version == expected_version
+        assert provenance.source == amo.UPLOAD_SOURCE_ADDON_API
+        assert provenance.client_info == ''
 
     def test_listed_metadata_missing(self):
         self.upload.update(channel=amo.CHANNEL_LISTED)
@@ -1147,7 +1176,7 @@ class TestAddonViewSetCreate(UploadMixin, AddonViewSetCreateUpdateMixin, TestCas
                     'appearance',
                     'download-management',
                     'shopping',
-                    'accessibility',
+                    'games-entertainment',
                 ]
             },
         )
@@ -1659,8 +1688,11 @@ class TestAddonViewSetCreate(UploadMixin, AddonViewSetCreateUpdateMixin, TestCas
         }
 
     def test_dictionary_compat(self):
-        def _parse_xpi_mock(pkg, addon, minimal, user):
-            return {**parse_xpi(pkg, addon, minimal, user), 'type': amo.ADDON_DICT}
+        def _parse_xpi_mock(pkg, *, addon, minimal, user, **kwargs):
+            return {
+                **parse_xpi(pkg, addon=addon, minimal=minimal, user=user),
+                'type': amo.ADDON_DICT,
+            }
 
         with patch('olympia.files.utils.parse_xpi', side_effect=_parse_xpi_mock):
             response = self.request(
@@ -1783,8 +1815,11 @@ class TestAddonViewSetCreatePut(TestAddonViewSetCreate):
         return super().test_compatibility_langpack()
 
     def test_guid_mismatch(self):
-        def parse_xpi_mock(pkg, addon, minimal, user):
-            return {**parse_xpi(pkg, addon, minimal, user), 'guid': '@something'}
+        def parse_xpi_mock(pkg, *, addon, minimal, user, **kwargs):
+            return {
+                **parse_xpi(pkg, addon=addon, minimal=minimal, user=user),
+                'guid': '@something',
+            }
 
         with patch('olympia.files.utils.parse_xpi', side_effect=parse_xpi_mock):
             response = self.request()
@@ -1796,8 +1831,11 @@ class TestAddonViewSetCreatePut(TestAddonViewSetCreate):
         }
 
     def test_no_guid_in_manifest(self):
-        def parse_xpi_mock(pkg, addon, minimal, user):
-            return {**parse_xpi(pkg, addon, minimal, user), 'guid': None}
+        def parse_xpi_mock(pkg, *, addon, minimal, user, **kwargs):
+            return {
+                **parse_xpi(pkg, addon=addon, minimal=minimal, user=user),
+                'guid': None,
+            }
 
         with patch('olympia.files.utils.parse_xpi', side_effect=parse_xpi_mock):
             response = self.request()
@@ -3349,8 +3387,11 @@ class VersionViewSetCreateUpdateMixin(RequestMixin):
         assert response.status_code == self.SUCCESS_STATUS_CODE, response.content
 
     @staticmethod
-    def _parse_xpi_mock(pkg, addon, minimal, user):
-        return {**parse_xpi(pkg, addon, minimal, user), 'type': addon.type}
+    def _parse_xpi_mock(pkg, *, addon, minimal, user, **kwargs):
+        return {
+            **parse_xpi(pkg, addon=addon, minimal=minimal, user=user),
+            'type': addon.type,
+        }
 
     def test_compatibility_dictionary_list(self):
         self.addon.update(type=amo.ADDON_DICT)
@@ -3486,6 +3527,10 @@ class TestVersionViewSetCreate(UploadMixin, VersionViewSetCreateUpdateMixin, Tes
         assert version.channel == amo.CHANNEL_UNLISTED
         self.statsd_incr_mock.assert_any_call('addons.submission.version.unlisted')
         self.statsd_incr_mock.assert_any_call('addons.submission.webext_version.12_34')
+        provenance = VersionProvenance.objects.get()
+        assert provenance.version == version
+        assert provenance.source == amo.UPLOAD_SOURCE_ADDON_API
+        assert provenance.client_info == 'web-ext/12.34'
 
     @mock.patch('olympia.addons.views.log')
     def test_does_not_log_without_source(self, log_mock):
@@ -3522,6 +3567,10 @@ class TestVersionViewSetCreate(UploadMixin, VersionViewSetCreateUpdateMixin, Tes
         assert self.addon.status == amo.STATUS_NOMINATED
         self.statsd_incr_mock.assert_any_call('addons.submission.version.listed')
         self.statsd_incr_mock.assert_any_call('addons.submission.webext_version.12_34')
+        provenance = VersionProvenance.objects.get()
+        assert provenance.version == version
+        assert provenance.source == amo.UPLOAD_SOURCE_ADDON_API
+        assert provenance.client_info == 'web-ext/12.34'
 
     def test_not_authenticated(self):
         self.client.logout_api()
@@ -6312,7 +6361,7 @@ class TestStaticCategoryView(TestCase):
         assert response.status_code == 200
         data = json.loads(force_str(response.content))
 
-        assert len(data) == 33
+        assert len(data) == 32
 
         # some basic checks to verify integrity
         entry = data[0]
@@ -6340,7 +6389,7 @@ class TestStaticCategoryView(TestCase):
         assert response.status_code == 200
         data = json.loads(force_str(response.content))
 
-        assert len(data) == 33
+        assert len(data) == 32
 
         # some basic checks to verify integrity
         entry = data[0]
@@ -6376,7 +6425,7 @@ class TestStaticCategoryView(TestCase):
             response = self.client.get(self.url)
         assert response.status_code == 200
         data = json.loads(response.content)
-        assert len(data) == 33
+        assert len(data) == 32
         for entry in data:
             assert entry['application'] == 'firefox'
 

@@ -148,7 +148,7 @@ class APPROVE_VERSION(_LOG):
     review_email_user = True
     review_queue = True
     reviewer_review_action = True
-    cinder_action = DECISION_ACTIONS.AMO_APPROVE
+    cinder_action = DECISION_ACTIONS.AMO_APPROVE_VERSION
 
 
 class PRELIMINARY_VERSION(_LOG):
@@ -814,7 +814,7 @@ class REJECT_VERSION_DELAYED(_LOG):
 class VERSION_RESIGNED(_LOG):
     # takes add-on, version, VersionString
     id = 166
-    format = _('{addon} {version} re-signed (previously {0}).')
+    format = _('{addon} {version} automatically created and signed from {0}.')
     short = _('Version re-signed')
     review_queue = True
 
@@ -838,7 +838,7 @@ class FORCE_ENABLE(_LOG):
     reviewer_format = '{addon} force-enabled by {user_responsible}.'
     admin_format = reviewer_format
     short = 'Force enabled'
-    cinder_action = DECISION_ACTIONS.AMO_APPROVE
+    cinder_action = DECISION_ACTIONS.AMO_APPROVE_VERSION
 
 
 class LOG_IN(_LOG):
@@ -868,7 +868,6 @@ class UNREJECT_VERSION(_LOG):
     keep = True
     review_queue = True
     reviewer_review_action = True
-    cinder_action = DECISION_ACTIONS.AMO_APPROVE
 
 
 class LOG_IN_API_TOKEN(_LOG):
@@ -889,7 +888,6 @@ class CLEAR_NEEDS_HUMAN_REVIEWS_LEGACY(_LOG):
     admin_event = True
     review_queue = True
     reviewer_review_action = True
-    cinder_action = DECISION_ACTIONS.AMO_APPROVE
 
 
 class NEEDS_HUMAN_REVIEW_AUTOMATIC(_LOG):
@@ -916,7 +914,6 @@ class CLEAR_NEEDS_HUMAN_REVIEW(_LOG):
     review_queue = True
     reviewer_review_action = True
     hide_developer = True
-    cinder_action = DECISION_ACTIONS.AMO_APPROVE
 
 
 class CLEAR_PENDING_REJECTION(_LOG):
@@ -1015,6 +1012,31 @@ class ADMIN_USER_UNBAN(_LOG):
 class NEEDS_HUMAN_REVIEW_CINDER(NEEDS_HUMAN_REVIEW_AUTOMATIC):
     id = 188
     review_queue = True
+
+
+class AUTO_REJECT_VERSION_AFTER_DELAY_EXPIRED(_LOG):
+    # takes add-on, version, reviewtype
+    id = 189
+    action_class = 'reject'
+    format = _('{addon} {version} rejected automatically after delay expired.')
+    short = _('Rejected automatically after delay expired')
+    keep = True
+    review_email_user = True
+    review_queue = True
+    reviewer_review_action = True
+    cinder_action = DECISION_ACTIONS.AMO_REJECT_VERSION_ADDON
+
+
+class AUTO_REJECT_CONTENT_AFTER_DELAY_EXPIRED(_LOG):
+    id = 190
+    action_class = 'reject'
+    format = _('{addon} {version} content rejected automatically after delay expired.')
+    short = _('Content rejected automatically after delay expired')
+    keep = True
+    review_email_user = True
+    review_queue = True
+    reviewer_review_action = True
+    cinder_action = DECISION_ACTIONS.AMO_REJECT_VERSION_ADDON
 
 
 LOGS = [x for x in vars().values() if isclass(x) and issubclass(x, _LOG) and x != _LOG]

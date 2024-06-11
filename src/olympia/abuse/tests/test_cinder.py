@@ -10,7 +10,7 @@ import waffle
 from waffle.testutils import override_switch
 
 from olympia import amo, core
-from olympia.abuse.models import AbuseReport
+from olympia.abuse.models import AbuseReport, CinderJob
 from olympia.activity.models import ActivityLog
 from olympia.addons.models import Addon, Preview
 from olympia.amo.tests import (
@@ -22,6 +22,8 @@ from olympia.amo.tests import (
 )
 from olympia.amo.tests.test_helpers import get_image_path
 from olympia.bandwagon.models import Collection, CollectionAddon
+from olympia.constants.abuse import DECISION_ACTIONS
+from olympia.constants.promoted import NOT_PROMOTED, NOTABLE, RECOMMENDED
 from olympia.ratings.models import Rating
 from olympia.reviewers.models import NeedsHumanReview
 from olympia.users.models import UserProfile
@@ -220,7 +222,7 @@ class TestCinderAddon(BaseTestCinderCase, TestCase):
                 'last_updated': str(addon.last_updated),
                 'name': str(addon.name),
                 'privacy_policy': 'Söme privacy policy',
-                'promoted_badge': '',
+                'promoted': '',
                 'release_notes': 'Søme release notes',
                 'slug': addon.slug,
                 'summary': str(addon.summary),
@@ -348,6 +350,142 @@ class TestCinderAddon(BaseTestCinderCase, TestCase):
                 },
             ],
         }
+
+    def test_build_report_payload_promoted_recommended(self):
+        addon = self._create_dummy_target(
+            homepage='https://home.example.com',
+            support_email='support@example.com',
+            support_url='https://support.example.com/',
+            description='Sôme description',
+            privacy_policy='Söme privacy policy',
+            version_kw={'release_notes': 'Søme release notes'},
+        )
+        self.make_addon_promoted(addon, group=RECOMMENDED)
+        message = ' bad addon!'
+        cinder_addon = self.cinder_class(addon)
+        encoded_message = cinder_addon.get_str(message)
+        abuse_report = AbuseReport.objects.create(guid=addon.guid, message=message)
+        data = cinder_addon.build_report_payload(
+            report=CinderReport(abuse_report), reporter=None
+        )
+        assert data == {
+            'queue_slug': cinder_addon.queue,
+            'entity_type': 'amo_addon',
+            'entity': {
+                'id': str(addon.pk),
+                'average_daily_users': addon.average_daily_users,
+                'created': str(addon.created),
+                'description': str(addon.description),
+                'guid': addon.guid,
+                'homepage': str(addon.homepage),
+                'last_updated': str(addon.last_updated),
+                'name': str(addon.name),
+                'privacy_policy': 'Söme privacy policy',
+                'promoted': 'Recommended',
+                'release_notes': 'Søme release notes',
+                'slug': addon.slug,
+                'summary': str(addon.summary),
+                'support_email': str(addon.support_email),
+                'support_url': str(addon.support_url),
+                'version': addon.current_version.version,
+            },
+            'reasoning': encoded_message,
+            'context': {
+                'entities': [
+                    {
+                        'attributes': {
+                            'id': str(abuse_report.pk),
+                            'created': str(abuse_report.created),
+                            'locale': None,
+                            'message': encoded_message,
+                            'reason': None,
+                            'considers_illegal': False,
+                        },
+                        'entity_type': 'amo_report',
+                    }
+                ],
+                'relationships': [
+                    {
+                        'relationship_type': 'amo_report_of',
+                        'source_id': str(abuse_report.pk),
+                        'source_type': 'amo_report',
+                        'target_id': str(addon.pk),
+                        'target_type': 'amo_addon',
+                    }
+                ],
+            },
+        }
+
+    def test_build_report_payload_promoted_notable(self):
+        addon = self._create_dummy_target(
+            homepage='https://home.example.com',
+            support_email='support@example.com',
+            support_url='https://support.example.com/',
+            description='Sôme description',
+            privacy_policy='Söme privacy policy',
+            version_kw={'release_notes': 'Søme release notes'},
+        )
+        self.make_addon_promoted(addon, group=NOTABLE)
+        message = ' bad addon!'
+        cinder_addon = self.cinder_class(addon)
+        encoded_message = cinder_addon.get_str(message)
+        abuse_report = AbuseReport.objects.create(guid=addon.guid, message=message)
+        data = cinder_addon.build_report_payload(
+            report=CinderReport(abuse_report), reporter=None
+        )
+        assert data == {
+            'queue_slug': cinder_addon.queue,
+            'entity_type': 'amo_addon',
+            'entity': {
+                'id': str(addon.pk),
+                'average_daily_users': addon.average_daily_users,
+                'created': str(addon.created),
+                'description': str(addon.description),
+                'guid': addon.guid,
+                'homepage': str(addon.homepage),
+                'last_updated': str(addon.last_updated),
+                'name': str(addon.name),
+                'privacy_policy': 'Söme privacy policy',
+                'promoted': 'Notable',
+                'release_notes': 'Søme release notes',
+                'slug': addon.slug,
+                'summary': str(addon.summary),
+                'support_email': str(addon.support_email),
+                'support_url': str(addon.support_url),
+                'version': addon.current_version.version,
+            },
+            'reasoning': encoded_message,
+            'context': {
+                'entities': [
+                    {
+                        'attributes': {
+                            'id': str(abuse_report.pk),
+                            'created': str(abuse_report.created),
+                            'locale': None,
+                            'message': encoded_message,
+                            'reason': None,
+                            'considers_illegal': False,
+                        },
+                        'entity_type': 'amo_report',
+                    }
+                ],
+                'relationships': [
+                    {
+                        'relationship_type': 'amo_report_of',
+                        'source_id': str(abuse_report.pk),
+                        'source_type': 'amo_report',
+                        'target_id': str(addon.pk),
+                        'target_type': 'amo_addon',
+                    }
+                ],
+            },
+        }
+
+        self.make_addon_promoted(addon, NOT_PROMOTED)
+        data = cinder_addon.build_report_payload(
+            report=CinderReport(abuse_report), reporter=None
+        )
+        assert data['entity']['promoted'] == ''
 
     def test_build_report_payload_with_author(self):
         author = user_factory()
@@ -587,7 +725,7 @@ class TestCinderAddon(BaseTestCinderCase, TestCase):
                     },
                 ],
                 'privacy_policy': '',
-                'promoted_badge': '',
+                'promoted': '',
                 'release_notes': '',
                 'slug': addon.slug,
                 'summary': str(addon.summary),
@@ -679,7 +817,7 @@ class TestCinderAddon(BaseTestCinderCase, TestCase):
                     },
                 ],
                 'privacy_policy': '',
-                'promoted_badge': '',
+                'promoted': '',
                 'release_notes': '',
                 'slug': addon.slug,
                 'summary': str(addon.summary),
@@ -911,7 +1049,8 @@ class TestCinderAddon(BaseTestCinderCase, TestCase):
             cinder_addon.report_additional_context()
 
 
-@override_switch('enable-cinder-reviewer-tools-integration', active=True)
+@override_switch('dsa-abuse-reports-review', active=True)
+@override_switch('dsa-appeals-review', active=True)
 class TestCinderAddonHandledByReviewers(TestCinderAddon):
     cinder_class = CinderAddonHandledByReviewers
     # Expected queries is a bit larger here because of activity log and
@@ -923,14 +1062,15 @@ class TestCinderAddonHandledByReviewers(TestCinderAddon):
     # - 5 Fetch NeedsHumanReview
     # - 6 Update due date on Versions
     # - 7 Fetch Latest signed Version
-    # - 8 Create ActivityLog
-    # - 9 Create ActivityLogComment
-    # - 10 Update ActivityLogComment
-    # - 11 Create VersionLog
+    # - 8 Fetch task user
+    # - 9 Create ActivityLog
+    # - 10 Create ActivityLogComment
+    # - 11 Update ActivityLogComment
+    # - 12 Create VersionLog
     # The last 2 are for rendering the payload to Cinder like CinderAddon:
-    # - 12 Fetch Addon authors
-    # - 13 Fetch Promoted Addon
-    expected_queries_for_report = 13
+    # - 13 Fetch Addon authors
+    # - 14 Fetch Promoted Addon
+    expected_queries_for_report = 14
     expected_queue_suffix = 'addon-infringement'
 
     def test_queue(self):
@@ -951,30 +1091,33 @@ class TestCinderAddonHandledByReviewers(TestCinderAddon):
         )
 
     def setUp(self):
-        core.set_user(user_factory(id=settings.TASK_USER_ID))
+        user_factory(id=settings.TASK_USER_ID)
 
     def test_report(self):
         addon = self._create_dummy_target()
+        # Make sure this is testing the case where no user is set (we fall back
+        # to the task user).
+        assert core.get_user() is None
         addon.current_version.file.update(is_signed=True)
         # Trigger switch_is_active to ensure it's cached to make db query
         # count more predictable.
-        waffle.switch_is_active('enable-cinder-reviewer-tools-integration')
+        waffle.switch_is_active('dsa-abuse-reports-review')
         self._test_report(addon)
         assert (
             addon.current_version.needshumanreview_set.get().reason
-            == NeedsHumanReview.REASON_ABUSE_ADDON_VIOLATION
+            == NeedsHumanReview.REASONS.ABUSE_ADDON_VIOLATION
         )
         assert ActivityLog.objects.for_versions(addon.current_version).filter(
             action=amo.LOG.NEEDS_HUMAN_REVIEW_CINDER.id
         )
 
-    @override_switch('enable-cinder-reviewer-tools-integration', active=False)
+    @override_switch('dsa-abuse-reports-review', active=False)
     def test_report_waffle_switch_off(self):
         addon = self._create_dummy_target()
         addon.current_version.file.update(is_signed=True)
         # Trigger switch_is_active to ensure it's cached to make db query
         # count more predictable.
-        waffle.switch_is_active('enable-cinder-reviewer-tools-integration')
+        waffle.switch_is_active('dsa-abuse-reports-review')
         # We are no longer doing the queries for the activitylog, needshumanreview
         # etc since the waffle switch is off. So we're back to the same number of
         # queries made by the reports that go to Cinder.
@@ -1007,7 +1150,7 @@ class TestCinderAddonHandledByReviewers(TestCinderAddon):
         # needs human review instance.
         assert (
             other_version.needshumanreview_set.get().reason
-            == NeedsHumanReview.REASON_ABUSE_ADDON_VIOLATION
+            == NeedsHumanReview.REASONS.ABUSE_ADDON_VIOLATION
         )
 
     def test_appeal_anonymous(self):
@@ -1018,7 +1161,7 @@ class TestCinderAddonHandledByReviewers(TestCinderAddon):
         )
         assert (
             addon.current_version.needshumanreview_set.get().reason
-            == NeedsHumanReview.REASON_ABUSE_ADDON_VIOLATION_APPEAL
+            == NeedsHumanReview.REASONS.ADDON_REVIEW_APPEAL
         )
 
     def test_appeal_logged_in(self):
@@ -1027,10 +1170,10 @@ class TestCinderAddonHandledByReviewers(TestCinderAddon):
         self._test_appeal(CinderUser(user_factory()), self.cinder_class(addon))
         assert (
             addon.current_version.needshumanreview_set.get().reason
-            == NeedsHumanReview.REASON_ABUSE_ADDON_VIOLATION_APPEAL
+            == NeedsHumanReview.REASONS.ADDON_REVIEW_APPEAL
         )
 
-    @override_switch('enable-cinder-reviewer-tools-integration', active=False)
+    @override_switch('dsa-appeals-review', active=False)
     def test_appeal_waffle_switch_off(self):
         addon = self._create_dummy_target()
         addon.current_version.file.update(is_signed=True)
@@ -1059,12 +1202,16 @@ class TestCinderAddonHandledByReviewers(TestCinderAddon):
         cinder_instance = self.cinder_class(target)
         assert (
             cinder_instance.create_decision(
-                reasoning='some review text', policy_uuids=['12345678']
+                action=DECISION_ACTIONS.AMO_REJECT_VERSION_ADDON.api_value,
+                reasoning='some review text',
+                policy_uuids=['12345678'],
             )
             == '123'
         )
         request = responses.calls[0].request
         request_body = json.loads(request.body)
+        assert request_body['enforcement_actions_slugs'] == ['amo-reject-version-addon']
+        assert request_body['enforcement_actions_update_strategy'] == 'set'
         assert request_body['policy_uuids'] == ['12345678']
         assert request_body['reasoning'] == 'some review text'
         assert request_body['entity']['id'] == str(target.id)
@@ -1072,7 +1219,52 @@ class TestCinderAddonHandledByReviewers(TestCinderAddon):
         # Last response is a 400, we raise for that.
         with self.assertRaises(ConnectionError):
             cinder_instance.create_decision(
-                reasoning='some review text', policy_uuids=['12345678']
+                action='something',
+                reasoning='some review text',
+                policy_uuids=['12345678'],
+            )
+
+    def test_create_job_decision(self):
+        target = self._create_dummy_target()
+        job = CinderJob.objects.create(job_id='1234')
+
+        responses.add(
+            responses.POST,
+            f'{settings.CINDER_SERVER_URL}jobs/{job.job_id}/decision',
+            json={'uuid': '123'},
+            status=201,
+        )
+        responses.add(
+            responses.POST,
+            f'{settings.CINDER_SERVER_URL}jobs/{job.job_id}/decision',
+            json={'error': 'reason'},
+            status=400,
+        )
+        cinder_instance = self.cinder_class(target)
+        assert (
+            cinder_instance.create_job_decision(
+                job_id=job.job_id,
+                action=DECISION_ACTIONS.AMO_REJECT_VERSION_ADDON.api_value,
+                reasoning='some review text',
+                policy_uuids=['12345678'],
+            )
+            == '123'
+        )
+        request = responses.calls[0].request
+        request_body = json.loads(request.body)
+        assert request_body['enforcement_actions_slugs'] == ['amo-reject-version-addon']
+        assert request_body['enforcement_actions_update_strategy'] == 'set'
+        assert request_body['policy_uuids'] == ['12345678']
+        assert request_body['reasoning'] == 'some review text'
+        assert 'entity' not in request_body
+
+        # Last response is a 400, we raise for that.
+        with self.assertRaises(ConnectionError):
+            cinder_instance.create_job_decision(
+                job_id=job.job_id,
+                action='something',
+                reasoning='some review text',
+                policy_uuids=['12345678'],
             )
 
     def test_close_job(self):
@@ -1279,7 +1471,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'guid': addon.guid,
                         'last_updated': str(addon.last_updated),
                         'name': str(addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': addon.slug,
                         'summary': str(addon.summary),
                     },
@@ -1353,7 +1545,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'guid': addon.guid,
                         'last_updated': str(addon.last_updated),
                         'name': str(addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': addon.slug,
                         'summary': str(addon.summary),
                     },
@@ -1404,7 +1596,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'guid': addon.guid,
                         'last_updated': str(addon.last_updated),
                         'name': str(addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': addon.slug,
                         'summary': str(addon.summary),
                     },
@@ -1564,7 +1756,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'id': str(first_addon.pk),
                         'last_updated': str(first_addon.last_updated),
                         'name': str(first_addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': str(first_addon.slug),
                         'summary': str(first_addon.summary),
                     },
@@ -1578,7 +1770,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'id': str(second_addon.pk),
                         'last_updated': str(second_addon.last_updated),
                         'name': str(second_addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': str(second_addon.slug),
                         'summary': str(second_addon.summary),
                     },
@@ -1651,7 +1843,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'id': str(third_addon.pk),
                         'last_updated': str(third_addon.last_updated),
                         'name': str(third_addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': str(third_addon.slug),
                         'summary': str(third_addon.summary),
                     },
@@ -1665,7 +1857,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'id': str(fourth_addon.pk),
                         'last_updated': str(fourth_addon.last_updated),
                         'name': str(fourth_addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': str(fourth_addon.slug),
                         'summary': str(fourth_addon.summary),
                     },
@@ -1702,7 +1894,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'id': str(fifth_addon.pk),
                         'last_updated': str(fifth_addon.last_updated),
                         'name': str(fifth_addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': str(fifth_addon.slug),
                         'summary': str(fifth_addon.summary),
                     },
@@ -1716,7 +1908,7 @@ class TestCinderUser(BaseTestCinderCase, TestCase):
                         'id': str(sixth_addon.pk),
                         'last_updated': str(sixth_addon.last_updated),
                         'name': str(sixth_addon.name),
-                        'promoted_badge': '',
+                        'promoted': '',
                         'slug': str(sixth_addon.slug),
                         'summary': str(sixth_addon.summary),
                     },

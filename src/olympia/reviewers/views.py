@@ -50,6 +50,10 @@ from olympia.amo.decorators import (
 )
 from olympia.amo.templatetags.jinja_helpers import numberfmt
 from olympia.amo.utils import paginate
+from olympia.api.authentication import (
+    JWTKeyAuthentication,
+    SessionIDAuthentication,
+)
 from olympia.api.permissions import (
     AllowAnyKindOfReviewer,
     AllowListedViewerOrReviewer,
@@ -594,6 +598,8 @@ def review(request, addon, channel=None):
     actions_reasons = []
     # The actions for which we should display the resolve abuse reports checkbox
     actions_resolves_abuse_reports = []
+    # The actions for which we should display the cinder policy select field.
+    actions_policies = []
 
     for key, action in actions:
         if not (is_static_theme or action.get('minimal')):
@@ -604,6 +610,8 @@ def review(request, addon, channel=None):
             actions_delayable.append(key)
         if action.get('allows_reasons', False):
             actions_reasons.append(key)
+        if action.get('allows_policies', False):
+            actions_policies.append(key)
         if action.get('resolves_abuse_reports', False):
             actions_resolves_abuse_reports.append(key)
 
@@ -716,6 +724,7 @@ def review(request, addon, channel=None):
         actions_comments=actions_comments,
         actions_delayable=actions_delayable,
         actions_full=actions_full,
+        actions_policies=actions_policies,
         actions_reasons=actions_reasons,
         actions_resolves_abuse_reports=actions_resolves_abuse_reports,
         addon=addon,
@@ -1192,6 +1201,10 @@ class AddonReviewerViewSet(GenericViewSet):
         detail=True,
         methods=['get'],
         permission_classes=[AllowAnyKindOfReviewer],
+        authentication_classes=[
+            JWTKeyAuthentication,
+            SessionIDAuthentication,
+        ],
         url_path=r'file/(?P<file_id>[^/]+)/validation',
     )
     def json_file_validation(self, request, **kwargs):
@@ -1240,7 +1253,7 @@ class AddonReviewerViewSet(GenericViewSet):
         )
         status_code = status.HTTP_202_ACCEPTED
         NeedsHumanReview.objects.create(
-            version=version, reason=NeedsHumanReview.REASON_MANUALLY_SET_BY_REVIEWER
+            version=version, reason=NeedsHumanReview.REASONS.MANUALLY_SET_BY_REVIEWER
         )
         due_date = version.reload().due_date
         due_date_string = due_date.isoformat(timespec='seconds') if due_date else None

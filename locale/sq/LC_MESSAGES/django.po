@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-02-17 12:29+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-05-15 09:15+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: sq\n"
 "Language: sq\n"
@@ -124,6 +124,11 @@ msgid ""
 "After reviewing your appeal, we have determined that our prior decision, that this content does not violate Mozilla's policies (%(policy_document_url)s), was incorrect. Based on that determination, "
 "we have requested the developer make changes. If they do not update their content to correct the violation, we will remove it.\n"
 msgstr ""
+"\n"
+"Faleminderit për raportimin tuaj rreth %(name)s te Shtesa Mozilla dhe që dhatë më tepër hollësi rreth shqetësimeve tuaja.\n"
+"\n"
+"Pas shqyrtimit të ankimit tuaj, kemi përcaktuar se vendimi ynë i mëparshëm, se kjo lëndë nuk cenon rregullat e Mozilla-s (%(policy_document_url)s), qe i pasaktë. Bazuar në këtë përcaktim, i kemi "
+"kërkuar zhvilluesit të bëjë ndryshime. Nëse s’përditëson lëndën e vet, për të ndrequr cenimin, do ta heqim.\n"
 
 #, python-format
 msgid ""
@@ -165,6 +170,11 @@ msgid ""
 "We reviewed your report and the content in question, and found that it violates Mozilla's policies (%(policy_document_url)s), and have therefore requested the developer make changes. If they do not "
 "update their content to correct the violation, we will remove it.\n"
 msgstr ""
+"\n"
+"Faleminderit për raportimin tuaj lidhur me shtesën vijuese te Shtesa Mozilla: %(name)s.\n"
+"\n"
+"E shqyrtuam raportimin tuaj dhe lëndën në fjalë dhe pamë se cenon rregullat e Mozilla-s (%(policy_document_url)s), ndaj i kemi kërkuar zhvilluesit të bëjë ndryshime. Nëse s’përditëson lëndën e vet, "
+"për të ndrequr cenimin, do ta heqim.\n"
 
 #, python-format
 msgid ""
@@ -487,10 +497,10 @@ msgstr "S’u Gjet"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>Na ndjeni, por s’e gjejmë dot çfarë po kërkonit.</h1> <p> Faqja ose kartela që kërkuat s’u gjet te sajti ynë. Mundet që klikuat në një lidhje të vjetruar, ose e shkruat pasaktësisht. </p> <ul> "
 "<li>Nëse adresën e shkruat ju, ju lutemi, kontrolloni sërish drejtshkrimin.</li> <li> Nëse ndoqët një lidhje nga diku gjetkë, ju lutemi, %(open_bug_link)sna e bëni të ditur%(close_bug_link)s. "
@@ -979,8 +989,8 @@ msgstr "Është planifikuar hedhje poshtë e {addon} {version}."
 msgid "Rejection scheduled"
 msgstr "Është planifikuar hedhje poshtë"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} u rinënshkrua (më parë qe {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} krijuar automatikisht dhe nënshkruar nga {0}."
 
 msgid "Version re-signed"
 msgstr "Versioni u rinënshkrua"
@@ -1044,6 +1054,18 @@ msgstr "U rikthye lëndë e përdoruesit {user}."
 
 msgid "User {user} unbanned."
 msgstr "U hoq dëbimi për {user}."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
+msgstr ""
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1124,8 +1146,8 @@ msgstr "Shtojcë e Nxjerrë Nga Përdorimi"
 msgid "Deprecated LWT"
 msgstr "LWT e nxjerrë nga përdorimi"
 
-msgid "Theme (Static)"
-msgstr "Temë (Statike)"
+msgid "Theme"
+msgstr "Temë"
 
 msgid "Deprecated Site Permission"
 msgstr "Leje Sajti e Nxjerrë Nga Përdorimi"
@@ -1156,19 +1178,11 @@ msgstr "Shtojca të Nxjerra Nga Përdorimi"
 msgid "Deprecated LWTs"
 msgstr "LWT të nxjerra nga përdorimi"
 
-msgid "Themes (Static)"
-msgstr "Tema (Statike)"
+msgid "Themes"
+msgstr "Tema"
 
 msgid "Deprecated Site Permissions"
 msgstr "Leje Sajti të Nxjerra Nga Përdorimi"
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
 
 msgid "Alerts & Updates"
 msgstr "Sinjalizime & Përditësime"
@@ -1447,9 +1461,6 @@ msgstr "Miratoje"
 
 msgid "All"
 msgstr "Krejt"
-
-msgid "Theme"
-msgstr "Temë"
 
 msgid "No action"
 msgstr "Pa veprim"
@@ -1844,7 +1855,7 @@ msgid "Verify email"
 msgstr "Verifikoni email-in"
 
 msgid "Send another email"
-msgstr ""
+msgstr "Dërgoni email tjetër"
 
 msgid "Your email has been verified"
 msgstr "Email-i juaj është verifikuar"
@@ -1878,9 +1889,6 @@ msgstr "Dokumentim"
 
 msgid "Extension Development"
 msgstr "Zhvillim Zgjerimesh"
-
-msgid "Themes"
-msgstr "Tema"
 
 msgid "Developer Policies"
 msgstr "Rregulla Zhvilluesish"
@@ -1939,20 +1947,26 @@ msgstr "Vleftësuar më:"
 msgid "Email Address Verification"
 msgstr "Verifikim Adrese Email"
 
+msgid "Status:"
+msgstr "Gjendje:"
+
 msgid "Your email address is verified."
 msgstr "Adresa juaj email është verifikuar."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Ju lutemi, verifikoni email-in tuaj, duke klikuar mbi “Verifikoni email” më sipër."
+msgid "Please verify your email."
+msgstr "Ju lutemi, verifikoni email-in tuaj."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "S’u verifikua dot adresë email. Lidhja e verifikimit ka skaduar."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr ""
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "Po ju dërgojmë një email, ju lutemi, bëni durim… <div class=\"loader\"></div> Faqja do të rifreskohet vetvetiu."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr ""
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "Ripohimi i dërgimit të email-it tuaj të verifikuar, po zgjat më tepër seç pritej. Ju lutemi, riprovoni më vonë."
+
+msgid "Success!"
+msgstr "Sukses!"
 
 #, python-format
 msgid ""
@@ -1967,12 +1981,14 @@ msgid ""
 "The provided code is invalid, unauthorized, expired or incomplete. Please use the link in the email sent to your email address %(email)s. If the code is still not working, please request a new "
 "email."
 msgstr ""
+"Kodi i dhënë është i pavlefshëm, i paautorizuar, i skaduar, ose i paplotë. Ju lutemi, përdorni lidhjen te prej email-it dërguar te adresa juaj email %(email)s. Nëse kodi s’funksionon prapë, ju "
+"lutemi, kërkoni një email të ri."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr ""
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>Historik email-esh:</strong> Tabela më poshtë shfaq krejt email-et që jemi rrekur t’u dërgojmë në 2 ditët e fundit."
 
 msgid "Date"
-msgstr ""
+msgstr "Datë"
 
 msgid "From"
 msgstr "Prej"
@@ -1981,10 +1997,20 @@ msgid "To"
 msgstr "Për"
 
 msgid "Subject"
-msgstr ""
+msgstr "Subjekt"
 
 msgid "Status"
 msgstr "Gjendje"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "S’gjetëm ndonjë regjistrim email-i për ju në 2 ditët e fundit."
+
+msgid "Refresh results"
+msgstr "Rifresko përfundime"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Nëse hani probleme, ju lutemi, shihni <a %(a_attrs)s>sugjerimet tona për diagnostikim</a>, te Firefox Extension Workshop."
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Veprimtari Së Fundi për Shtesën Time"
@@ -2609,8 +2635,8 @@ msgid ""
 "You’re done! ✨ You will receive a confirmation email when this version is published on %(site_domain)s. Note that it may take up to 24 hours before publication occurs, or longer if your add-on is "
 "selected for manual review. If you do not see an email after 24 hours, please check your spam folder."
 msgstr ""
-"Mbaruat! ✨ Do të merrni një email ripohimi, kur ky version të publikohet në %(site_domain)s. Kini parasysh se mund të duhen deri në 24 orë, përpara se të ndodhë publikimi, ose më gjatë, nëse shtesa "
-"juaj është përzgjedhur për shqyrtim dorazi. Nëse nuk shihni ndonjë email pas 24 orësh, ju lutemi, kontrolloni te dosja juaj e të padëshiruarve."
+"Mbaruat! ✨ Do të merrni një email ripohimi, kur ky version të publikohet në %(site_domain)s. Kini parasysh se mund të duhen deri në 24 orë, përpara se të ndodhë publikimi, ose më gjatë, nëse "
+"shtesa juaj është përzgjedhur për shqyrtim dorazi. Nëse nuk shihni ndonjë email pas 24 orësh, ju lutemi, kontrolloni te dosja juaj e të padëshiruarve."
 
 msgid "Your listing will be more successful by adding a detailed description. Get your listing ready for publication:"
 msgstr "Parashtrimi juaj do të jetë më i suksesshëm, po t’i shtoni një përshkrim të hollësishëm. Bëjeni parashtrimin tuaj gati për publikim:"
@@ -2790,11 +2816,11 @@ msgstr "E fshehtë JWT"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr ""
-"Për të bërë kërkesa API, dërgoni një <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> si krye autorizimi. Do t’ju duhet të prodhoni një JWT për çdo kërkesë, siç shpjegohet te <a href=\"%(docs_url)s"
-"\">dokumentimi i API-it</a>."
+"Për të bërë kërkesa API, dërgoni një <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> si krye autorizimi. Do t’ju duhet të prodhoni një JWT për çdo kërkesë, siç shpjegohet te <a "
+"href=\"%(docs_url)s\">dokumentimi i API-it</a>."
 
 #, python-format
 msgid "Please click the confirm button below to generate API credentials for user <strong>%(name)s</strong>."
@@ -2986,9 +3012,6 @@ msgstr "Përditësuar Së Fundi:"
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Paraqitur në këtë sajt pas kalimit me sukses të shqyrtimit të kodit. Për përditësimet e vetvetishme kujdeset ky sajt"
 
-msgid "Status:"
-msgstr "Gjendje:"
-
 msgid "Listed Version:"
 msgstr "Version Publik:"
 
@@ -3070,8 +3093,8 @@ msgstr "Në Pritje të Nënshkrimit të Versionit"
 
 msgid "You’re done! ✨ You will be notified by email when the signed file is ready to be downloaded from the Developer Hub. If you do not see an email after 24 hours, please check your spam folder."
 msgstr ""
-"Mbaruat! ✨ Do të njoftoheni me email, kur kartela e nënshkruar të jetë gati për t’u shkarkuar që nga Qendra e Zhvilluesve. Nëse nuk shihni ndonjë email pas 24 orësh, ju lutemi, kontrolloni te dosja "
-"juaj e të padëshiruarve."
+"Mbaruat! ✨ Do të njoftoheni me email, kur kartela e nënshkruar të jetë gati për t’u shkarkuar që nga Qendra e Zhvilluesve. Nëse nuk shihni ndonjë email pas 24 orësh, ju lutemi, kontrolloni te "
+"dosja juaj e të padëshiruarve."
 
 msgid "License"
 msgstr "Licencë"
@@ -3196,15 +3219,6 @@ msgstr "Program Zgjerime të Rekomanduara"
 
 msgid "Contribute"
 msgstr "Kontribuoni"
-
-msgid "Review Add-ons"
-msgstr "Shqyrtoni Shtesa"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Shqyrtuesit vullnetarë ndihmojnë të mbahen shtesat të parrezikuara dhe të besueshme për përdorim. Gëzojnë gjithashtu përfitime të mira!"
-
-msgid "Join us!"
-msgstr "Bëhuni pjesë e jona!"
 
 msgid "Write Some Code"
 msgstr "Shkruani Kod"
@@ -4189,6 +4203,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "I bini shkurt përmes broçkullave të marrëveshjeve të zakonshme TOS. Ky zgjerim i mençur ju ndihmon të kuptoni shpejt se ç’ju kërkohet të bini dakord."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Merrni ndihmë mbi gramatikën, kudo që shkruani në internet — media shoqërore, email, dokumente, etj."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Lexoni me më tepër qartësi dhe lehtësi. Hiqni rrëmujën rreth tekstesh në faqe web."
@@ -4380,6 +4398,10 @@ msgstr "Risillni aftësinë për të parë 👎!"
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Dëgjoni muzikë në YouTube pa ato ndërprerjet bezdisëse “Videoja u ndal. Të vazhdohet me parjen?”."
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Ndryshoni mënyrën se si duket web-i."
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "Disa sajte kanë vështirësi të luajnë video nën Android. Ky zgjerim sjell zgjidhje."
@@ -4545,7 +4567,7 @@ msgid "See all extensions"
 msgstr "Shihni tërë zgjerimet"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -4553,8 +4575,8 @@ msgid "Privacy & Security extensions"
 msgstr "Zgjerime për Privatësi & Siguri"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr ""
+msgid "Fantastic tab managers"
+msgstr "Përgjegjës fantastikë skedash"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5190,22 +5212,6 @@ msgstr "Shtesa Mozilla"
 msgid "Back to Add-ons"
 msgstr "Mbrapsht te Shtesat"
 
-msgid "Legal Notices"
-msgstr "Shënime Ligjore"
-
-msgid "Report Trademark Abuse"
-msgstr "Njoftoni Shpërdorim Shenjash Tregtare"
-
-msgid "Report a bug"
-msgstr "Njoftoni një të metë"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Hiq atje ku <a href=\"https://www.mozilla.org/about/legal/\">shënohet</a> ndryshe, lënda e këtij sajti mund të përdoret sipas një licence <br /> <a href=\"https://creativecommons.org/licenses/by-"
-"sa/3.0/\"> Creative Commons Attribution Share-Alike License v3.0 </a> ose çfarëdo versioni të mëvonshëm."
-
 # %1$s is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Kthehuni te faqja hyrëse e Shtesave {0}"
@@ -5227,6 +5233,9 @@ msgstr "Blog Bashkësie"
 
 msgid "Forum"
 msgstr "Forum"
+
+msgid "Report a bug"
+msgstr "Njoftoni një të metë"
 
 msgid "Review Guide"
 msgstr "Udhërrëfyes Shqyrtimesh"

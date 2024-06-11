@@ -1,4 +1,5 @@
 import os
+import re
 from base64 import b64encode
 from datetime import datetime, timedelta
 from fnmatch import fnmatch
@@ -176,7 +177,6 @@ class VersionManager(ManagerBase):
         If `negate=True` the queryset will contain versions that should not have a
         due date instead."""
         method = getattr(self, 'exclude' if negate else 'filter')
-        is_theme = Q(addon__type__in=amo.GROUP_TYPE_THEME)
         requires_manual_listed_approval_and_is_listed = Q(
             Q(addon__reviewerflags__auto_approval_disabled=True)
             | Q(addon__reviewerflags__auto_approval_disabled_until_next_approval=True)
@@ -185,7 +185,8 @@ class VersionManager(ManagerBase):
                 addon__promotedaddon__group_id__in=(
                     g.id for g in PROMOTED_GROUPS if g.listed_pre_review
                 )
-            ),
+            )
+            | Q(addon__type__in=amo.GROUP_TYPE_THEME),
             addon__status__in=(amo.VALID_ADDON_STATUSES),
             channel=amo.CHANNEL_LISTED,
         )
@@ -201,7 +202,8 @@ class VersionManager(ManagerBase):
                 addon__promotedaddon__group_id__in=(
                     g.id for g in PROMOTED_GROUPS if g.unlisted_pre_review
                 )
-            ),
+            )
+            | Q(addon__type__in=amo.GROUP_TYPE_THEME),
             channel=amo.CHANNEL_UNLISTED,
         )
         # Versions not yet reviewed but that won't get auto-approved should
@@ -211,8 +213,7 @@ class VersionManager(ManagerBase):
             & ~Q(addon__status=amo.STATUS_DELETED)
             & Q(reviewerflags__pending_rejection__isnull=True)
             & Q(
-                is_theme
-                | requires_manual_listed_approval_and_is_listed
+                requires_manual_listed_approval_and_is_listed
                 | requires_manual_unlisted_approval_and_is_unlisted
             )
         )
@@ -346,6 +347,7 @@ class Version(OnChangeMixin, ModelBase):
         selected_apps=None,
         compatibility=None,
         parsed_data=None,
+        client_info=None,
     ):
         """
         Create a Version instance and corresponding File(s) from a
@@ -451,7 +453,7 @@ class Version(OnChangeMixin, ModelBase):
             activity.log_create(amo.LOG.ADD_VERSION, version, addon, user=upload.user)
             if previous_version_had_needs_human_review:
                 NeedsHumanReview(
-                    version=version, reason=NeedsHumanReview.REASON_INHERITANCE
+                    version=version, reason=NeedsHumanReview.REASONS.INHERITANCE
                 ).save(_user=get_task_user())
 
         # Record declared install origins. base_domain is set automatically.
@@ -509,6 +511,7 @@ class Version(OnChangeMixin, ModelBase):
                 if avs.max_id is None:
                     avs.max = avs_from_parsed_data.max
                     avs.originated_from = amo.APPVERSIONS_ORIGINATED_FROM_DEVELOPER
+            avs.pk = None  # Make sure to create new ApplicationsVersions in any case.
             avs.version = version
             avs.save()
             compatible_apps[application] = avs
@@ -617,6 +620,10 @@ class Version(OnChangeMixin, ModelBase):
         statsd.incr(
             'devhub.version_created_from_upload.'
             f'{amo.ADDON_TYPE_CHOICES_API.get(addon.type, "")}'
+        )
+
+        VersionProvenance.from_version(
+            version=version, source=upload.source, client_info=client_info
         )
 
         return version
@@ -798,7 +805,7 @@ class Version(OnChangeMixin, ModelBase):
             log_and_notify(amo.LOG.SOURCE_CODE_UPLOADED, None, user, self)
 
             if self.pending_rejection:
-                reason = NeedsHumanReview.REASON_PENDING_REJECTION_SOURCES_PROVIDED
+                reason = NeedsHumanReview.REASONS.PENDING_REJECTION_SOURCES_PROVIDED
                 NeedsHumanReview.objects.create(version=self, reason=reason)
 
     @classmethod
@@ -1190,6 +1197,46 @@ class VersionReviewerFlags(ModelBase):
                 ),
             ),
         ]
+
+
+class VersionProvenance(models.Model):
+    version = models.ForeignKey(Version, primary_key=True, on_delete=models.CASCADE)
+    source = models.PositiveSmallIntegerField(choices=amo.UPLOAD_SOURCE_CHOICES)
+    client_info = models.CharField(max_length=255, null=True, default=None)
+
+    @classmethod
+    def from_version(cls, *, version, source, client_info):
+        """Create a VersionProvenance from a Version and provenance info."""
+        if client_info:
+            # Truncate client_info if it was passed so that we can store it,
+            # and extract web-ext version number if present to send a ping
+            # about it.
+            client_info_maxlength = cls._meta.get_field('client_info').max_length
+            client_info = client_info[:client_info_maxlength]
+            webext_version_match = re.match(r'web-ext/([\d\.]+)$', client_info or '')
+            webext_version = (
+                webext_version_match.group(1).replace('.', '_')
+                if webext_version_match
+                else None
+            )
+            if webext_version:
+                if source == amo.UPLOAD_SOURCE_SIGNING_API:
+                    formatted_source = 'signing.submission'
+                elif source == amo.UPLOAD_SOURCE_ADDON_API:
+                    formatted_source = 'addons.submission'
+                else:
+                    formatted_source = 'other'
+                log.info(
+                    'Version created from %s with webext_version %s:',
+                    formatted_source,
+                    webext_version,
+                )
+                statsd.incr(f'{formatted_source}.webext_version.{webext_version}')
+        # Create the instance no matter what (client_info may be empty, that's
+        # fine).
+        return cls.objects.create(
+            version=version, source=source, client_info=client_info
+        )
 
 
 def version_review_flags_save_signal(sender, instance, **kw):

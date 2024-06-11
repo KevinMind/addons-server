@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-01-13 14:33+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-04-22 12:59+0000\n"
 "Last-Translator: Aman Alam <amanpreet.alam@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pa_IN\n"
@@ -443,10 +443,10 @@ msgstr "ਨਹੀਂ ਮਿਲਿਆ"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>ਸਾਨੂੰ ਅਫ਼ਸੋਸ ਹੈ, ਪਰ ਤੁਸੀਂ ਜਿਸਦੀ ਭਾਲ ਕਰ ਰਹੇ ਹੋ ਅਸੀਂ ਉਹ ਲੱਭ ਨਹੀਂ ਸਕੇ।</h1> <p> ਜਿਸ ਵਰਕੇ ਜਾਂ ਫ਼ਾਈਲ ਦੀ ਬੇਨਤੀ ਤੁਸੀਂ ਕੀਤੀ ਸੀ, ਉਹ ਸਾਡੀ ਸਾਈਟ ਤੇ ਨਹੀਂ ਲੱਭੀ। ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕਿਸੇ ਵੇਲਾ ਵਿਹਾ ਚੁੱਕੀ ਕਿਸੇ ਤੰਦ ਤੇ ਕਲਿੱਕ ਕੀਤਾ ਹੋਵੇ, ਜਾਂ ਫਿਰ ਤੁਸੀਂ "
 "ਗਲਤ ਪਤਾ ਲਿਖ ਦਿੱਤਾ ਹੋਵੇ। </p> <ul> <li>ਜੇਕਰ ਤੁਸੀਂ ਪਤਾ ਲਿਖਿਆ ਹੈ ਤਾਂ ਸ਼ਬਦ ਜੋੜ ਦੀ ਪੜਤਾਲ ਕਰੋ।</li> <li> ਜੇਕਰ ਤੁਸੀਂ ਤੰਦ ਕਿਸੇ ਹੋਰ ਥਾਂ ਤੋਂ ਲਈ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ %(open_bug_link)sਮਾਮਲਾ ਦਰਜ ਕਰਾਉ%(close_bug_link)s। ਸਾਨੂੰ ਦੱਸੋ ਤੁਸੀਂ ਕਿੱਥੋਂ ਆਏ "
@@ -934,9 +934,8 @@ msgstr "{addon} {version} ਠੁਕਰਾਇਆ।"
 msgid "Rejection scheduled"
 msgstr "ਜਾਣਕਾਰੀ ਬੇਨਤੀ ਦੀ ਆਖਰੀ ਤਾਰੀਖ"
 
-#, fuzzy
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} ਸਮੀਖਿਆ ਦੀ ਮੰਗ ਹੋਈ।"
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr ""
 
 #, fuzzy
 msgid "Version re-signed"
@@ -1000,6 +999,18 @@ msgid "User {user} content restored."
 msgstr ""
 
 msgid "User {user} unbanned."
+msgstr ""
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
 msgstr ""
 
 msgid "Firefox"
@@ -1081,8 +1092,8 @@ msgstr ""
 msgid "Deprecated LWT"
 msgstr "ਛੱਡੇ ਗਏ LWT"
 
-msgid "Theme (Static)"
-msgstr "ਥੀਮ (ਸਥਿਰ)"
+msgid "Theme"
+msgstr "ਥੀਮ"
 
 msgid "Deprecated Site Permission"
 msgstr ""
@@ -1112,18 +1123,10 @@ msgstr ""
 msgid "Deprecated LWTs"
 msgstr "ਛੱਡੇ ਗਏ LWTs"
 
-msgid "Themes (Static)"
-msgstr "ਥੀਮ (ਸਥਾਈ)"
+msgid "Themes"
+msgstr "ਥੀਮ"
 
 msgid "Deprecated Site Permissions"
-msgstr ""
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
 msgstr ""
 
 msgid "Alerts & Updates"
@@ -1142,7 +1145,7 @@ msgid "Bookmarks"
 msgstr "ਬੁੱਕਮਾਰਕ"
 
 msgid "Download extensions that enhance bookmarks by password-protecting them, searching for duplicates, finding broken bookmarks, and more."
-msgstr "ਉਹਨਾਂ ਐਕਸਟੈਂਸ਼ਨਾਂ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰੋ ਜੋ ਪਾਸਵਰਡ-ਦੀ ਸੁਰੱਖਿਆ ਦੁਆਰਾ ਬੁੱਕਮਾਰਕ ਨੂੰ ਵਧਾਉ, ਡੁਪਲਿਕਸ ਦੀ ਖੋਜ ਕਰਨ, ਖਰਾਬ ਬੁੱਕਮਾਰਕਾਂ ਨੂੰ ਲੱਭਣ, ਅਤੇ ਹੋਰ ਵੀ।"
+msgstr "ਉਹਨਾਂ ਇਕਸਟੈਨਸ਼ਨਾਂ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰੋ ਜੋ ਪਾਸਵਰਡ-ਦੀ ਸੁਰੱਖਿਆ ਦੁਆਰਾ ਬੁੱਕਮਾਰਕ ਨੂੰ ਵਧਾਓ, ਡੁਪਲੀਕੇਟਾਂ ਦੀ ਖੋਜ ਕਰਨ, ਖਰ਼ਾਬ ਬੁੱਕਮਾਰਕਾਂ ਨੂੰ ਲੱਭਣ, ਅਤੇ ਹੋਰ ਵੀ।"
 
 msgid "Download Management"
 msgstr "ਡਾਊਨਲੋਡ ਇੰਤਜ਼ਾਮ"
@@ -1404,9 +1407,6 @@ msgstr "ਪਰਵਾਨ"
 
 msgid "All"
 msgstr "ਸਭ"
-
-msgid "Theme"
-msgstr "ਥੀਮ"
 
 msgid "No action"
 msgstr "ਕੋਈ ਕਾਰਵਾਈ ਨਹੀਂ"
@@ -1830,9 +1830,6 @@ msgstr "ਦਸਤਾਵੇਜ਼"
 msgid "Extension Development"
 msgstr "ਇਕਸਟੈਨਸ਼ਨ ਵਿਕਾਸ"
 
-msgid "Themes"
-msgstr "ਥੀਮ"
-
 msgid "Developer Policies"
 msgstr "ਡਿਵੈਲਪਰ ਖਬਰਾਂ"
 
@@ -1890,19 +1887,25 @@ msgstr "ਤੇ ਪ੍ਰਮਾਣਿਤ ਹੋਇਆ:"
 msgid "Email Address Verification"
 msgstr ""
 
+msgid "Status:"
+msgstr "ਦਰਜਾ:"
+
 msgid "Your email address is verified."
 msgstr ""
 
-msgid "Please verify your email by clicking \"Verify email\" above."
+msgid "Please verify your email."
 msgstr ""
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr ""
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
 msgstr ""
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 #, python-format
@@ -1917,7 +1920,7 @@ msgid ""
 "email."
 msgstr ""
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
 msgstr ""
 
 msgid "Date"
@@ -1934,6 +1937,16 @@ msgstr ""
 
 msgid "Status"
 msgstr "ਹਾਲਤ"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr ""
+
+msgid "Refresh results"
+msgstr ""
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr ""
 
 msgid "Recent Activity for My Add-ons"
 msgstr "ਮੇਰੇ ਐਡ-ਆਨਾਂ ਲਈ ਤਾਜ਼ਾ ਸਰਗਰਮੀ"
@@ -2729,8 +2742,8 @@ msgstr "JWT ਗੁਪਤ"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr "API ਬੇਨਤੀ ਕਰਨ ਲਈ, ਇੱਕ <a href=\"%(jwt_url)s\">JSON ਵੈਬ ਟੋਕਨ (JWT)</a> ਨੂੰ ਅਧਿਕ੍ਰਿਤੀ ਸਿਰਲੇਖ ਦੇ ਤੌਰ ਤੇ ਭੇਜੋ। ਤੁਹਾਨੂੰ <a href=\"%(docs_url)s\">API ਦਸਤਾਵੇਜ਼ਾਂ</a>ਵਿੱਚ ਦੱਸੇ ਗਏ ਹਰ ਬੇਨਤੀ ਲਈ JWT ਤਿਆਰ ਕਰਨ ਦੀ ਜ਼ਰੂਰਤ ਹੋਏਗੀ।"
 
 #, python-format
@@ -2864,9 +2877,6 @@ msgstr "ਆਖਰੀ ਵਾਰ ਨਵਿਆਇਆ ਗਿਆ:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "ਕੋਡ ਰਿਵਿਊ ਪਾਸ ਕਰਨ ਤੋਂ ਬਾਅਦ ਇਸ ਸਾਈਟ ਤੇ ਸੂਚੀਬੱਧ। ਇਸ ਸਾਈਟ ਦੁਆਰਾ ਆਟੋਮੈਟਿਕ ਅਪਡੇਟਾਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕੀਤਾ ਜਾਂਦਾ ਹੈ"
-
-msgid "Status:"
-msgstr "ਦਰਜਾ:"
 
 msgid "Listed Version:"
 msgstr "ਤਾਜ਼ਾ ਵਰਜਨ:"
@@ -3070,15 +3080,6 @@ msgstr ""
 
 msgid "Contribute"
 msgstr "ਯੋਗਦਾਨ ਪਾਓ"
-
-msgid "Review Add-ons"
-msgstr "ਐਡਆਨ ਦੀ ਪੜਤਾਲ ਕਰੋ"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "ਵਲੰਟੀਅਰ ਸਮੀਖਿਅਕਾਂ ਨੂੰ ਵਰਤਣ ਲਈ ਐਡਆਨ ਸੁਰੱਖਿਅਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਨੂੰ ਬਹੁਤ ਵਧੀਆ ਸਹੂਲਤਾਂ ਵੀ ਮਿਲਦੀਆਂ ਹਨ!"
-
-msgid "Join us!"
-msgstr "ਸਾਡੇ ਨਾਲ ਰਲੋ!"
 
 msgid "Write Some Code"
 msgstr "ਕੁੱਝ ਕੋਡ ਲਿਖੋ"
@@ -4100,6 +4101,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr ""
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr ""
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "ਹੋਰ ਸਫ਼ਾਈ ਅਤੇ ਸੌਖੀ ਤਰ੍ਹਾਂ ਪੜ੍ਹੋ। ਵੈੱਬ ਸਫ਼ਿਆਂ ਉੱਤੇ ਲਿਖਤ ਦੁਆਲੇ ਘੜਮਸ ਹਟਾਓ।"
@@ -4295,6 +4300,10 @@ msgstr ""
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr ""
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr ""
+
 #. editorial content for the primary hero shelves.
 #, fuzzy
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
@@ -4465,10 +4474,10 @@ msgstr "ਇਹ Firefox ਵਿੱਚ ਫ਼ੀਚਰ ਜੋੜਦੇ ਹਨ, ਜ�
 
 #. editorial content for the secondary hero shelves.
 msgid "See all extensions"
-msgstr "ਸਾਰੇ ਐਕਸਟੈਂਸ਼ਨਾਂ ਵੇਖੋ"
+msgstr "ਸਭ ਇਕਸਟੈਨਸ਼ਨਾਂ ਨੂੰ ਵੇਖੋ"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -4476,7 +4485,7 @@ msgid "Privacy & Security extensions"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
+msgid "Fantastic tab managers"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -5150,22 +5159,6 @@ msgstr "ਮੌਜੀਲਾ ਐਡ-ਆਨ"
 msgid "Back to Add-ons"
 msgstr "ਐਡ-ਆਨ ਤੇ ਵਾਪਸ"
 
-msgid "Legal Notices"
-msgstr "ਕਾਨੂੰਨੀ ਨੋਟਿਸ"
-
-msgid "Report Trademark Abuse"
-msgstr "ਟਰੇਡਮਾਰਕ ਦੁਰਵਿਅਵਹਾਰ ਰਿਪੋਰਟ"
-
-msgid "Report a bug"
-msgstr "ਬੱਗ ਦੀ ਰਿਪੋਰਟ ਕਰੋ"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"ਇਸ ਤੋਂ ਇਲਾਵਾ ਜਿੱਥੇ ਵੀ <a href=\"https://www.mozilla.org/about/legal/\">ਨੋਟ ਕੀਤਾ ਗਿਆ ਹੈ</a>, ਇਸ ਸਾਈਟ ਤੇ ਦਿੱਤੀ ਗਈ ਸਮੱਗਰੀ ਨੂੰ <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> ਕਰੀਏਟਿਵ ਕਾਮਨਜ਼ "
-"ਐਟਰੀਬਿਊਸ਼ਨ ਸ਼ੇਅਰ-ਅਲਾਇਕ ਲਸੰਸ v3.0 </a> ਜਾਂ ਕਿਸੇ ਹੋਰ ਬਾਅਦ ਦੇ ਵਰਜ਼ਨ।"
-
 msgid "Return to the {0} Add-ons homepage"
 msgstr "{0} ਐਡ-ਆਨ ਮੁੱਖ ਸਫ਼ੇ ਤੇ ਵਾਪਸ ਜਾਓ"
 
@@ -5186,6 +5179,9 @@ msgstr ""
 
 msgid "Forum"
 msgstr "ਫ਼ੋਰਮ"
+
+msgid "Report a bug"
+msgstr "ਬੱਗ ਦੀ ਰਿਪੋਰਟ ਕਰੋ"
 
 msgid "Review Guide"
 msgstr ""

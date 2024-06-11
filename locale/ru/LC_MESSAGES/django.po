@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: REMORA 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-22 08:45+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-06-06 06:05+0000\n"
 "Last-Translator: Valery Ledovskoy <valery@ledovskoy.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
@@ -978,8 +978,8 @@ msgstr "Запланировано отклонение {addon} {version}."
 msgid "Rejection scheduled"
 msgstr "Запланировано отклонение"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} подписано повторно (ранее {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} автоматически создано и подписано из {0}."
 
 msgid "Version re-signed"
 msgstr "Версия подписана повторно"
@@ -1043,6 +1043,18 @@ msgstr "Контент пользователя {user} восстановлен.
 
 msgid "User {user} unbanned."
 msgstr "Пользователь {user} разбанен."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr "{addon} {version} отклонено автоматически по истечению задержки."
+
+msgid "Rejected automatically after delay expired"
+msgstr "Отклонено автоматически по истечению задержки"
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr "{addon} {version} отклонено автоматически по истечению задержки."
+
+msgid "Content rejected automatically after delay expired"
+msgstr "Содержимое отклонено автоматически по истечению задержки"
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1123,8 +1135,8 @@ msgstr "Устаревший плагин"
 msgid "Deprecated LWT"
 msgstr "Устаревшая LWT"
 
-msgid "Theme (Static)"
-msgstr "Тема (статическая)"
+msgid "Theme"
+msgstr "Тема"
 
 msgid "Deprecated Site Permission"
 msgstr "Неактуальное разрешение для сайта"
@@ -1155,21 +1167,11 @@ msgstr "Устаревшие плагины"
 msgid "Deprecated LWTs"
 msgstr "Устаревшие LWT"
 
-msgid "Themes (Static)"
-msgstr "Темы (статические)"
+msgid "Themes"
+msgstr "Темы"
 
 msgid "Deprecated Site Permissions"
 msgstr "Неактуальные разрешение для сайта"
-
-msgid "Accessibility"
-msgstr "Поддержка доступности"
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
-"Загрузите расширения поддержки доступности для Firefox, чтобы помочь вам потреблять содержимое и путешествовать в Интернете так, как вам лучше всего подходит. Откройте для себя расширения, которые "
-"убирают или снижают барьеры для доступа, изменяя яркость экрана, читая веб-страницы вслух, предоставляя точное масштабирование и многое другое."
 
 msgid "Alerts & Updates"
 msgstr "Оповещения и обновления"
@@ -1454,9 +1456,6 @@ msgstr "Одобрить"
 
 msgid "All"
 msgstr "Всё"
-
-msgid "Theme"
-msgstr "Тема"
 
 msgid "No action"
 msgstr "Нет действий"
@@ -1888,9 +1887,6 @@ msgstr "Документация"
 msgid "Extension Development"
 msgstr "Разработка расширения"
 
-msgid "Themes"
-msgstr "Темы"
-
 msgid "Developer Policies"
 msgstr "Политика разработчиков"
 
@@ -1950,20 +1946,26 @@ msgstr "Валидировано в:"
 msgid "Email Address Verification"
 msgstr "Подтверждение адреса эл. почты"
 
+msgid "Status:"
+msgstr "Статус:"
+
 msgid "Your email address is verified."
 msgstr "Ваш адрес эл. почты подтверждён."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Пожалуйста, подтвердите свою электронную почту, нажав по \"Подтвердить электронную почту\" выше."
+msgid "Please verify your email."
+msgstr "Пожалуйста, подтвердите свою электронную почту."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "Не удалось подтвердить адрес эл. почты. Срок действия ссылки для подтверждения истёк."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr "Мы отправляем вам письмо, это может занять некоторое время. Страница будет автоматически обновлена."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "Мы отправляем вам письмо, пожалуйста, подождите... <div class=\"loader\"></div> Страница будет автоматически обновлена."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr "Подтверждение получения вашего верификационного письма занимает больше времени, чем ожидалось. Повторите попытку."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "Подтверждение получения вашего письма подтверждения занимает больше времени, чем ожидалось. Подождите некоторое время и попробуйте снова."
+
+msgid "Success!"
+msgstr "Готово!"
 
 #, python-format
 msgid ""
@@ -1981,8 +1983,8 @@ msgstr ""
 "Предоставленный код является некорректным, несанкционированным, истёкшим или неполным. Пожалуйста, используйте ссылку в письме, отправленном на ваш адрес электроной почты %(email)s. Если код по-"
 "прежнему не работает, пожалуйста, запросите новое письмо."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr "Мы попытались отправить ваше письмо для подтверждения. Ниже приведены найденные нами записи подтверждений и связанные с ними статусы доставки."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>История электронной почты:</strong> В таблице ниже показаны все электронные письма, которые мы пытались отправить вам за последние 2 дня."
 
 msgid "Date"
 msgstr "Дата"
@@ -1998,6 +2000,16 @@ msgstr "Тема"
 
 msgid "Status"
 msgstr "Состояние"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "Мы не нашли никаких записей о ваших электронных письмах за последние 2 дня."
+
+msgid "Refresh results"
+msgstr "Обновить результаты"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Если вы столкнулись с проблемами, пожалуйста, ознакомьтесь с нашими <a %(a_attrs)s>предложениями по устранению неполадок</a> в Firefox Extension Workshop."
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Последние действия для моих дополнений"
@@ -3013,9 +3025,6 @@ msgstr "Последнее обновление:"
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Отобразится на этом сайте после прохождения проверки кода. Автоматические обновления будут выполняться этим сайтом"
 
-msgid "Status:"
-msgstr "Статус:"
-
 msgid "Listed Version:"
 msgstr "Опубликованная версия:"
 
@@ -3220,15 +3229,6 @@ msgstr "Программа рекомендуемых расширений"
 
 msgid "Contribute"
 msgstr "Сделайте взнос"
-
-msgid "Review Add-ons"
-msgstr "Проверка дополнений"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Проверяющие дополнения волонтеры помогают обеспечить безопасность и надежность их использования. Они тоже наслаждаются плюсами этой работы!"
-
-msgid "Join us!"
-msgstr "Присоединяйтесь к нам!"
 
 msgid "Write Some Code"
 msgstr "Напишите немного кода"
@@ -4213,6 +4213,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Прорвитесь сквозь запутанность типичных пользовательский соглашений. Умное расширение, которое поможет вам быстро понять, с чем вы соглашаетесь."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Получайте помощь по грамматике, когда набираете текст в Интернете — в социальных сетях, электронной почте, документах и т.д."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Читайте с лёгкостью и ясностью. Удалите лишнее вокруг текста на веб-страницах."
@@ -4404,6 +4408,10 @@ msgstr "Верните способность видеть реакцию «Не
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Слушайте музыку на YouTube без раздражающих прерываний \"Видео приостановлено. Продолжить просмотр?\""
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Измените внешний вид Интернета."
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "Некоторые веб-сайты испытывают затруднения при воспроизведении видео на Android. Вот как это исправить."
@@ -4569,16 +4577,16 @@ msgid "See all extensions"
 msgstr "Посмотреть все расширения"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr "YouTube Search Filler (В центре внимания разработчика)"
+msgid "Port Authority (Developer Spotlight)"
+msgstr "Управление портами (в центре внимания разработчиков)"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "Расширения конфиденциальности и безопасности"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr "Инструменты для написания"
+msgid "Fantastic tab managers"
+msgstr "Фантастические менеджеры вкладок"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5216,22 +5224,6 @@ msgstr "Дополнения Mozilla"
 msgid "Back to Add-ons"
 msgstr "Назад к дополнениям"
 
-msgid "Legal Notices"
-msgstr "Правовое обеспечение"
-
-msgid "Report Trademark Abuse"
-msgstr "Сообщить о злоупотреблении торговой маркой"
-
-msgid "Report a bug"
-msgstr "Сообщить об ошибке"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"За исключением случаев, <a href=\"https://www.mozilla.org/about/legal/\">описанных здесь</a>, содержимое этого сайта лицензировано на условиях <br /> <a "
-"href=\"https://creativecommons.org/licenses/by-sa/3.0/\">лицензии Creative Commons «Атрибуция — На тех же условиях» версии 3.0</a> или любой более поздней версии."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Вернуться на домашнюю страницу дополнений {0}"
@@ -5253,6 +5245,9 @@ msgstr "Блог сообщества"
 
 msgid "Forum"
 msgstr "Форум"
+
+msgid "Report a bug"
+msgstr "Сообщить об ошибке"
 
 msgid "Review Guide"
 msgstr "Руководство по написанию отзывов"

@@ -16,7 +16,7 @@ from olympia.amo.utils import to_language
 from olympia.reviewers.models import NeedsHumanReview, UsageTier
 from olympia.users.models import UserProfile
 
-from .models import AbuseReport, CinderJob, CinderPolicy
+from .models import AbuseReport, CinderDecision, CinderJob, CinderPolicy
 
 
 @task
@@ -55,7 +55,7 @@ def flag_high_abuse_reports_addons_according_to_review_tier():
         .filter(tier_filters)
     )
     NeedsHumanReview.set_on_addons_latest_signed_versions(
-        qs, NeedsHumanReview.REASON_ABUSE_REPORTS_THRESHOLD
+        qs, NeedsHumanReview.REASONS.ABUSE_REPORTS_THRESHOLD
     )
 
 
@@ -81,7 +81,7 @@ def appeal_to_cinder(
     *, decision_cinder_id, abuse_report_id, appeal_text, user_id, is_reporter
 ):
     try:
-        cinder_job = CinderJob.objects.get(decision__cinder_id=decision_cinder_id)
+        decision = CinderDecision.objects.get(cinder_id=decision_cinder_id)
         if abuse_report_id:
             abuse_report = AbuseReport.objects.get(id=abuse_report_id)
         else:
@@ -94,7 +94,7 @@ def appeal_to_cinder(
             # anonymous reporter and we have their name/email in the abuse report
             # already.
             user = None
-        cinder_job.appeal(
+        decision.appeal(
             abuse_report=abuse_report,
             appeal_text=appeal_text,
             user=user,
@@ -123,15 +123,43 @@ def resolve_job_in_cinder(*, cinder_job_id, log_entry_id):
 
 @task
 @use_primary_db
+def notify_addon_decision_to_cinder(*, log_entry_id, addon_id=None):
+    try:
+        log_entry = ActivityLog.objects.get(id=log_entry_id)
+        addon = Addon.unfiltered.get(id=addon_id)
+        decision = CinderDecision(addon=addon)
+        decision.notify_reviewer_decision(
+            log_entry=log_entry,
+            entity_helper=CinderJob.get_entity_helper(
+                decision.target, resolved_in_reviewer_tools=True
+            ),
+        )
+    except Exception:
+        statsd.incr('abuse.tasks.notify_addon_decision_to_cinder.failure')
+        raise
+    else:
+        statsd.incr('abuse.tasks.notify_addon_decision_to_cinder.success')
+
+
+@task
+@use_primary_db
 def sync_cinder_policies():
+    max_length = CinderPolicy._meta.get_field('name').max_length
+
     def sync_policies(policies, parent_id=None):
         for policy in policies:
+            if (labels := [label['name'] for label in policy.get('labels', [])]) and (
+                'AMO' not in labels
+            ):
+                # If the policy is labelled, but not for AMO, skip it
+                continue
             cinder_policy, _ = CinderPolicy.objects.update_or_create(
                 uuid=policy['uuid'],
                 defaults={
-                    'name': policy['name'],
+                    'name': policy['name'][:max_length],
                     'text': policy['description'],
                     'parent_id': parent_id,
+                    'modified': datetime.now(),
                 },
             )
 
@@ -139,6 +167,7 @@ def sync_cinder_policies():
                 sync_policies(nested, cinder_policy.id)
 
     try:
+        now = datetime.now()
         url = f'{settings.CINDER_SERVER_URL}policies'
         headers = {
             'accept': 'application/json',
@@ -150,6 +179,11 @@ def sync_cinder_policies():
         response.raise_for_status()
         data = response.json()
         sync_policies(data)
+        CinderPolicy.objects.exclude(
+            Q(cinderdecision__id__gte=0)
+            | Q(reviewactionreason__id__gte=0)
+            | Q(modified__gte=now)
+        ).delete()
     except Exception:
         statsd.incr('abuse.tasks.sync_cinder_policies.failure')
         raise

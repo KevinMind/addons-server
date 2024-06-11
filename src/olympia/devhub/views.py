@@ -593,7 +593,12 @@ def handle_upload(
         user=request.user,
     )
     if submit:
-        tasks.validate_and_submit(addon, upload, theme_specific=theme_specific)
+        tasks.validate_and_submit(
+            addon=addon,
+            upload=upload,
+            theme_specific=theme_specific,
+            client_info=request.META.get('HTTP_USER_AGENT'),
+        )
     else:
         tasks.validate(upload, theme_specific=theme_specific)
     return upload
@@ -1467,6 +1472,12 @@ def _submit_upload(
     form = forms.NewUploadForm(
         request.POST or None, request.FILES or None, addon=addon, request=request
     )
+    if wizard or (addon and addon.type == amo.ADDON_STATICTHEME):
+        # If using the wizard or submitting a new version of a theme, we can
+        # force theme_specific to be True. If somehow the developer is not
+        # uploading a theme, validation will reject it just like if they had
+        # tried to use the theme submission flow for an entirely new add-on.
+        theme_specific = True
     form.fields['theme_specific'].initial = theme_specific
     channel_text = amo.CHANNEL_CHOICES_API[channel]
     if request.method == 'POST' and form.is_valid():
@@ -1479,6 +1490,7 @@ def _submit_upload(
                 channel=channel,
                 selected_apps=data['compatible_apps'],
                 parsed_data=data['parsed_data'],
+                client_info=request.META.get('HTTP_USER_AGENT'),
             )
             url_args = [addon.slug, version.id]
             statsd.incr(f'devhub.submission.version.{channel_text}')
@@ -1488,6 +1500,7 @@ def _submit_upload(
                 channel=channel,
                 selected_apps=data['compatible_apps'],
                 parsed_data=data['parsed_data'],
+                client_info=request.META.get('HTTP_USER_AGENT'),
             )
             version = addon.find_latest_version(channel=channel)
             url_args = [addon.slug, channel_text]
@@ -2095,7 +2108,6 @@ VERIFY_EMAIL_STATE = {
 RENDER_BUTTON_STATES = [
     VERIFY_EMAIL_STATE['email_suppressed'],
     VERIFY_EMAIL_STATE['verification_expired'],
-    VERIFY_EMAIL_STATE['verification_pending'],
     VERIFY_EMAIL_STATE['verification_timedout'],
     VERIFY_EMAIL_STATE['confirmation_invalid'],
 ]
@@ -2130,6 +2142,7 @@ def email_verification(request):
         return redirect('devhub.email_verification')
 
     if email_verification:
+        data['render_table'] = True
         data['found_emails'] = check_suppressed_email_confirmation(email_verification)
         if email_verification.is_expired:
             data['state'] = VERIFY_EMAIL_STATE['verification_expired']
@@ -2153,6 +2166,7 @@ def email_verification(request):
                 == SuppressedEmailVerification.STATUS_CHOICES.Delivered
             ):
                 data['state'] = VERIFY_EMAIL_STATE['confirmation_pending']
+                data['render_table'] = False
             else:
                 data['state'] = VERIFY_EMAIL_STATE['verification_pending']
 

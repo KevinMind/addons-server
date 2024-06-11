@@ -843,10 +843,12 @@ CELERY_TASK_ROUTES = {
     'olympia.versions.tasks.hard_delete_versions': {'queue': 'adhoc'},
     'olympia.activity.tasks.create_ratinglog': {'queue': 'adhoc'},
     'olympia.files.tasks.extract_host_permissions': {'queue': 'adhoc'},
+    'olympia.lib.crypto.tasks.bump_and_resign_addons': {'queue': 'adhoc'},
     # Misc AMO tasks.
     'olympia.blocklist.tasks.monitor_remote_settings': {'queue': 'amo'},
     'olympia.abuse.tasks.appeal_to_cinder': {'queue': 'amo'},
     'olympia.abuse.tasks.report_to_cinder': {'queue': 'amo'},
+    'olympia.abuse.tasks.notify_addon_decision_to_cinder': {'queue': 'amo'},
     'olympia.abuse.tasks.resolve_job_in_cinder': {'queue': 'amo'},
     'olympia.abuse.tasks.sync_cinder_policies': {'queue': 'amo'},
     'olympia.accounts.tasks.clear_sessions_event': {'queue': 'amo'},
@@ -921,11 +923,10 @@ CELERY_TASK_ROUTES = {
     'olympia.addons.tasks.flag_high_hotness_according_to_review_tier': {
         'queue': 'cron'
     },
-    'olympia.reviewers.tasks.recalculate_post_review_weight': {'queue': 'cron'},
     'olympia.users.tasks.sync_suppressed_emails_task': {'queue': 'cron'},
     'olympia.users.tasks.send_suppressed_email_confirmation': {'queue': 'devhub'},
     # Reviewers.
-    'olympia.lib.crypto.tasks.sign_addons': {'queue': 'reviewers'},
+    'olympia.reviewers.tasks.recalculate_post_review_weight': {'queue': 'reviewers'},
     # Admin.
     'olympia.scanners.tasks.mark_yara_query_rule_as_completed_or_aborted': {
         'queue': 'zadmin'
@@ -1038,8 +1039,12 @@ LOGGING = {
 }
 
 # CSP Settings
-# See https://github.com/mozilla/bedrock/issues/11768
-ANALYTICS_HOST = 'https://*.google-analytics.com'
+# https://github.com/mozilla/addons/issues/14799#issuecomment-2127359422
+# These match Google's recommendations for CSP with GA4.
+GOOGLE_TAGMANAGER_HOST = 'https://*.googletagmanager.com'
+GOOGLE_ANALYTICS_HOST = 'https://*.google-analytics.com'
+GOOGLE_ADDITIONAL_ANALYTICS_HOST = 'https://*.analytics.google.com'
+
 
 CSP_REPORT_URI = '/__cspreport__'
 CSP_REPORT_ONLY = False
@@ -1050,7 +1055,9 @@ CSP_EXCLUDE_URL_PREFIXES = ()
 CSP_DEFAULT_SRC = ("'none'",)
 CSP_CONNECT_SRC = (
     "'self'",
-    ANALYTICS_HOST,
+    GOOGLE_ANALYTICS_HOST,
+    GOOGLE_ADDITIONAL_ANALYTICS_HOST,
+    GOOGLE_TAGMANAGER_HOST,
 )
 CSP_FORM_ACTION = ("'self'",)
 CSP_FONT_SRC = (
@@ -1065,13 +1072,15 @@ CSP_IMG_SRC = (
     'data:',  # Needed for theme wizard.
     PROD_STATIC_URL,
     PROD_MEDIA_URL,
+    GOOGLE_ANALYTICS_HOST,
+    GOOGLE_TAGMANAGER_HOST,
 )
 CSP_MEDIA_SRC = ('https://videos.cdn.mozilla.net',)
 CSP_OBJECT_SRC = ("'none'",)
 
 CSP_SCRIPT_SRC = (
-    'https://www.google-analytics.com/analytics.js',
-    'https://www.googletagmanager.com/gtag/js',
+    GOOGLE_ANALYTICS_HOST,
+    GOOGLE_TAGMANAGER_HOST,
     'https://www.recaptcha.net/recaptcha/',
     'https://www.gstatic.com/recaptcha/',
     'https://www.gstatic.cn/recaptcha/',
@@ -1318,7 +1327,7 @@ MAX_APIKEY_JWT_AUTH_TOKEN_LIFETIME = 5 * 60
 API_KEY_CONFIRMATION_DELAY = None
 
 # Default cache duration for the API, in seconds.
-API_CACHE_DURATION = 3 * 60
+API_CACHE_DURATION = 6 * 60
 
 # Default cache duration for the API on services.a.m.o., in seconds.
 API_CACHE_DURATION_SERVICES = 60 * 60
@@ -1488,7 +1497,7 @@ MOZILLA_NEWLETTER_URL = env(
 )
 
 EXTENSION_WORKSHOP_URL = env(
-    'EXTENSION_WORKSHOP_URL', default='https://extensionworkshop-dev.allizom.org'
+    'EXTENSION_WORKSHOP_URL', default='https://extensionworkshop.allizom.org'
 )
 
 # Sectools

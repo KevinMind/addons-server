@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: addons\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
 "PO-Revision-Date: 2024-02-10 02:08+0000\n"
 "Last-Translator: aefgh39622@gmail.com <aefgh39622@gmail.com>\n"
 "Language-Team: Thai\n"
@@ -444,10 +444,10 @@ msgstr "ไม่พบ"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>เราขออภัย แต่เราไม่พบสิ่งที่คุณกำลังค้นหาอยู่</h1> <p>ไม่พบหน้าหรือไฟล์ที่คุณร้องขอบนเว็บไซต์ของเรา มันเป็นไปได้ว่าคุณคลิกลิงก์ซึ่งหมดอายุแล้ว หรือพิมพ์ที่อยู่ไม่ถูกต้อง</p> <ul> <li>ถ้าคุณใช้การพิมพ์ที่อยู่ โปรดตรวจสอบการสะกดอีกครั้ง</li> "
 "<li>ถ้าคุณตามลิงก์นี้มาจากที่ไหนสักแห่ง โปรด%(open_bug_link)sรายงานปัญหา%(close_bug_link)s บอกเราว่าคุณมาจากไหนและคุณกำลังมองหาอะไร และเราจะทำการแก้ไขให้ดีที่สุด</li> </ul> "
@@ -932,9 +932,8 @@ msgstr "{addon} {version} ถูกปฏิเสธ"
 msgid "Rejection scheduled"
 msgstr "จัดตารางการปฏิเสธแล้ว"
 
-#, fuzzy
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "ร้องขอการพิจารณา {addon} {version} แล้ว"
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr ""
 
 #, fuzzy
 msgid "Version re-signed"
@@ -998,6 +997,18 @@ msgid "User {user} content restored."
 msgstr ""
 
 msgid "User {user} unbanned."
+msgstr ""
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
 msgstr ""
 
 msgid "Firefox"
@@ -1079,8 +1090,8 @@ msgstr ""
 msgid "Deprecated LWT"
 msgstr "LWT ที่เลิกใช้แล้ว"
 
-msgid "Theme (Static)"
-msgstr "ชุดรูปแบบ (คงที่)"
+msgid "Theme"
+msgstr "ชุดรูปแบบ"
 
 msgid "Deprecated Site Permission"
 msgstr ""
@@ -1110,18 +1121,10 @@ msgstr ""
 msgid "Deprecated LWTs"
 msgstr "LWT ที่เลิกใช้แล้ว"
 
-msgid "Themes (Static)"
-msgstr "ชุดรูปแบบ (คงที่)"
+msgid "Themes"
+msgstr "ชุดรูปแบบ"
 
 msgid "Deprecated Site Permissions"
-msgstr ""
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
 msgstr ""
 
 msgid "Alerts & Updates"
@@ -1400,9 +1403,6 @@ msgstr "อนุมัติ"
 
 msgid "All"
 msgstr "ทั้งหมด"
-
-msgid "Theme"
-msgstr "ชุดรูปแบบ"
 
 #, fuzzy
 msgid "No action"
@@ -1824,9 +1824,6 @@ msgstr "เอกสารประกอบ"
 msgid "Extension Development"
 msgstr "การพัฒนาส่วนขยาย"
 
-msgid "Themes"
-msgstr "ชุดรูปแบบ"
-
 msgid "Developer Policies"
 msgstr "นโยบายนักพัฒนา"
 
@@ -1884,19 +1881,25 @@ msgstr "ตรวจสอบเมื่อ:"
 msgid "Email Address Verification"
 msgstr ""
 
+msgid "Status:"
+msgstr "สถานะ:"
+
 msgid "Your email address is verified."
 msgstr ""
 
-msgid "Please verify your email by clicking \"Verify email\" above."
+msgid "Please verify your email."
 msgstr ""
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr ""
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
 msgstr ""
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 #, python-format
@@ -1911,7 +1914,7 @@ msgid ""
 "email."
 msgstr ""
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
 msgstr ""
 
 msgid "Date"
@@ -1928,6 +1931,16 @@ msgstr ""
 
 msgid "Status"
 msgstr "สถานะ"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr ""
+
+msgid "Refresh results"
+msgstr ""
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr ""
 
 msgid "Recent Activity for My Add-ons"
 msgstr "กิจกรรมล่าสุดของส่วนเสริมของฉัน"
@@ -2709,8 +2722,8 @@ msgstr "ข้อมูลลับ JWT"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr ""
 
 #, python-format
@@ -2845,9 +2858,6 @@ msgstr "อัปเดตล่าสุด:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr ""
-
-msgid "Status:"
-msgstr "สถานะ:"
 
 msgid "Listed Version:"
 msgstr "รุ่นที่แสดง:"
@@ -3047,15 +3057,6 @@ msgstr "โปรแกรมส่วนขยายที่แนะนำ"
 
 msgid "Contribute"
 msgstr "บริจาค"
-
-msgid "Review Add-ons"
-msgstr "วิจารณ์ส่วนเสริม"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr ""
-
-msgid "Join us!"
-msgstr "มาร่วมกับเรา!"
 
 msgid "Write Some Code"
 msgstr "เขียนรหัสสักหน่อย"
@@ -4032,6 +4033,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr ""
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr ""
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr ""
@@ -4224,6 +4229,10 @@ msgstr ""
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr ""
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr ""
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr ""
@@ -4389,7 +4398,7 @@ msgid "See all extensions"
 msgstr "ดูส่วนขยายทั้งหมด"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -4397,7 +4406,7 @@ msgid "Privacy & Security extensions"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
+msgid "Fantastic tab managers"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -5049,20 +5058,6 @@ msgstr "ส่วนเสริม Mozilla"
 msgid "Back to Add-ons"
 msgstr "กลับไปที่ส่วนเสริม"
 
-msgid "Legal Notices"
-msgstr "ข้อกฎหมาย"
-
-msgid "Report Trademark Abuse"
-msgstr "รายงานการละเมิดเครื่องหมายการค้า"
-
-msgid "Report a bug"
-msgstr "รายงานข้อบกพร่อง"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-
 msgid "Return to the {0} Add-ons homepage"
 msgstr "กลับไปที่หน้าแรกของส่วนเสริม {0}"
 
@@ -5083,6 +5078,9 @@ msgstr ""
 
 msgid "Forum"
 msgstr "กระดานสนทนา"
+
+msgid "Report a bug"
+msgstr "รายงานข้อบกพร่อง"
 
 msgid "Review Guide"
 msgstr ""

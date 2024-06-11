@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: REMORA 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-22 08:15+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-06-05 16:38+0000\n"
 "Last-Translator: Google Translate <pontoon-gt@example.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -118,9 +118,9 @@ msgid ""
 "After reviewing your appeal, we have determined that our prior decision, that this content does not violate Mozilla's policies (%(policy_document_url)s), was incorrect. Based on that determination, we have requested the developer make changes. If they do not update their content to correct the violation, we will remove it.\n"
 msgstr ""
 "\n"
-"Obrigado por relatar sobre %(name)s nas extensões da Mozilla, e por fornecer mais informações sobre suas preocupações.\n"
+"Obrigado por seu relato sobre %(name)s nas extensões da Mozilla e por fornecer mais informações sobre suas preocupações.\n"
 "\n"
-"Após analisar seu recurso, determinamos que nossa decisão anterior, de que este conteúdo não viola as políticas da Mozilla (%(policy_document_url)s), estava incorreta. Com base nessa decisão, solicitamos ao desenvolvedor fazer alterações. Se eles não atualizarem seu conteúdo para corrigir a violação, nós o removeremos.\n"
+"Após analisar seu recurso, determinamos que nossa decisão anterior, de que este conteúdo não viola as diretrizes da Mozilla (%(policy_document_url)s), estava incorreta. Com base nesta decisão, solicitamos ao desenvolvedor fazer alterações. Se ele não mudar o conteúdo para corrigir a violação, nós o removeremos.\n"
 
 #, python-format
 msgid ""
@@ -162,9 +162,9 @@ msgid ""
 "We reviewed your report and the content in question, and found that it violates Mozilla's policies (%(policy_document_url)s), and have therefore requested the developer make changes. If they do not update their content to correct the violation, we will remove it.\n"
 msgstr ""
 "\n"
-"Obrigado por informar sobre a seguinte extensão no Mozilla Add-ons: %(name)s.\n"
+"Obrigado por seu relato sobre a seguinte extensão nas extensões da Mozilla: %(name)s.\n"
 "\n"
-"Analisamos sua denúncia e o conteúdo em questão e descobrimos que ele viola as políticas da Mozilla (%(policy_document_url)s). Por isso, solicitamos ao desenvolvedor fazer alterações. Se eles não atualizarem seu conteúdo para corrigir a violação, nós o removeremos.\n"
+"Analisamos sua denúncia e o conteúdo em questão e descobrimos que ele viola as diretrizes da Mozilla (%(policy_document_url)s). Por isso, solicitamos ao desenvolvedor fazer alterações. Se ele não mudar o conteúdo para corrigir a violação, nós o removeremos.\n"
 
 #, python-format
 msgid ""
@@ -989,8 +989,8 @@ msgstr "Agendada rejeição de {addon} {version}."
 msgid "Rejection scheduled"
 msgstr "Rejeição agendada"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} reassinada (anteriormente {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} criado e assinado automaticamente de {0}."
 
 msgid "Version re-signed"
 msgstr "Versão reassinada"
@@ -1054,6 +1054,18 @@ msgstr "Conteúdo do usuário {user} restaurado."
 
 msgid "User {user} unbanned."
 msgstr "Usuário {user} deixou de ser banido."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr "{addon} {version} rejeitado automaticamente após o atraso expirar."
+
+msgid "Rejected automatically after delay expired"
+msgstr "Rejeitado automaticamente após o atraso expirar"
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr "{addon} {version} conteúdo rejeitado automaticamente após o atraso expirar."
+
+msgid "Content rejected automatically after delay expired"
+msgstr "Conteúdo rejeitado automaticamente após o atraso expirar"
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1134,8 +1146,8 @@ msgstr "Plugin obsoleto"
 msgid "Deprecated LWT"
 msgstr "LWT obsoleto"
 
-msgid "Theme (Static)"
-msgstr "Tema (Estático)"
+msgid "Theme"
+msgstr "Tema"
 
 msgid "Deprecated Site Permission"
 msgstr "Permissão de site obsoleta"
@@ -1166,21 +1178,12 @@ msgstr "Plugins obsoletos"
 msgid "Deprecated LWTs"
 msgstr "LWTs obsoletos"
 
-msgid "Themes (Static)"
-msgstr "Temas (Estático)"
+# Plural in this context means many of the add-on type
+msgid "Themes"
+msgstr "Temas"
 
 msgid "Deprecated Site Permissions"
 msgstr "Permissões de site obsoletas"
-
-msgid "Accessibility"
-msgstr "Acessibilidade"
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
-"Baixe extensões de acessibilidade do Firefox para ajudá-lo a consumir conteúdo e navegar online das maneiras que funcionam melhor para você. Descubra extensões que removem ou reduzem fronteiras ao "
-"acesso, alterando o brilho da tela, lendo páginas em voz alta, fornecendo magnificação de precisão e muito mais."
 
 msgid "Alerts & Updates"
 msgstr "Alertas e atualizações"
@@ -1460,9 +1463,6 @@ msgstr "Aprovar"
 
 msgid "All"
 msgstr "Tudo"
-
-msgid "Theme"
-msgstr "Tema"
 
 msgid "No action"
 msgstr "Nenhuma ação"
@@ -1895,10 +1895,6 @@ msgstr "Documentação"
 msgid "Extension Development"
 msgstr "Desenvolvimento de extensões"
 
-# Plural in this context means many of the add-on type
-msgid "Themes"
-msgstr "Temas"
-
 msgid "Developer Policies"
 msgstr "Políticas para desenvolvedores"
 
@@ -1957,20 +1953,26 @@ msgstr "Validado em:"
 msgid "Email Address Verification"
 msgstr "Verificação de endereço de email"
 
+msgid "Status:"
+msgstr "Status:"
+
 msgid "Your email address is verified."
 msgstr "Seu endereço de email foi confirmado."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Verifique seu email clicando em \"Verificar email\" acima."
+msgid "Please verify your email."
+msgstr "Verifique seu endereço de email."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "Não foi possível verificar o endereço de email. O link de verificação expirou."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr "Estamos enviando um e-mail para você, pode demorar um pouco. A página será atualizada automaticamente."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "Estamos enviando um email para você, aguarde... <div class=\"loader\"></div> A página será atualizada automaticamente."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr "Está demorando mais do que o esperado para confirmar a entrega do seu e-mail de verificação. Por favor, tente novamente."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "Está demorando mais do que o esperado para confirmar a entrega do seu email de verificação. Tente novamente mais tarde."
+
+msgid "Success!"
+msgstr "Sucesso!"
 
 #, python-format
 msgid ""
@@ -1985,11 +1987,11 @@ msgid ""
 "The provided code is invalid, unauthorized, expired or incomplete. Please use the link in the email sent to your email address %(email)s. If the code is still not working, please request a new "
 "email."
 msgstr ""
-"O código fornecido é inválido, não autorizado, está vencido ou está incompleto. Por favor, use o link na mensagem enviada para o seu endereço de e-mail %(email)s. Se o código ainda não estiver "
-"funcionando, solicite um novo email."
+"O código fornecido é inválido, não autorizado, está vencido ou incompleto. Use o link na mensagem enviada para o seu endereço de email %(email)s. Se o código ainda não funcionar, solicite outra "
+"mensagem por email."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr "Tentamos enviar seu e-mail de confirmação. Abaixo estão os registros de confirmação que encontramos e seus status de entrega associados."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>Histórico de email:</strong> A tabela abaixo mostra todos os emails que tentamos enviar para você nos últimos 2 dias."
 
 msgid "Date"
 msgstr "Data"
@@ -2007,6 +2009,16 @@ msgstr "Assunto"
 # 100%
 msgid "Status"
 msgstr "Status"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "Não encontramos nenhum registro de email para você nos últimos 2 dias."
+
+msgid "Refresh results"
+msgstr "Atualizar resultados"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Se você encontrar problemas, consulte as nossas <a %(a_attrs)s>sugestões de solução de problemas</a> no workshop de extensões do Firefox."
 
 # 80%
 # 100%
@@ -3026,9 +3038,6 @@ msgstr "Última Atualização:"
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Listado neste site após passar pela revisão de código. Atualizações automáticas são gerenciadas por este site"
 
-msgid "Status:"
-msgstr "Status:"
-
 msgid "Listed Version:"
 msgstr "Versão listada:"
 
@@ -3236,15 +3245,6 @@ msgstr "Programa de extensões recomendadas"
 
 msgid "Contribute"
 msgstr "Contribuir"
-
-msgid "Review Add-ons"
-msgstr "Revisar extensões"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Os revisores voluntários ajudam a manter as extensões seguras e confiáveis ​​para usar. Eles desfrutam de ótimas vantagens também!"
-
-msgid "Join us!"
-msgstr "Junte-se a nós!"
 
 msgid "Write Some Code"
 msgstr "Escreva algum código"
@@ -4230,6 +4230,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Desmistifique os termos jurídicos típicos de termos de serviço. Esta extensão inteligente ajuda a entender rapidamente o que está sendo pedido para você concordar."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Obtenha assistência gramatical onde quer que você escreva na web: mídias sociais, emails, documentos e muito mais."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Leia com mais facilidade e clareza. Remova a desordem em torno do texto em páginas web."
@@ -4421,6 +4425,10 @@ msgstr "Traga de volta o botão de 'não gostei'!"
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Ouça música no YouTube sem aquelas interrupções de \"Vídeo pausado. Continuar assistindo?\"."
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Mude a aparência da web."
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "Alguns sites têm dificuldade para reproduzir vídeos no Android. Aqui está uma correção."
@@ -4586,16 +4594,16 @@ msgid "See all extensions"
 msgstr "Ver todas extensões"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr "Fixador de pesquisa do YouTube (em destaque para desenvolvedores)"
+msgid "Port Authority (Developer Spotlight)"
+msgstr "Port Authority (desenvolvedores em destaque)"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "Extensões de privacidade e segurança"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr "Ferramentas de escrita"
+msgid "Fantastic tab managers"
+msgstr "Gerenciadores de abas fantásticos"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5231,22 +5239,6 @@ msgstr "Mozilla Add-ons"
 msgid "Back to Add-ons"
 msgstr "Voltar as extensões"
 
-msgid "Legal Notices"
-msgstr "Avisos legais"
-
-msgid "Report Trademark Abuse"
-msgstr "Informar abuso de marca"
-
-msgid "Report a bug"
-msgstr "Relatar um bug"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Exceto onde <a href=\"https://www.mozilla.org/about/legal/\">anunciado</a>, o conteúdo neste site está licenciado sob a <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> licença "
-"Creative Commons Atribuição-CompartilhaIgual v3.0 </a> ou qualquer versão mais recente."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Voltar para a página inicial de extensões para o {0}"
@@ -5269,6 +5261,9 @@ msgstr "Blog da comunidade"
 
 msgid "Forum"
 msgstr "Fórum"
+
+msgid "Report a bug"
+msgstr "Relatar um bug"
 
 msgid "Review Guide"
 msgstr "Guia de revisão"

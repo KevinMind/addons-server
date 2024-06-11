@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from unittest import mock
 
 from django.conf import settings
+from django.core import mail
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.encoding import force_bytes
@@ -32,6 +33,12 @@ from olympia.core import get_user, set_user
 from olympia.ratings.models import Rating
 
 from ..models import AbuseReport, CinderDecision, CinderJob
+from ..utils import (
+    CinderActionApproveNoAction,
+    CinderActionDisableAddon,
+    CinderActionTargetAppealApprove,
+    CinderActionTargetAppealRemovalAffirmation,
+)
 from ..views import CinderInboundPermission, cinder_webhook, filter_enforcement_actions
 
 
@@ -543,19 +550,19 @@ class AddonAbuseViewSetTestBase:
         assert response.status_code == 201, response.content
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=True)
+    @override_switch('dsa-job-technical-processing', active=True)
     def test_reportable_reason_calls_cinder_task(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_called()
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=False)
+    @override_switch('dsa-job-technical-processing', active=False)
     def test_reportable_reason_does_not_call_cinder_with_waffle_off(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_not_called()
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=True)
+    @override_switch('dsa-job-technical-processing', active=True)
     def test_not_reportable_reason_does_not_call_cinder_task(self, task_mock):
         self._setup_reportable_reason('feedback_spam')
         task_mock.assert_not_called()
@@ -751,19 +758,19 @@ class UserAbuseViewSetTestBase:
         assert response.status_code == 201, response.content
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=True)
+    @override_switch('dsa-job-technical-processing', active=True)
     def test_reportable_reason_calls_cinder_task(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_called()
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=False)
+    @override_switch('dsa-job-technical-processing', active=False)
     def test_reportable_reason_does_not_call_cinder_with_waffle_off(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_not_called()
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=True)
+    @override_switch('dsa-job-technical-processing', active=True)
     def test_no_reason_does_not_call_cinder_task(self, task_mock):
         self._setup_reportable_reason(None, 'Some message since no reason is provided')
         task_mock.assert_not_called()
@@ -831,8 +838,10 @@ class TestCinderWebhook(TestCase):
     def setUp(self):
         self.task_user = user_factory(pk=settings.TASK_USER_ID)
 
-    def get_data(self, filename='cinder_webhook.json'):
-        webhook_file = os.path.join(TESTS_DIR, 'assets', filename)
+    def get_data(self, filename='decision.json'):
+        webhook_file = os.path.join(
+            TESTS_DIR, 'assets', 'cinder_webhook_payloads', filename
+        )
         with open(webhook_file) as file_object:
             return json.loads(file_object.read())
 
@@ -917,10 +926,10 @@ class TestCinderWebhook(TestCase):
             DECISION_ACTIONS.AMO_APPROVE,
         ]
 
-    def _test_process_decision_called(self, data, *, override):
+    def test_process_decision_called(self, data=None):
         abuse_report = self._setup_reports()
         addon_factory(guid=abuse_report.guid)
-        req = self.get_request(data=data)
+        req = self.get_request(data=data or self.get_data())
         with mock.patch.object(CinderJob, 'process_decision') as process_mock:
             response = cinder_webhook(req)
             process_mock.assert_called()
@@ -930,22 +939,14 @@ class TestCinderWebhook(TestCase):
                 decision_action=DECISION_ACTIONS.AMO_DISABLE_ADDON.value,
                 decision_notes='some notes',
                 policy_ids=['f73ad527-54ed-430c-86ff-80e15e2a352b'],
-                override=override,
             )
         assert response.status_code == 201
         assert response.data == {'amo': {'received': True, 'handled': True}}
 
-    def test_process_decision_called_not_override(self):
-        data = self.get_data()
-        return self._test_process_decision_called(data, override=False)
-
-    def test_process_decision_called_for_override(self):
-        data = self.get_data()
-        data['payload']['source']['decision']['type'] = 'override'
-        return self._test_process_decision_called(data, override=True)
-
-    def test_process_decision_called_for_appeal_confirm_approve(self):
-        data = self.get_data(filename='cinder_webhook_appeal_confirm_approve.json')
+    def test_process_decision_called_for_appeal_confirm_approve(
+        self, filename='reporter_appeal_confirm_approve.json'
+    ):
+        data = self.get_data(filename=filename)
         abuse_report = self._setup_reports()
         addon = addon_factory(guid=abuse_report.guid)
         original_cinder_job = CinderJob.objects.get()
@@ -966,17 +967,24 @@ class TestCinderWebhook(TestCase):
         assert process_mock.call_count == 1
         process_mock.assert_called_with(
             decision_cinder_id='76e0006d-1a42-4ec7-9475-148bab1970f1',
-            decision_date=datetime(2024, 1, 12, 15, 20, 19, 226428),
+            decision_date=datetime(2024, 4, 24, 17, 45, 32, 8810),
             decision_action=DECISION_ACTIONS.AMO_APPROVE.value,
             decision_notes='still no!',
             policy_ids=['1c5d711a-78b7-4fc2-bdef-9a33024f5e8b'],
-            override=False,
         )
         assert response.status_code == 201
         assert response.data == {'amo': {'received': True, 'handled': True}}
 
-    def test_process_decision_called_for_appeal_disable(self):
-        data = self.get_data(filename='cinder_webhook_appeal_change_to_disable.json')
+    def test_process_decision_called_for_appeal_confirm_approve_with_override(self):
+        """This is to cover the unusual case in cinder where a moderator processes an
+        appeal by selecting to override the decision, but chooses to approve it again.
+        """
+        self.test_process_decision_called_for_appeal_confirm_approve(
+            filename='reporter_appeal_change_but_still_approve.json'
+        )
+
+    def test_process_decision_called_for_appeal_change_to_disable(self):
+        data = self.get_data(filename='reporter_appeal_change_to_disable.json')
         abuse_report = self._setup_reports()
         addon = addon_factory(guid=abuse_report.guid)
         original_cinder_job = CinderJob.objects.get()
@@ -997,19 +1005,141 @@ class TestCinderWebhook(TestCase):
         assert process_mock.call_count == 1
         process_mock.assert_called_with(
             decision_cinder_id='4f18b22c-6078-4934-b395-6a2e01cadf63',
-            decision_date=datetime(2024, 1, 12, 14, 53, 23, 438634),
+            decision_date=datetime(2024, 4, 24, 18, 19, 30, 274623),
             decision_action=DECISION_ACTIONS.AMO_DISABLE_ADDON.value,
             decision_notes="fine I'll disable it",
-            policy_ids=['86d7bf98-288c-4e78-9a63-3f5db96847b1'],
-            override=True,
+            policy_ids=[
+                '7ea512a2-39a6-4cb6-91a0-2ed162192f7f',
+                'a5c96c92-2373-4d11-b573-61b0de00d8e0',
+            ],
         )
         assert response.status_code == 201
         assert response.data == {'amo': {'received': True, 'handled': True}}
 
+    def test_process_decision_triggers_emails_when_disable_confirmed(self):
+        data = self.get_data(filename='target_appeal_confirm_disable.json')
+        abuse_report = self._setup_reports()
+        author = user_factory()
+        addon = addon_factory(guid=abuse_report.guid, users=[author])
+        original_cinder_job = CinderJob.objects.get()
+        original_cinder_job.update(
+            decision=CinderDecision.objects.create(
+                date=datetime(2023, 10, 12, 9, 8, 37, 4789),
+                cinder_id='d1f01fae-3bce-41d5-af8a-e0b4b5ceaaed',
+                action=DECISION_ACTIONS.AMO_DISABLE_ADDON,
+                appeal_job=CinderJob.objects.create(
+                    job_id='5ab7cb33-a5ab-4dfa-9d72-4c2061ffeb08'
+                ),
+                addon=addon,
+            )
+        )
+        req = self.get_request(data=data)
+        with mock.patch.object(
+            CinderActionTargetAppealRemovalAffirmation, 'process_action'
+        ) as process_mock:
+            cinder_webhook(req)
+        process_mock.assert_called()
+        assert len(mail.outbox) == 1
+        assert mail.outbox[0].to == [author.email]
+        assert 'will not reinstate your Extension' in mail.outbox[0].body
+
+    def test_process_decision_triggers_emails_when_disable_reverted(self):
+        data = self.get_data(filename='target_appeal_change_to_approve.json')
+        abuse_report = self._setup_reports()
+        author = user_factory()
+        addon = addon_factory(guid=abuse_report.guid, users=[author])
+        original_cinder_job = CinderJob.objects.get()
+        original_cinder_job.update(
+            decision=CinderDecision.objects.create(
+                date=datetime(2023, 10, 12, 9, 8, 37, 4789),
+                cinder_id='d1f01fae-3bce-41d5-af8a-e0b4b5ceaaed',
+                action=DECISION_ACTIONS.AMO_DISABLE_ADDON,
+                appeal_job=CinderJob.objects.create(
+                    job_id='5ab7cb33-a5ab-4dfa-9d72-4c2061ffeb08'
+                ),
+                addon=addon,
+            )
+        )
+        req = self.get_request(data=data)
+        with mock.patch.object(
+            CinderActionTargetAppealApprove, 'process_action'
+        ) as process_mock:
+            cinder_webhook(req)
+        process_mock.assert_called()
+        assert len(mail.outbox) == 1
+        assert mail.outbox[0].to == [author.email]
+        assert 'we have restored your Extension' in mail.outbox[0].body
+
+    def test_process_decision_triggers_emails_for_reporter_appeal_disable(self):
+        data = self.get_data(filename='reporter_appeal_change_to_disable.json')
+        abuse_report = self._setup_reports()
+        author = user_factory()
+        addon = addon_factory(guid=abuse_report.guid, users=[author])
+        original_cinder_job = CinderJob.objects.get()
+        original_cinder_job.update(
+            decision=CinderDecision.objects.create(
+                date=datetime(2023, 10, 12, 9, 8, 37, 4789),
+                cinder_id='d1f01fae-3bce-41d5-af8a-e0b4b5ceaaed',
+                action=DECISION_ACTIONS.AMO_APPROVE,
+                appeal_job=CinderJob.objects.create(
+                    job_id='5ab7cb33-a5ab-4dfa-9d72-4c2061ffeb08'
+                ),
+                addon=addon,
+            )
+        )
+        abuse_report.update(
+            reporter_email='reporter@email.com',
+            cinder_job=original_cinder_job,
+            appellant_job=original_cinder_job.decision.appeal_job,
+        )
+        req = self.get_request(data=data)
+        with mock.patch.object(
+            CinderActionDisableAddon, 'process_action'
+        ) as process_mock:
+            cinder_webhook(req)
+        process_mock.assert_called()
+        assert len(mail.outbox) == 2
+        assert mail.outbox[0].to == ['reporter@email.com']
+        assert 'was incorrect' in mail.outbox[0].body
+        assert mail.outbox[1].to == [author.email]
+        assert 'has been permanently disabled' in mail.outbox[1].body
+
+    def test_process_decision_triggers_no_target_email_for_reporter_approve(self):
+        data = self.get_data(filename='reporter_appeal_confirm_approve.json')
+        abuse_report = self._setup_reports()
+        author = user_factory()
+        addon = addon_factory(guid=abuse_report.guid, users=[author])
+        original_cinder_job = CinderJob.objects.get()
+        original_cinder_job.update(
+            decision=CinderDecision.objects.create(
+                date=datetime(2023, 10, 12, 9, 8, 37, 4789),
+                cinder_id='d1f01fae-3bce-41d5-af8a-e0b4b5ceaaed',
+                action=DECISION_ACTIONS.AMO_APPROVE,
+                appeal_job=CinderJob.objects.create(
+                    job_id='5c7c3e21-8ccd-4d2f-b3b4-429620bd7a63'
+                ),
+                addon=addon,
+            )
+        )
+        abuse_report.update(
+            reporter_email='reporter@email.com',
+            cinder_job=original_cinder_job,
+            appellant_job=original_cinder_job.decision.appeal_job,
+        )
+        req = self.get_request(data=data)
+        with mock.patch.object(
+            CinderActionApproveNoAction, 'process_action'
+        ) as process_mock:
+            cinder_webhook(req)
+        process_mock.assert_called()
+        assert len(mail.outbox) == 1
+        assert mail.outbox[0].to == ['reporter@email.com']
+        assert 'we have denied your appeal' in mail.outbox[0].body
+
     def test_queue_does_not_matter_non_reviewer_case(self):
         data = self.get_data()
         data['payload']['source']['job']['queue']['slug'] = 'amo-another-queue'
-        return self._test_process_decision_called(data, override=False)
+        return self.test_process_decision_called(data)
 
     def test_queue_handled_reviewer_queue_ignored(self):
         data = self.get_data()
@@ -1057,6 +1187,22 @@ class TestCinderWebhook(TestCase):
                 'received': True,
                 'handled': False,
                 'not_handled_reason': 'No matching job id found',
+            }
+        }
+
+    def test_reviewer_tools_resolved_cinder_job(self):
+        report = self._setup_reports()
+        report.cinder_job.update(resolvable_in_reviewer_tools=True)
+        req = self.get_request()
+        with mock.patch.object(CinderJob, 'process_decision') as process_mock:
+            response = cinder_webhook(req)
+            process_mock.assert_not_called()
+        assert response.status_code == 200
+        assert response.data == {
+            'amo': {
+                'received': True,
+                'handled': False,
+                'not_handled_reason': 'Decision already handled via reviewer tools',
             }
         }
 
@@ -1294,13 +1440,13 @@ class RatingAbuseViewSetTestBase:
         assert response.status_code == 201, response.content
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=True)
+    @override_switch('dsa-job-technical-processing', active=True)
     def test_reportable_reason_calls_cinder_task(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_called()
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=False)
+    @override_switch('dsa-job-technical-processing', active=False)
     def test_reportable_reason_does_not_call_cinder_with_waffle_off(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_not_called()
@@ -1546,13 +1692,13 @@ class CollectionAbuseViewSetTestBase:
         assert response.status_code == 201, response.content
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=True)
+    @override_switch('dsa-job-technical-processing', active=True)
     def test_reportable_reason_calls_cinder_task(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_called()
 
     @mock.patch('olympia.abuse.tasks.report_to_cinder.delay')
-    @override_switch('enable-cinder-reporting', active=False)
+    @override_switch('dsa-job-technical-processing', active=False)
     def test_reportable_reason_does_not_call_cinder_with_waffle_off(self, task_mock):
         self._setup_reportable_reason('hateful_violent_deceptive')
         task_mock.assert_not_called()
@@ -1865,6 +2011,45 @@ class TestAppeal(TestCase):
         assert self.appeal_mock.delay.call_args_list[0][1] == {
             'appeal_text': 'I dont like this',
             'decision_cinder_id': self.cinder_job.decision.cinder_id,
+            'abuse_report_id': None,
+            'user_id': user.pk,
+            'is_reporter': False,
+        }
+
+    def test_appeal_rejection_author_no_cinderjob(self):
+        user = user_factory()
+        self.addon.authors.add(user)
+        self.client.force_login(user)
+        decision = CinderDecision.objects.create(
+            addon=self.addon,
+            action=DECISION_ACTIONS.AMO_DISABLE_ADDON,
+            cinder_id='some-decision-id',
+        )
+        author_appeal_url = reverse(
+            'abuse.appeal_author', kwargs={'decision_cinder_id': decision.cinder_id}
+        )
+        response = self.client.get(author_appeal_url)
+        assert response.status_code == 200
+        doc = pq(response.content)
+        assert not doc('#id_email')
+        assert not doc('#appeal-thank-you')
+        assert doc('#id_reason')
+        assert doc('#appeal-submit')
+
+        response = self.client.post(
+            author_appeal_url,
+            {'email': 'me@example.com', 'reason': 'I dont like this'},
+        )
+        assert response.status_code == 200
+        doc = pq(response.content)
+        assert doc('#appeal-thank-you')
+        assert not doc('#id_reason')
+        assert not doc('#appeal-submit')
+        assert self.appeal_mock.delay.call_count == 1
+        assert self.appeal_mock.delay.call_args_list[0][0] == ()
+        assert self.appeal_mock.delay.call_args_list[0][1] == {
+            'appeal_text': 'I dont like this',
+            'decision_cinder_id': decision.cinder_id,
             'abuse_report_id': None,
             'user_id': user.pk,
             'is_reporter': False,

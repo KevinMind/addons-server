@@ -450,7 +450,7 @@ class TestParseXpi(amo.tests.AMOPaths, TestCase):
 
         with open(self.file_fixture_path(filename), 'rb') as fobj:
             file_ = SimpleUploadedFile(filename, fobj.read())
-            return parse_addon(file_, addon, **parse_addon_kwargs)
+            return parse_addon(file_, addon=addon, **parse_addon_kwargs)
 
     def test_parse_basics(self):
         # Basic test for key properties (more advanced testing is done in other
@@ -611,17 +611,19 @@ class TestParseXpi(amo.tests.AMOPaths, TestCase):
         # really matter what we set here, we allow updates to an add-on
         # with a XPI that has no id.
         addon = Addon.objects.create(
-            guid='e2c45b71-6cbb-452c-97a5-7e8039cc6535', type=1
+            guid='e2c45b71-6cbb-452c-97a5-7e8039cc6535', type=amo.ADDON_EXTENSION
         )
         info = self.parse(addon, filename='webextension_no_id.xpi')
         assert info['guid'] == addon.guid
 
     def test_match_type(self):
-        addon = Addon.objects.create(guid='@webextension-guid', type=4)
+        addon = Addon.objects.create(
+            guid='@webextension-guid', type=amo.ADDON_STATICTHEME
+        )
         with self.assertRaises(forms.ValidationError) as e:
             self.parse(addon)
         assert e.exception.messages[0] == (
-            'The type (1) does not match the type of your add-on on AMO (4)'
+            'The type (Extension) does not match the type of your add-on on AMO (Theme)'
         )
 
     def test_match_type_extension_for_webextension_experiments(self):
@@ -662,7 +664,7 @@ class TestParseXpi(amo.tests.AMOPaths, TestCase):
         with self.assertRaises(forms.ValidationError) as e:
             # This file doesn't exist, it will raise an IOError that should
             # be caught and re-raised as a ValidationError.
-            parse_addon('baxmldzip.xpi', None)
+            parse_addon('baxmldzip.xpi', addon=None)
         assert e.exception.messages == ['Could not parse the manifest file.']
 
     def test_parse_langpack(self):
@@ -1440,5 +1442,7 @@ class TestZip(TestCase, amo.tests.AMOPaths):
 def test_parse_addon(xpi_mock):
     user = mock.Mock()
 
-    parse_addon('file.xpi', None, user=user)
-    xpi_mock.assert_called_with('file.xpi', None, minimal=False, user=user)
+    parse_addon('file.xpi', addon=None, user=user)
+    xpi_mock.assert_called_with(
+        'file.xpi', addon=None, minimal=False, user=user, bypass_trademark_checks=False
+    )

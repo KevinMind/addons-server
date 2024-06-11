@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-13 13:49+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-05-16 19:43+0000\n"
 "Last-Translator: Artem Polivanchuk <a.polivanchuk@outlook.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
@@ -126,6 +126,11 @@ msgid ""
 "After reviewing your appeal, we have determined that our prior decision, that this content does not violate Mozilla's policies (%(policy_document_url)s), was incorrect. Based on that determination, "
 "we have requested the developer make changes. If they do not update their content to correct the violation, we will remove it.\n"
 msgstr ""
+"\n"
+"Дякуємо за ваш звіт про %(name)s у додатках Mozilla та за надання додаткової інформації щодо вашого занепокоєння.\n"
+"\n"
+"Розглянувши ваше оскарження, ми дійшли висновку, що наше попереднє рішення про те, що цей вміст не порушує політики Mozilla (%(policy_document_url)s), було неправильним. На основі цього рішення ми "
+"попросили розробника внести зміни. Якщо розробник не виправить порушення, ми видалимо його вміст.\n"
 
 #, python-format
 msgid ""
@@ -167,6 +172,11 @@ msgid ""
 "We reviewed your report and the content in question, and found that it violates Mozilla's policies (%(policy_document_url)s), and have therefore requested the developer make changes. If they do not "
 "update their content to correct the violation, we will remove it.\n"
 msgstr ""
+"\n"
+"Дякуємо за ваш звіт про зазначений додаток до Mozilla: %(name)s.\n"
+"\n"
+"Ми розглянули ваш звіт і пов'язаний вміст і виявили, що він порушує політику Mozilla (%(policy_document_url)s), і тому попросили розробника внести зміни. Якщо розробник не оновить свій вміст, щоб "
+"виправити порушення, ми видалимо його.\n"
 
 #, python-format
 msgid ""
@@ -240,7 +250,7 @@ msgstr[1] "Версії {0}"
 msgstr[2] "Версії {0}"
 
 msgid "Review note"
-msgstr "Нотатка перевірки"
+msgstr "Примітка щодо перевірки"
 
 msgid "Only latest versions of addons can have notes added."
 msgstr "Лише останні версії додатків можуть мати нотатки."
@@ -351,7 +361,7 @@ msgid "This slug cannot be used. Please choose another."
 msgstr "Не може бути застосовано це закінчення. Виберіть інше."
 
 msgid "Add-on names cannot contain the Mozilla or Firefox trademarks."
-msgstr "Назва додатків не може містити торгові марки Mozilla чи Firefox."
+msgstr "Назви додатків не можуть містити торговельні марки Mozilla чи Firefox."
 
 msgid "Version {version_string} must be greater than the previous approved version {previous_version_string}."
 msgstr "Версія {version_string} повинна бути вищою за попередню затверджену версію {previous_version_string}."
@@ -487,10 +497,10 @@ msgstr "Не знайдено"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>Вибачте, проте ми не можемо знайти те, що ви шукали.</h1> <p>Запитану сторінку або файл не знайдено на нашому сайті. Можливо, ви натиснули застаріле посилання або зробили помилку в адресі.</p> "
 "<ul> <li>Якщо ви вводили адресу, будь ласка, переконайтесь, що вона введена правильно.</li> <li>Якщо ви перейшли за посиланням, будь ласка, %(open_bug_link)sповідомте про помилку%(close_bug_link)s. "
@@ -864,10 +874,10 @@ msgid "Notes for reviewers changed"
 msgstr "Примітки для рецензентів змінено"
 
 msgid "Source code uploaded for {addon} {version}."
-msgstr "Завантажено програмний код для {addon} {version}."
+msgstr "Вивантажено програмний код для {addon} {version}."
 
 msgid "Source code uploaded"
-msgstr "Завантажено програмний код"
+msgstr "Вивантажено програмний код"
 
 msgid "{addon} {version} auto-approval confirmed."
 msgstr "Автозатвердження {addon} {version} підтверджено."
@@ -974,8 +984,8 @@ msgstr "{addon} {version} заплановано відхилити."
 msgid "Rejection scheduled"
 msgstr "Заплановано відхилити"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} перепідписано (раніше {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} автоматично створено та підписано з {0}."
 
 msgid "Version re-signed"
 msgstr "Версію перепідписано"
@@ -1039,6 +1049,18 @@ msgstr "Вміст користувача {user} відновлено."
 
 msgid "User {user} unbanned."
 msgstr "Користувача {user} розблоковано."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
+msgstr ""
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1107,7 +1129,7 @@ msgid "Deprecated Search Engine"
 msgstr "Застаріла пошукова система"
 
 msgid "Language Pack"
-msgstr "Мовний пакет"
+msgstr "Мовний пакунок"
 
 msgid "Deprecated Language Pack (Add-on)"
 msgstr "Застарілий мовний пакунок (додаток)"
@@ -1118,8 +1140,8 @@ msgstr "Застарілий плагін"
 msgid "Deprecated LWT"
 msgstr "Застарілий LWT"
 
-msgid "Theme (Static)"
-msgstr "Тема (Статична)"
+msgid "Theme"
+msgstr "Тему"
 
 msgid "Deprecated Site Permission"
 msgstr "Застарілий дозвіл сайту"
@@ -1148,19 +1170,11 @@ msgstr "Застарілі плагіни"
 msgid "Deprecated LWTs"
 msgstr "Застарілі LWT"
 
-msgid "Themes (Static)"
-msgstr "Теми (Статичні)"
+msgid "Themes"
+msgstr "Теми"
 
 msgid "Deprecated Site Permissions"
 msgstr "Застарілі дозволи сайтів"
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
 
 msgid "Alerts & Updates"
 msgstr "Дані сторінок, повідомлення та віджети"
@@ -1449,9 +1463,6 @@ msgstr "Схвалити"
 
 msgid "All"
 msgstr "Все"
-
-msgid "Theme"
-msgstr "Тему"
 
 msgid "No action"
 msgstr "Немає дії"
@@ -1847,7 +1858,7 @@ msgid "Verify email"
 msgstr "Підтвердити адресу електронної пошти"
 
 msgid "Send another email"
-msgstr ""
+msgstr "Надіслати інший електронний лист"
 
 msgid "Your email has been verified"
 msgstr "Адресу електронної пошти підтверджено"
@@ -1880,9 +1891,6 @@ msgstr "Документація"
 
 msgid "Extension Development"
 msgstr "Розробка розширення"
-
-msgid "Themes"
-msgstr "Теми"
 
 msgid "Developer Policies"
 msgstr "Політики розробників"
@@ -1941,20 +1949,26 @@ msgstr "Валідовано:"
 msgid "Email Address Verification"
 msgstr "Підтвердження адреси електронної пошти"
 
+msgid "Status:"
+msgstr "Статус:"
+
 msgid "Your email address is verified."
 msgstr "Вашу адресу електронної пошти підтверджено."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Підтвердьте свою адресу електронної пошти, натиснувши вище \"Підтвердити адресу електронної пошти\"."
+msgid "Please verify your email."
+msgstr "Підтвердьте свою електронну адресу."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "Не вдалося підтвердити адресу електронної пошти. Термін дії посилання для підтвердження закінчився."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr ""
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "Ми надсилаємо вам електронний лист, будь ласка, наберіться терпіння... <div class=\"loader\"></div> Сторінка оновиться автоматично."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr ""
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "Доставка електронного листа з підтвердженням триває довше, ніж очікувалося. Будь ласка, повторіть спробу пізніше."
+
+msgid "Success!"
+msgstr "Успішно!"
 
 #, python-format
 msgid ""
@@ -1969,12 +1983,14 @@ msgid ""
 "The provided code is invalid, unauthorized, expired or incomplete. Please use the link in the email sent to your email address %(email)s. If the code is still not working, please request a new "
 "email."
 msgstr ""
+"Введений код недійсний, неавторизований, протермінований або неповний. Скористайтеся посиланням у листі, надісланому на вашу електронну адресу %(email)s. Якщо код все одно не працює, надішліть "
+"запит на новий електронний лист."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr ""
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>Історія електронних листів:</strong> у таблиці нижче показано всі електронні листи, які ми намагалися надіслати вам за останні 2 дні."
 
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 msgid "From"
 msgstr "Від"
@@ -1983,10 +1999,20 @@ msgid "To"
 msgstr "До"
 
 msgid "Subject"
-msgstr ""
+msgstr "Тема"
 
 msgid "Status"
 msgstr "Статус"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "Ми не знайшли для вас записів електронної пошти за останні 2 дні."
+
+msgid "Refresh results"
+msgstr "Оновити результати"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Якщо у вас виникли проблеми, перегляньте наші <a %(a_attrs)s>пропозиції щодо усунення проблем</a> на Firefox Extension Workshop."
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Нещодавня активність для моїх додатків"
@@ -2793,11 +2819,11 @@ msgstr "JWT таємниця"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr ""
-"Для здійснення запитів API, надішліть <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> в якості заголовку авторизації. Вам потрібно згенерувати JWT для кожного запиту, як описано у <a href="
-"\"%(docs_url)s\">API документації</a>."
+"Для здійснення запитів API, надішліть <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> в якості заголовку авторизації. Вам потрібно згенерувати JWT для кожного запиту, як описано у <a "
+"href=\"%(docs_url)s\">API документації</a>."
 
 #, python-format
 msgid "Please click the confirm button below to generate API credentials for user <strong>%(name)s</strong>."
@@ -2989,9 +3015,6 @@ msgstr "Останнє оновлення:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Оприлюднено на цьому сайті після проходження перевірки коду. Автоматичні оновлення забезпечуються цим сайтом"
-
-msgid "Status:"
-msgstr "Статус:"
 
 msgid "Listed Version:"
 msgstr "Опублікована версія:"
@@ -3198,15 +3221,6 @@ msgstr "Програма рекомендованих розширень"
 
 msgid "Contribute"
 msgstr "Зробити внесок"
-
-msgid "Review Add-ons"
-msgstr "Перевіряйте додатки"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Волонтери допомагають перевіряти безпеку та відповідність використання додатків. Вони також отримують привілеї!"
-
-msgid "Join us!"
-msgstr "Приєднуйтеся!"
 
 msgid "Write Some Code"
 msgstr "Напишіть трохи коду"
@@ -4179,6 +4193,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Зробіть текст заплутаних ліцензійних угод зрозумілим. Розумне розширення, що допомагає вам швидко зрозуміти, з чим ви погоджуєтесь."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Допомога з граматики всюди, де ви пишете в Інтернеті – соціальні мережі, електронна пошта, документи та інше."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Читайте чіткіше й легше. Приберіть з вебсторінок все зайве, окрім тексту."
@@ -4356,7 +4374,7 @@ msgstr "Маскуйте свою електронну адресу. Firefox Rel
 
 #. editorial content for the discovery pane.
 msgid "Time-based theme changer. Make Firefox change colors as the time of day changes."
-msgstr "Зміна тем залежно від часу. Налаштуйте Firefox змінювати кольори зі зміною часу доби."
+msgstr "Зміна теми залежно від часу. Дозвольте Firefox змінювати кольори зі зміною часу доби."
 
 #. editorial content for the discovery pane.
 msgid "Declutter your Twitter experience."
@@ -4370,9 +4388,13 @@ msgstr "Поверніть можливість бачити реакцію «Н
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Слухайте музику на YouTube без надокучливого переривання \"Відео призупинено. Продовжити перегляд?\"."
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Змініть вигляд інтернету."
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
-msgstr "Деякі сайти мають труднощі з відтворенням відео на Android. Перед вами розв'язувок проблеми."
+msgstr "Деякі сайти мають труднощі з відтворенням відео на Android. Ось, як це виправити."
 
 #. editorial content for the primary hero shelves.
 msgid "Find an interesting image on the web? Use TinEye to explore its origins."
@@ -4535,16 +4557,16 @@ msgid "See all extensions"
 msgstr "Переглянути всі розширення"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr ""
+msgid "Port Authority (Developer Spotlight)"
+msgstr "Адміністрація порту (в центрі уваги розробників)"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "Розширення для приватності й безпеки"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr ""
+msgid "Fantastic tab managers"
+msgstr "Фантастичні менеджери вкладок"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5181,22 +5203,6 @@ msgstr "Додатки Mozilla"
 msgid "Back to Add-ons"
 msgstr "Назад до додатків"
 
-msgid "Legal Notices"
-msgstr "Правові положення"
-
-msgid "Report Trademark Abuse"
-msgstr "Повідомити про зловживання торговою маркою"
-
-msgid "Report a bug"
-msgstr "Повідомити про помилку"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"За винятком випадків <a href=\"https://www.mozilla.org/about/legal\">зазначених тут</a>, вміст на цьому сайті ліцензований <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">на "
-"умовах ліцензії Creative Commons Attribution Share-Alike v3.0</a> або будь-якою пізнішою версією."
-
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Повернутись на домашню сторінку додатків {0}"
 
@@ -5217,6 +5223,9 @@ msgstr "Блог спільноти"
 
 msgid "Forum"
 msgstr "Форум"
+
+msgid "Report a bug"
+msgstr "Повідомити про помилку"
 
 msgid "Review Guide"
 msgstr "Настанови з написання відгуків"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: REMORA 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
 "PO-Revision-Date: 2023-11-01 10:36+0000\n"
 "Last-Translator: Yuki <knt722@icloud.com>\n"
 "Language-Team: Japanese\n"
@@ -448,10 +448,10 @@ msgstr "見つかりませんでした"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>申し訳ありませんが、お探しのものを見つけることができませんでした。</h1> <p>あなたがお探しのページまたはファイルは当サイト内で見つかりませんでした。古いリンクをクリックしたか間違ったアドレスを入"
 "力した可能性があります。</p> <ul> <li>アドレスを直接入力した場合は、スペルに誤りがないか確認してください。</li> <li>別の場所のリンクから移動してきた場合は、%(open_bug_link)s issue を登"
@@ -937,8 +937,8 @@ msgstr "{addon} {version} の却下が予定されました。"
 msgid "Rejection scheduled"
 msgstr "却下が予定されました"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} が再署名されました (以前は {0})。"
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr ""
 
 msgid "Version re-signed"
 msgstr "バージョンが再署名されました"
@@ -1001,6 +1001,18 @@ msgid "User {user} content restored."
 msgstr ""
 
 msgid "User {user} unbanned."
+msgstr ""
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
 msgstr ""
 
 msgid "Firefox"
@@ -1082,8 +1094,8 @@ msgstr ""
 msgid "Deprecated LWT"
 msgstr "非推奨の LWT"
 
-msgid "Theme (Static)"
-msgstr "テーマ (静的)"
+msgid "Theme"
+msgstr "テーマ"
 
 msgid "Deprecated Site Permission"
 msgstr ""
@@ -1114,18 +1126,10 @@ msgstr ""
 msgid "Deprecated LWTs"
 msgstr "非推奨の LWT"
 
-msgid "Themes (Static)"
-msgstr "テーマ (静的)"
+msgid "Themes"
+msgstr "テーマ"
 
 msgid "Deprecated Site Permissions"
-msgstr ""
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
 msgstr ""
 
 msgid "Alerts & Updates"
@@ -1404,9 +1408,6 @@ msgstr "承認"
 
 msgid "All"
 msgstr "すべて"
-
-msgid "Theme"
-msgstr "テーマ"
 
 msgid "No action"
 msgstr "アクションなし"
@@ -1827,9 +1828,6 @@ msgstr "ドキュメント"
 msgid "Extension Development"
 msgstr "拡張機能開発"
 
-msgid "Themes"
-msgstr "テーマ"
-
 msgid "Developer Policies"
 msgstr "開発者ポリシー"
 
@@ -1887,19 +1885,25 @@ msgstr "検証対象:"
 msgid "Email Address Verification"
 msgstr ""
 
+msgid "Status:"
+msgstr "状態:"
+
 msgid "Your email address is verified."
 msgstr ""
 
-msgid "Please verify your email by clicking \"Verify email\" above."
+msgid "Please verify your email."
 msgstr ""
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr ""
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
 msgstr ""
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 #, python-format
@@ -1914,7 +1918,7 @@ msgid ""
 "email."
 msgstr ""
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
 msgstr ""
 
 msgid "Date"
@@ -1931,6 +1935,16 @@ msgstr ""
 
 msgid "Status"
 msgstr "ステータス"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr ""
+
+msgid "Refresh results"
+msgstr ""
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr ""
 
 msgid "Recent Activity for My Add-ons"
 msgstr "自分のアドオンの最近のアクティビティ"
@@ -2719,8 +2733,8 @@ msgstr "JWT 秘密鍵"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr ""
 "API リクエストを行うには、認証ヘッダーとして <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> を送信します。<a href=\"%(docs_url)s\">API ドキュメント</a> に書かれている通り、リクエストごとに JWT を"
 "生成する必要があります。"
@@ -2856,9 +2870,6 @@ msgstr "最終更新日:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "コード審査を通った後、当サイトに掲載されます。自動更新は当サイトによって処理されます。"
-
-msgid "Status:"
-msgstr "状態:"
 
 msgid "Listed Version:"
 msgstr "公開バージョン:"
@@ -3059,15 +3070,6 @@ msgstr "おすすめの拡張機能プログラム"
 
 msgid "Contribute"
 msgstr "寄付"
-
-msgid "Review Add-ons"
-msgstr "アドオンを審査"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "ボランティアの審査担当者がアドオンを安全で期待通りに使えるよう協力してくれています。彼らには素晴らしい役得もあります！"
-
-msgid "Join us!"
-msgstr "参加しよう！"
 
 msgid "Write Some Code"
 msgstr "何かコードを書く"
@@ -4099,6 +4101,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr ""
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr ""
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr ""
@@ -4292,6 +4298,10 @@ msgstr ""
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr ""
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr ""
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr ""
@@ -4460,7 +4470,7 @@ msgid "See all extensions"
 msgstr "すべての拡張機能を見る"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -4468,7 +4478,7 @@ msgid "Privacy & Security extensions"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
+msgid "Fantastic tab managers"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -5121,22 +5131,6 @@ msgstr "Mozilla アドオン"
 msgid "Back to Add-ons"
 msgstr "アドオンのページへ戻る"
 
-msgid "Legal Notices"
-msgstr "法的通知"
-
-msgid "Report Trademark Abuse"
-msgstr "商標の不正利用を報告"
-
-msgid "Report a bug"
-msgstr "バグを報告"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"<a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons 表示-継承ラ"
-"イセンス 3.0</a> 以降に定めがある場合を除きます。"
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "{0}アドオンのホームページへ戻る"
@@ -5158,6 +5152,9 @@ msgstr ""
 
 msgid "Forum"
 msgstr "フォーラム"
+
+msgid "Report a bug"
+msgstr "バグを報告"
 
 msgid "Review Guide"
 msgstr ""

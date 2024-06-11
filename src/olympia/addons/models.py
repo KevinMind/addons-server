@@ -11,6 +11,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models, transaction
 from django.db.models import (
+    Exists,
     F,
     Max,
     Min,
@@ -306,18 +307,12 @@ class AddonManager(ManagerBase):
         show_temporarily_delayed=True,
         show_only_upcoming=False,
     ):
-        if theme_review:
-            filters = {
-                'type__in': amo.GROUP_TYPE_THEME,
-            }
-        else:
-            filters = {
-                'type__in': amo.GROUP_TYPE_ADDON,
-            }
-        excludes = {
-            'status': amo.STATUS_DISABLED,
+        from olympia.reviewers.models import NeedsHumanReview  # circular reference
+
+        filters = {
+            'type__in': amo.GROUP_TYPE_THEME if theme_review else amo.GROUP_TYPE_ADDON,
+            'versions__due_date__isnull': False,
         }
-        filters['versions__due_date__isnull'] = False
         qs = self.get_base_queryset_for_queue(
             admin_reviewer=admin_reviewer,
             theme_review=theme_review,
@@ -326,7 +321,7 @@ class AddonManager(ManagerBase):
             select_related_fields_for_listed=False,
         )
         versions_due_qs = (
-            Version.unfiltered.filter(due_date__isnull=False)
+            Version.unfiltered.filter(due_date__isnull=False, addon=OuterRef('pk'))
             .no_transforms()
             .order_by('due_date')
         )
@@ -367,11 +362,28 @@ class AddonManager(ManagerBase):
             )
         qs = (
             qs.filter(**filters)
-            .exclude(**excludes)
             .annotate(
                 first_version_due_date=Min('versions__due_date'),
                 first_version_id=Subquery(
                     versions_due_qs.filter(addon=OuterRef('pk')).values('pk')[:1]
+                ),
+                needs_human_review_from_cinder=Exists(
+                    versions_due_qs.filter(
+                        needshumanreview__is_active=True,
+                        needshumanreview__reason=NeedsHumanReview.REASONS.CINDER_ESCALATION,
+                    )
+                ),
+                needs_human_review_from_abuse=Exists(
+                    versions_due_qs.filter(
+                        needshumanreview__is_active=True,
+                        needshumanreview__reason=NeedsHumanReview.REASONS.ABUSE_ADDON_VIOLATION,
+                    )
+                ),
+                needs_human_review_from_appeal=Exists(
+                    versions_due_qs.filter(
+                        needshumanreview__is_active=True,
+                        needshumanreview__reason=NeedsHumanReview.REASONS.ADDON_REVIEW_APPEAL,
+                    )
                 ),
             )
             .filter(first_version_id__isnull=False)
@@ -642,14 +654,14 @@ class Addon(OnChangeMixin, ModelBase):
             'Addon "%s" status force-changed to: %s', self.slug, amo.STATUS_DISABLED
         )
         self.update(status=amo.STATUS_DISABLED)
+        # https://github.com/mozilla/addons-server/issues/13194
+        Addon.disable_all_files([self], File.STATUS_DISABLED_REASONS.ADDON_DISABLE)
         self.update_version()
         # https://github.com/mozilla/addons-server/issues/20507
         NeedsHumanReview.objects.filter(
             version__in=self.versions(manager='unfiltered_for_relations').all()
         ).update(is_active=False)
         self.update_all_due_dates()
-        # https://github.com/mozilla/addons-server/issues/13194
-        Addon.disable_all_files([self], File.STATUS_DISABLED_REASONS.ADDON_DISABLE)
 
         delete_all_addon_media_with_backup.delay(self.pk)
 
@@ -959,6 +971,7 @@ class Addon(OnChangeMixin, ModelBase):
         *,
         selected_apps,
         parsed_data,
+        client_info=None,
         channel=amo.CHANNEL_LISTED,
     ):
         """
@@ -981,6 +994,7 @@ class Addon(OnChangeMixin, ModelBase):
             channel=channel,
             selected_apps=selected_apps,
             parsed_data=parsed_data,
+            client_info=client_info,
         )
         return addon
 

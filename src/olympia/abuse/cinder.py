@@ -8,13 +8,14 @@ import requests
 import waffle
 
 import olympia
-from olympia import activity, amo
+from olympia import activity, amo, core
 from olympia.amo.utils import (
     backup_storage_enabled,
     chunked,
     copy_file_to_backup_storage,
     create_signed_url_for_file_backup,
 )
+from olympia.users.utils import get_task_user
 
 
 log = olympia.core.logger.getLogger('z.abuse')
@@ -148,23 +149,34 @@ class CinderEntity:
         else:
             raise ConnectionError(response.content)
 
-    def create_decision(self, *, reasoning, policy_uuids):
-        if self.type is None:
-            # type needs to be defined by subclasses
-            raise NotImplementedError
-        url = f'{settings.CINDER_SERVER_URL}create_decision'
+    def _send_create_decision(self, url, data, action, reasoning, policy_uuids):
         data = {
-            'queue_slug': self.queue,
-            'entity_type': self.type,
-            'entity': self.get_attributes(),
+            **data,
             'reasoning': self.get_str(reasoning),
             'policy_uuids': policy_uuids,
+            'enforcement_actions_slugs': [action],
+            'enforcement_actions_update_strategy': 'set',
         }
         response = requests.post(url, json=data, headers=self.get_cinder_http_headers())
         if response.status_code == 201:
             return response.json().get('uuid')
         else:
             raise ConnectionError(response.content)
+
+    def create_decision(self, *, action, reasoning, policy_uuids):
+        if self.type is None:
+            # type needs to be defined by subclasses
+            raise NotImplementedError
+        url = f'{settings.CINDER_SERVER_URL}create_decision'
+        data = {
+            'entity_type': self.type,
+            'entity': self.get_attributes(),
+        }
+        return self._send_create_decision(url, data, action, reasoning, policy_uuids)
+
+    def create_job_decision(self, *, action, reasoning, policy_uuids, job_id):
+        url = f'{settings.CINDER_SERVER_URL}jobs/{job_id}/decision'
+        return self._send_create_decision(url, {}, action, reasoning, policy_uuids)
 
     def close_job(self, *, job_id):
         url = f'{settings.CINDER_SERVER_URL}jobs/{job_id}/cancel'
@@ -276,10 +288,10 @@ class CinderAddon(CinderEntity):
         return 'themes' if self.addon.type == amo.ADDON_STATICTHEME else 'listings'
 
     def get_attributes(self):
-        # We look at the promoted group to tell whether or not the add-on has
-        # a badge, but we don't care about the promotion being approved for the
-        # current version, it would make more queries and it's not useful for
-        # moderation purposes anyway.
+        # We look at the promoted group to tell whether or not the add-on is
+        # promoted in any way, but we don't care about the promotion being
+        # approved for the current version, it would make more queries and it's
+        # not useful for moderation purposes anyway.
         promoted_group = self.addon.promoted_group(currently_approved=False)
         data = {
             'id': self.id,
@@ -290,9 +302,7 @@ class CinderAddon(CinderEntity):
             'name': self.get_str(self.addon.name),
             'slug': self.addon.slug,
             'summary': self.get_str(self.addon.summary),
-            'promoted_badge': self.get_str(
-                promoted_group.name if promoted_group.badged else ''
-            ),
+            'promoted': self.get_str(promoted_group.name if promoted_group else ''),
         }
         return data
 
@@ -443,18 +453,22 @@ class CinderAddonHandledByReviewers(CinderAddon):
     def flag_for_human_review(self, appeal=False):
         from olympia.reviewers.models import NeedsHumanReview
 
-        if not waffle.switch_is_active('enable-cinder-reviewer-tools-integration'):
+        waffle_switch_name = (
+            'dsa-appeals-review' if appeal else 'dsa-abuse-reports-review'
+        )
+        if not waffle.switch_is_active(waffle_switch_name):
             log.info(
-                'Not adding %s to review queue despite %s because waffle switch is off',
+                'Not adding %s to review queue despite %s because %s switch is off',
                 self.addon,
                 'appeal' if appeal else 'report',
+                waffle_switch_name,
             )
             return
 
         reason = (
-            NeedsHumanReview.REASON_ABUSE_ADDON_VIOLATION_APPEAL
+            NeedsHumanReview.REASONS.ADDON_REVIEW_APPEAL
             if appeal
-            else NeedsHumanReview.REASON_ABUSE_ADDON_VIOLATION
+            else NeedsHumanReview.REASONS.ABUSE_ADDON_VIOLATION
         )
         nhr_object = NeedsHumanReview(
             version=self.version, reason=reason, is_active=True
@@ -479,6 +493,7 @@ class CinderAddonHandledByReviewers(CinderAddon):
                 amo.LOG.NEEDS_HUMAN_REVIEW_CINDER,
                 *versions_to_log,
                 details={'comments': nhr_object.get_reason_display()},
+                user=core.get_user() or get_task_user(),
             )
 
     def report(self, *args, **kwargs):

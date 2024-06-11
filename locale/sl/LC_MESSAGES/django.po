@@ -3,9 +3,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: support.mozilla.com\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-22 08:15+0000\n"
-"Last-Translator: Google Translate <pontoon-gt@example.com>\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-06-07 14:20+0000\n"
+"Last-Translator: Lan Glad <upwinxp@gmail.com>\n"
 "Language-Team: Slovenian\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -978,8 +978,8 @@ msgstr "Zavrnitev {addon} {version} načrtovana."
 msgid "Rejection scheduled"
 msgstr "Zavrnitev načrtovana"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} znova podpisan (prej {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} samodejno ustvarjen in podpisan iz {0}."
 
 msgid "Version re-signed"
 msgstr "Različica ponovno podpisana"
@@ -1043,6 +1043,18 @@ msgstr "Vsebina uporabnika {user} obnovljena."
 
 msgid "User {user} unbanned."
 msgstr "Trajna izključitev uporabnika {user} preklicana."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr "{addon} {version} samodejno zavrnjen po poteku zakasnitve."
+
+msgid "Rejected automatically after delay expired"
+msgstr "Samodejno zavrnjeno po pretečenem roku"
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr "Vsebina {addon} {version} samodejno zavrnjena po pretečenem zakasnitvi."
+
+msgid "Content rejected automatically after delay expired"
+msgstr "Vsebina zavrnjena samodejno po poteku zakasnitve"
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1125,8 +1137,8 @@ msgstr "Zastarel vtičnik"
 msgid "Deprecated LWT"
 msgstr "Zastarel LWT"
 
-msgid "Theme (Static)"
-msgstr "Tema (statična)"
+msgid "Theme"
+msgstr "Tema"
 
 msgid "Deprecated Site Permission"
 msgstr "Zastarelo dovoljenje strani"
@@ -1156,21 +1168,11 @@ msgstr "Zastareli vtičniki"
 msgid "Deprecated LWTs"
 msgstr "Zastareli LWT-ji"
 
-msgid "Themes (Static)"
-msgstr "Teme (statične)"
+msgid "Themes"
+msgstr "Teme"
 
 msgid "Deprecated Site Permissions"
 msgstr "Zastarela dovoljenja strani"
-
-msgid "Accessibility"
-msgstr "Dostopnost"
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
-"Prenesite razširitve za dostopnost za Firefox, ki vam bodo v pomoč pri pregledovanju vsebine in brskanju po spletu na načine, ki vam najbolj ustrezajo. Odkrijte razširitve, ki odstranijo ali "
-"zmanjšajo ovire za dostop s spreminjanjem svetlosti zaslona, branjem spletnih strani na glas, zagotavljanjem natančne povečave in več."
 
 msgid "Alerts & Updates"
 msgstr "Opozorila in posodobitve"
@@ -1451,9 +1453,6 @@ msgstr "Dovoli"
 
 msgid "All"
 msgstr "Vse"
-
-msgid "Theme"
-msgstr "Tema"
 
 msgid "No action"
 msgstr "Ni dejanja"
@@ -1826,10 +1825,10 @@ msgid "The color of text in fields in the toolbar, such as the URL bar. Manifest
 msgstr "Barva besedila v poljih orodne vrstice, kot je vrstica z naslovom. Polje manifesta:  toolbar_field_text."
 
 msgid "Tab highlight"
-msgstr "Označi zavihek"
+msgstr "Poudarki zavihkov"
 
 msgid "The highlight color of the active tab. Implemented as a border around the tab on Firefox 89+ and a line above the tab on older Firefoxes. Manifest field:  tab_line."
-msgstr "Barva označevanja aktivnega zavihka. Uporabljeno kot obroba okoli zavihka v Firefoxu 89+ in črta nad zavihkom v starejših Firefoxih. Polje manifesta: tab_line."
+msgstr "Barvni označevalnik aktivnega zavihka: kot obroba okoli zavihka v Firefoxu 89+, v starejših različicah pa kot črta nad zavihkom. Polje manifesta:  tab_line."
 
 msgid "Review requested."
 msgstr "Pregled zahtevan."
@@ -1883,9 +1882,6 @@ msgstr "Dokumentacija"
 
 msgid "Extension Development"
 msgstr "Razvoj dodatkov"
-
-msgid "Themes"
-msgstr "Teme"
 
 msgid "Developer Policies"
 msgstr "Pravilniki za razvijalce"
@@ -1944,28 +1940,32 @@ msgstr "Veljavnost preverjena ob:"
 msgid "Email Address Verification"
 msgstr "Preverjanje e-poštnega naslova"
 
+msgid "Status:"
+msgstr "Stanje:"
+
 msgid "Your email address is verified."
 msgstr "Vaš e-poštni naslov je potrjen."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Potrdite svoj e-poštni naslov s klikom na \"Potrdi naslov\" zgoraj."
+msgid "Please verify your email."
+msgstr "Potrdite svoj e-poštni naslov."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "E-poštnega naslova ni bilo mogoče potrditi. Povezava za preverjanje je potekla."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr "Pošiljamo vam e-poštno sporočilo, kar lahko traja nekaj minut. Stran se bo samodejno osvežila."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "Pošiljamo vam sporočilo. Prosimo za potrpežljivost ... <div class=\"loader\"></div> Stran se bo samodejno osvežila."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr "Potrjevanje dostave vašega potrditvenega e-poštnega sporočila traja dlje, kot je pričakovano. Poskusite znova."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "Potrjevanje dostave vašega potrditvenega e-poštnega sporočila traja dlje, kot je pričakovano. Poskusite znova pozneje."
+
+msgid "Success!"
+msgstr "Uspelo je!"
 
 #, python-format
 msgid ""
 "An email with a confirmation link has been sent to your email address: %(email)s. Please click the link to confirm your email address. If you did not receive the email, please check your spam "
 "folder."
-msgstr ""
-"E-poštno sporočilo s potrditveno povezavo je bilo poslano na vaš e-poštni naslov: %(email)s. Kliknite na povezavo za potrditev vašega e-poštnega naslova. Če sporočila niste prejeli, preverite mapo z"
-" vsiljeno pošto."
+msgstr "Sporočilo s potrditveno povezavo je bilo poslano na vaš e-poštni naslov: %(email)s. Kliknite na povezavo, da potrdite naslov. Če sporočila niste prejeli, preverite mapo z vsiljeno pošto."
 
 #, python-format
 msgid ""
@@ -1975,8 +1975,8 @@ msgstr ""
 "Vnesena koda je neveljavna, nepooblaščena, ji je potekla veljavnost ali je nepopolna. Uporabite povezavo iz sporočila, poslanega na vaš e-poštni naslov %(email)s. Če koda še vedno ne deluje, "
 "zahtevajte novo sporočilo."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr "Poskusili smo vam poslati potrditveno sporočilo. Spodaj so navedeni zapisi o potrditvi in z njimi povezana stanja dostave."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>Zgodovina e-pošte:</strong> spodnja tabela prikazuje vsa e-poštna sporočila, ki smo vam jih poskušali poslati v zadnjih 2 dneh."
 
 msgid "Date"
 msgstr "Datum"
@@ -1992,6 +1992,16 @@ msgstr "Zadeva"
 
 msgid "Status"
 msgstr "Stanje"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "V zadnjih 2 dneh nismo našli nobenih zapisov o e-pošti za vas."
+
+msgid "Refresh results"
+msgstr "Osveži rezultate"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Če naletite na težave, si oglejte naše <a %(a_attrs)s>predloge za odpravljanje težav</a> na delavnici razširitev Firefox."
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Nedavna aktivnost za Moji dodatki"
@@ -2997,9 +3007,6 @@ msgstr "Nazadnje posodobljeno:"
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Po opravljenem pregledu kode gostovan na tej strani. Za samodejne posodobitve skrbi ta stran"
 
-msgid "Status:"
-msgstr "Stanje:"
-
 msgid "Listed Version:"
 msgstr "Navedena različica:"
 
@@ -3203,15 +3210,6 @@ msgstr "Program priporočenih razširitev"
 
 msgid "Contribute"
 msgstr "Prispevajte"
-
-msgid "Review Add-ons"
-msgstr "Preglejte dodatke"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Prostovoljni pregledovalci pomagajo pri zagotavljanju varnosti in zanesljivosti dodatkov. Tudi oni so deležni krasnih nagrad!"
-
-msgid "Join us!"
-msgstr "Pridružite se nam!"
 
 msgid "Write Some Code"
 msgstr "Napišite nekaj kode"
@@ -4193,6 +4191,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Prebijte se skozi nesmisle običajnih pogojev uporabe. Pametna razširitev, ki vam pomaga hitro razumeti, s čim vse soglašate."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Pomočnik za slovnico, ki vam je na voljo povsod, kjer pišete na spletu – na družbenih omrežjih, v e-pošti, dokumentih in več."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Berite z več jasnosti in enostavnosti. Odstranite nered okoli besedila na spletnih straneh."
@@ -4370,7 +4372,7 @@ msgstr "Zamaskirajte svoj e-poštni naslov. Firefox Relay varuje vašo identitet
 
 #. editorial content for the discovery pane.
 msgid "Time-based theme changer. Make Firefox change colors as the time of day changes."
-msgstr "Časovni menjalnik tem. Naj Firefox spreminja barve glede na čas."
+msgstr "Časovni menjalnik tem. Naj Firefox spreminja barve glede na del dneva."
 
 #. editorial content for the discovery pane.
 msgid "Declutter your Twitter experience."
@@ -4383,6 +4385,10 @@ msgstr "Vrnite možnost prikaza palcev navzdol!"
 #. editorial content for the discovery pane.
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Poslušajte glasbo na YouTubu brez nadležnih prekinitev \"Predvajanje videoposnetka je začasno zaustavljeno\"."
+
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Spremenite videz spleta."
 
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
@@ -4446,7 +4452,7 @@ msgstr "Prejemajte vremensko napoved naravnost v Firefox."
 
 #. editorial content for the primary hero shelves.
 msgid "Manage your time better with a browser clock that charts work intervals."
-msgstr "Upravljajte s časom bolje z brskalniško uro, ki beleži delovne intervale."
+msgstr "Bolje upravljajte s svojim časom z brskalniško uro, ki beleži delovne intervale."
 
 #. editorial content for the primary hero shelves.
 msgid "Tired of that \"Video paused. Continue watching?\" message? Listen to your favorite music uninterrupted on YouTube."
@@ -4549,16 +4555,16 @@ msgid "See all extensions"
 msgstr "Prikaži vse razširitve"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr "YouTubov iskalnik Fixer (izpostavljeno razvijalcem)"
+msgid "Port Authority (Developer Spotlight)"
+msgstr "Port Authority (žarometi za razvijalce)"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "Razširitve za zasebnost in varnost"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr "Orodja za pisanje"
+msgid "Fantastic tab managers"
+msgstr "Sijajni upravitelji zavihkov"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5209,22 +5215,6 @@ msgstr "Dodatki Mozilla"
 msgid "Back to Add-ons"
 msgstr "Nazaj na dodatke"
 
-msgid "Legal Notices"
-msgstr "Pravna obvestila"
-
-msgid "Report Trademark Abuse"
-msgstr "Prijava zlorabe blagovne znamke"
-
-msgid "Report a bug"
-msgstr "Prijavi hrošča"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Če ni drugače <a href=\"https://www.mozilla.org/about/legal/\">navedeno</a>, je vsebina te strani na voljo pod licenco <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> Creative "
-"Commons Attribution Share-Alike License v3.0 </a> ali novejšo različico."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Vrni se na domačo stran za {0} dodatki"
@@ -5246,6 +5236,9 @@ msgstr "Blog skupnosti"
 
 msgid "Forum"
 msgstr "Forum"
+
+msgid "Report a bug"
+msgstr "Prijavi hrošča"
 
 msgid "Review Guide"
 msgstr "Smernice za mnenja"

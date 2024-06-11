@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: addons\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-18 20:18+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-05-15 08:25+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -497,16 +497,16 @@ msgstr "Nem található"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>Sajnáljuk, de nem találjuk amit keres.</h1> <p> A keresett oldal vagy fájl nem található a weboldalunkon. Lehetséges, hogy elavult hivatkozást használt vagy hibásan gépelte be a megadott címet. "
-"</p> <ul> <li>Amennyiben begépelte a címet, akkor ellenőrizze annak helyességét.</li> <li> Amennyiben másik oldalról jutott el ide, akkor kérjük %(open_bug_link)snyújtson be egy jegyet"
-"%(close_bug_link)s. Írja meg, hogy honnan jött, és hogy mit keresett; mindent meg fogunk tenni a hiba kijavítása érdekében.</li> </ul> <p>Vagy egyszerűen csak ugorjon át valamelyik népszerű "
-"weboldalunkra..</p> <ul> <li>Érdeklik a <a href=\"%(rec)s\">kiemelt kiterjesztések</a>?</li> <li> <a href=\"%(search)s\">Kiterjesztést szeretne keresni</a>? Ebben az esetben menjen a <a href="
-"\"%(search)s\">keresőoldalra</a> vagy használja a keresőmezőt. </li> <li> Amennyiben az elejéről kívánja kezdeni, akkor ugorjon a <a href=\"%(home)s\">kiegészítők kezdőlapjára</a>. </li> </ul>"
+"</p> <ul> <li>Amennyiben begépelte a címet, akkor ellenőrizze annak helyességét.</li> <li> Amennyiben másik oldalról jutott el ide, akkor kérjük %(open_bug_link)snyújtson be egy "
+"jegyet%(close_bug_link)s. Írja meg, hogy honnan jött, és hogy mit keresett; mindent meg fogunk tenni a hiba kijavítása érdekében.</li> </ul> <p>Vagy egyszerűen csak ugorjon át valamelyik népszerű "
+"weboldalunkra..</p> <ul> <li>Érdeklik a <a href=\"%(rec)s\">kiemelt kiterjesztések</a>?</li> <li> <a href=\"%(search)s\">Kiterjesztést szeretne keresni</a>? Ebben az esetben menjen a <a "
+"href=\"%(search)s\">keresőoldalra</a> vagy használja a keresőmezőt. </li> <li> Amennyiben az elejéről kívánja kezdeni, akkor ugorjon a <a href=\"%(home)s\">kiegészítők kezdőlapjára</a>. </li> </ul>"
 
 msgid "Oops"
 msgstr "Hoppá"
@@ -987,8 +987,8 @@ msgstr "{addon} {version} elutasítása beütemezve."
 msgid "Rejection scheduled"
 msgstr "Elutasítás beütemezve"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} újra aláírva (korábban {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} automatikusan létrehozva és aláírva innen: {0}."
 
 msgid "Version re-signed"
 msgstr "Verzió újra aláírva"
@@ -1052,6 +1052,18 @@ msgstr "{user} felhasználó tartalma helyreállítva."
 
 msgid "User {user} unbanned."
 msgstr "{user} felhasználó kitiltása visszavonva."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
+msgstr ""
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1132,8 +1144,8 @@ msgstr "Elavult bővítmény"
 msgid "Deprecated LWT"
 msgstr "Elavult LWT"
 
-msgid "Theme (Static)"
-msgstr "Téma (statikus)"
+msgid "Theme"
+msgstr "Téma"
 
 msgid "Deprecated Site Permission"
 msgstr "Elavult webhelyengedély"
@@ -1164,19 +1176,11 @@ msgstr "Elavult bővítmények"
 msgid "Deprecated LWTs"
 msgstr "Elavult LWT-k"
 
-msgid "Themes (Static)"
-msgstr "Témák (statikus)"
+msgid "Themes"
+msgstr "Témák"
 
 msgid "Deprecated Site Permissions"
 msgstr "Elavult webhelyengedélyek"
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
 
 msgid "Alerts & Updates"
 msgstr "Riasztások és frissítések"
@@ -1468,9 +1472,6 @@ msgstr "Jóváhagyás"
 
 msgid "All"
 msgstr "Összes"
-
-msgid "Theme"
-msgstr "Téma"
 
 msgid "No action"
 msgstr "Nincs művelet"
@@ -1864,7 +1865,7 @@ msgid "Verify email"
 msgstr "E-mail-cím ellenőrzése"
 
 msgid "Send another email"
-msgstr ""
+msgstr "Másik e-mail küldése"
 
 msgid "Your email has been verified"
 msgstr "Az e-mail-címe ellenőrizve lett"
@@ -1898,9 +1899,6 @@ msgstr "Dokumentáció"
 
 msgid "Extension Development"
 msgstr "Kiegészítőfejlesztés"
-
-msgid "Themes"
-msgstr "Témák"
 
 msgid "Developer Policies"
 msgstr "Fejlesztői irányelvek"
@@ -1959,20 +1957,26 @@ msgstr "Ellenőrzés dátuma:"
 msgid "Email Address Verification"
 msgstr "E-mail-cím ellenőrzése"
 
+msgid "Status:"
+msgstr "Állapot:"
+
 msgid "Your email address is verified."
 msgstr "Az e-mail-címe ellenőrizve lett."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Ellenőrizze az e-mail-címét a fenti „E-mail-cím ellenőrzése” gombra kattintással."
+msgid "Please verify your email."
+msgstr "Erősítse meg az e-mail-címét."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "Nem sikerült az e-mail-cím ellenőrzése. Az ellenőrző hivatkozás lejárt."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr ""
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "Üzenetet küldünk Önnek, kis türelmet… <div class=\"loader\"></div> Az oldal automatikusan frissülni fog."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr ""
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "A vártnál tovább tart az ellenőrző e-mail kézbesítésének megerősítése. Próbálja újra később."
+
+msgid "Success!"
+msgstr "Sikerült!"
 
 #, python-format
 msgid ""
@@ -1987,12 +1991,13 @@ msgid ""
 "The provided code is invalid, unauthorized, expired or incomplete. Please use the link in the email sent to your email address %(email)s. If the code is still not working, please request a new "
 "email."
 msgstr ""
+"A megadott kód érvénytelen, nem engedélyezett, lejárt vagy hiányos. Használja a(z) %(email)s címre küldött levélben található hivatkozást. Ha a kód továbbra sem működik, akkor kérjen egy új levelet."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr ""
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>E-mail-előzmények:</strong> az alábbi táblázat tartalmazza az összes levelet, amelyet az elmúlt 2 napban megpróbáltunk Önnek elküldeni."
 
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 msgid "From"
 msgstr "Kezdet"
@@ -2001,10 +2006,20 @@ msgid "To"
 msgstr "Vég"
 
 msgid "Subject"
-msgstr ""
+msgstr "Tárgy"
 
 msgid "Status"
 msgstr "Állapot"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "Nem található e-mail-rekord Önről az elmúlt 2 napból."
+
+msgid "Refresh results"
+msgstr "Találatok frissítése"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Ha problémákat tapasztal, olvassa el <a %(a_attrs)s>hibaelhárítási javaslatainkat</a> a Firefox Kiegészítő-műhelyben."
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Friss tevékenységek a saját kiegészítőimen"
@@ -2630,8 +2645,8 @@ msgid ""
 "You’re done! ✨ You will receive a confirmation email when this version is published on %(site_domain)s. Note that it may take up to 24 hours before publication occurs, or longer if your add-on is "
 "selected for manual review. If you do not see an email after 24 hours, please check your spam folder."
 msgstr ""
-"Kész van! ✨ Megerősítő e-mailt fog kapni, ha a verzió közzétételre került a(z) %(site_domain)s oldalon. Vegye figyelembe, hogy akár 24 óra is eltelhet a közzétételig, vagy még több, ha kiválasztják "
-"kézi ellenőrzésre. Ha 24 óra múlva sem látja a levelet, akkor nézze meg a levélszemét mappáját."
+"Kész van! ✨ Megerősítő e-mailt fog kapni, ha a verzió közzétételre került a(z) %(site_domain)s oldalon. Vegye figyelembe, hogy akár 24 óra is eltelhet a közzétételig, vagy még több, ha "
+"kiválasztják kézi ellenőrzésre. Ha 24 óra múlva sem látja a levelet, akkor nézze meg a levélszemét mappáját."
 
 msgid "Your listing will be more successful by adding a detailed description. Get your listing ready for publication:"
 msgstr "A listázása sikeresebb lehet, ha részletes leírást ad meg. Készítse elő listázását a közzétételre:"
@@ -2812,8 +2827,8 @@ msgstr "JWT titok"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr ""
 "API kéréshez küldjön egy <a href=\"%(jwt_url)s\">JSON Web Tokent (JWT),</a> az autorizációs fejlécben. Egy JWT-t kell generálnia minden egyes kéréshez, ahogy azt az <a href=\"%(docs_url)s\">API "
 "dokumentáció</a> elmagyarázza."
@@ -3007,9 +3022,6 @@ msgstr "Legutóbbi frissítés:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Ezen az oldalon kerül listázásra, a kódértékelésen átjutás után. Az automatikus frissítést ez az oldal kezeli"
-
-msgid "Status:"
-msgstr "Állapot:"
 
 msgid "Listed Version:"
 msgstr "Listázott verzió:"
@@ -3219,15 +3231,6 @@ msgstr "Ajánlott kiegészítők program"
 
 msgid "Contribute"
 msgstr "Adományozás"
-
-msgid "Review Add-ons"
-msgstr "Kiegészítők ellenőrzése"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Önkéntes ellenőrzők segítenek, hogy a kiegészítők biztonságosan és megbízhatóan használhatóak maradjanak. Nagyszerű előnyöket is kapnak!"
-
-msgid "Join us!"
-msgstr "Csatlakozzon!"
 
 msgid "Write Some Code"
 msgstr "Írjon egy kis kódot"
@@ -4207,6 +4210,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Vágjon át a tipikus ÁSZF megállapodások képtelenségein. Ez az okos kiegészítő segít abban, hogy gyorsan megértse, mit is kell elfogadnia."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Kapjon nyelvtani segítségét bárhol, ahol ír a weben – közösségi média, e-mail, dokumentumok és még sok más."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Olvasson tisztábban és könnyebben. Távolítsa el a rendetlenséget a weblapok szövege körül."
@@ -4398,6 +4405,10 @@ msgstr "Hozza vissza a lepontozások megtekintésének képességét!"
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Hallgasson zenét a YouTube-on a bosszantó „Videó szüneteltetve. Folytatja a nézését?” megszakítások nélkül."
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Változtassa meg a web kinézetét."
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "Egyes webhelyek nehezen tudnak videókat lejátszani Androidon. Itt egy javítás."
@@ -4563,16 +4574,16 @@ msgid "See all extensions"
 msgstr "Összes kiegészítő megtekintése"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr ""
+msgid "Port Authority (Developer Spotlight)"
+msgstr "Port Authority (Fejlesztői reflektorfény)"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "Adatvédelmi és biztonsági kiegészítők"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr "Íróeszközök"
+msgid "Fantastic tab managers"
+msgstr "Fantasztikus lapkezelők"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5208,22 +5219,6 @@ msgstr "Mozilla kiegészítők"
 msgid "Back to Add-ons"
 msgstr "Vissza a kiegészítőkhöz"
 
-msgid "Legal Notices"
-msgstr "Jogi nyilatkozatok"
-
-msgid "Report Trademark Abuse"
-msgstr "Védjeggyel való visszaélés jelentése"
-
-msgid "Report a bug"
-msgstr "Hiba jelentése"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Hacsak másként nincs <a href=\"https://www.mozilla.org/about/legal/\">jelezve</a>, akkor az oldal tartalma a <br /><a href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons Nevezd "
-"meg! – Így add tovább! 3.0</a> (vagy újabb) verziójú licenc alatt érhető el."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Visszatérés a {0}-kiegészítők honlapjára"
@@ -5245,6 +5240,9 @@ msgstr "Közösségi blog"
 
 msgid "Forum"
 msgstr "Fórum"
+
+msgid "Report a bug"
+msgstr "Hiba jelentése"
 
 msgid "Review Guide"
 msgstr "Értékelési útmutató"

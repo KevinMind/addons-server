@@ -3,9 +3,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AMO\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-22 09:46+0000\n"
-"Last-Translator: Olvcpr423 <oliverchan86@outlook.com>\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-06-09 14:15+0000\n"
+"Last-Translator: 你我皆凡人 <yuanbingyan@mail.ee>\n"
 "Language-Team: Chinese Simplified, China <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgid "Invalid value"
 msgstr "无效值"
 
 msgid "\"{}\" for {}"
-msgstr ""
+msgstr "\"{}\" for {}"
 
 msgid "User profile"
 msgstr "用户资料"
@@ -89,9 +89,9 @@ msgid ""
 "Thank you for your attention.\n"
 msgstr ""
 "\n"
-"感谢您举报 %(name)s 有关 Mozilla 附加组件的问题，也感谢您提供更多相关信息。\n"
+"感谢您举报 Mozilla 附加组件站上的“%(name)s”并提供更多相关信息。\n"
 "\n"
-"在审核您的申诉后，我们确定之前的决定是正确的，该内容并没有违反 Mozilla 的政策 (%(policy_document_url)s)。基于上述决定我们驳回了您的申诉，并将不会对该账号和内容采取任何行动。\n"
+"在审核您的申诉后，我们确定我们此前的决定正确无误，即该内容并没有违反 Mozilla 的政策（%(policy_document_url)s）。据此，我们驳回了您的申诉，并将不会对该账户和内容采取任何行动。\n"
 "\n"
 "感谢您的关注。\n"
 
@@ -103,9 +103,9 @@ msgid ""
 "After reviewing your appeal, we have determined that our prior decision, that this content does not violate Mozilla's policies (%(policy_document_url)s), was incorrect. Based on that determination, we have removed the content, and notified the user of our action.\n"
 msgstr ""
 "\n"
-"感谢您举报 %(name)s 有关 Mozilla 附加组件的问题，也感谢您提供更多相关信息。\n"
+"感谢您举报 Mozilla 附加组件站上的“%(name)s”并提供更多相关信息。\n"
 "\n"
-"在审核您的申诉后，我们确定我们之前认为此内容没有违反 Mozilla 的政策(%(policy_document_url)s)的决定是不正确的。我们已移除该内容并通知用户。\n"
+"在审核您的申诉后，我们确定我们此前认为该内容并不违反 Mozilla 的政策（%(policy_document_url)s）的决定有误。据此，我们已移除该内容并通知用户。\n"
 
 #, python-format
 msgid ""
@@ -114,6 +114,10 @@ msgid ""
 "\n"
 "After reviewing your appeal, we have determined that our prior decision, that this content does not violate Mozilla's policies (%(policy_document_url)s), was incorrect. Based on that determination, we have requested the developer make changes. If they do not update their content to correct the violation, we will remove it.\n"
 msgstr ""
+"\n"
+"感谢您举报 Mozilla 附加组件站上的“%(name)s”并提供更多相关信息。\n"
+"\n"
+"在审核您的申诉后，我们确定我们此前认为此内容没有违反 Mozilla 的政策（%(policy_document_url)s）的决定有误。据此，我们已要求开发者进行修改。如果对方不更新内容来纠正违规情况，则我们会将其移除。\n"
 
 #, python-format
 msgid ""
@@ -152,6 +156,10 @@ msgid ""
 "\n"
 "We reviewed your report and the content in question, and found that it violates Mozilla's policies (%(policy_document_url)s), and have therefore requested the developer make changes. If they do not update their content to correct the violation, we will remove it.\n"
 msgstr ""
+"\n"
+"感谢您向 Mozilla 举报 Mozilla 附加组件站中的下列附加组件：%(name)s。\n"
+"\n"
+"我们审核了您的举报及质疑的内容，认为所举报内容违反了 Mozilla 的政策（%(policy_document_url)s），并已要求其开发者进行修改。如果他们不更新内容来纠正违规情况，那么我们会将其移除。\n"
 
 #, python-format
 msgid ""
@@ -951,8 +959,8 @@ msgstr "已安排驳回 {addon} {version}。"
 msgid "Rejection scheduled"
 msgstr "已安排驳回"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} 已重新签名（先前为 {0}）。"
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} 已由 {0} 自动创建并签名。"
 
 msgid "Version re-signed"
 msgstr "已重新签名版本"
@@ -1016,6 +1024,18 @@ msgstr "已恢复用户“{user}”的内容。"
 
 msgid "User {user} unbanned."
 msgstr "已解封用户“{user}”。"
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr "{addon} {version} 已在延迟到期后被自动驳回。"
+
+msgid "Rejected automatically after delay expired"
+msgstr "延迟期满后自动驳回"
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr "{addon} {version} 内容在延迟期满后被自动驳回。"
+
+msgid "Content rejected automatically after delay expired"
+msgstr "内容在延迟期满后被自动驳回"
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1096,8 +1116,8 @@ msgstr "弃用的插件"
 msgid "Deprecated LWT"
 msgstr "不赞成使用的 LWT"
 
-msgid "Theme (Static)"
-msgstr "主题 (静态)"
+msgid "Theme"
+msgstr "主题"
 
 msgid "Deprecated Site Permission"
 msgstr "已弃用的网站权限"
@@ -1128,19 +1148,11 @@ msgstr "弃用的插件"
 msgid "Deprecated LWTs"
 msgstr "不赞成使用的 LWT"
 
-msgid "Themes (Static)"
-msgstr "主题 (静态)"
+msgid "Themes"
+msgstr "主题"
 
 msgid "Deprecated Site Permissions"
 msgstr "已弃用的网站权限"
-
-msgid "Accessibility"
-msgstr "辅助功能"
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr "下载 Firefox 的辅助功能扩展，以帮助您通过最适合自己的方式来获取内容和浏览网络。探索通过各种功能来消除或降低使用障碍的扩展，例如更改屏幕亮度、大声朗读及放大网页内容。"
 
 msgid "Alerts & Updates"
 msgstr "提醒和更新"
@@ -1417,9 +1429,6 @@ msgstr "核准"
 
 msgid "All"
 msgstr "所有"
-
-msgid "Theme"
-msgstr "主题"
 
 msgid "No action"
 msgstr "没有操作"
@@ -1840,9 +1849,6 @@ msgstr "文档"
 msgid "Extension Development"
 msgstr "扩展开发"
 
-msgid "Themes"
-msgstr "主题"
-
 msgid "Developer Policies"
 msgstr "开发者政策"
 
@@ -1900,20 +1906,26 @@ msgstr "验证于："
 msgid "Email Address Verification"
 msgstr "邮箱地址验证"
 
+msgid "Status:"
+msgstr "状态："
+
 msgid "Your email address is verified."
 msgstr "您的邮箱地址已验证。"
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "请点击上方的“验证邮箱”来验证您的邮箱。"
+msgid "Please verify your email."
+msgstr "请验证您的电子邮件地址。"
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "无法验证邮箱地址，验证链接已过期。"
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr ""
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "我们正在向您发送邮件，请稍候…<div class=\"loader\"></div>该页面将自动刷新。"
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr ""
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "确认验证邮件送达状态所用的时间过长，请稍后重试。"
+
+msgid "Success!"
+msgstr "成功！"
 
 #, python-format
 msgid ""
@@ -1925,10 +1937,10 @@ msgstr "包含确认链接的邮件已发送至您的邮箱地址：%(email)s，
 msgid ""
 "The provided code is invalid, unauthorized, expired or incomplete. Please use the link in the email sent to your email address %(email)s. If the code is still not working, please request a new "
 "email."
-msgstr ""
+msgstr "您提供的验证码无效、未经授权、已过期或不完整。请使用发送到您的邮箱地址 %(email)s 的邮件中的链接。若验证码仍无效，请申请重新发送邮件。"
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr ""
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>邮件历史：</strong>下方表格显示了我们在过去 2 天内尝试向您发送的所有邮件。"
 
 msgid "Date"
 msgstr "日期"
@@ -1944,6 +1956,16 @@ msgstr "主题"
 
 msgid "Status"
 msgstr "状态"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "没有找到过去 2 天内向您发送邮件的记录。"
+
+msgid "Refresh results"
+msgstr "刷新结果"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "如遇问题，请到 Firefox 扩展工坊参考我们的<a %(a_attrs)s>疑难解答建议</a>。"
 
 msgid "Recent Activity for My Add-ons"
 msgstr "我的附加组件的近期动态"
@@ -2902,9 +2924,6 @@ msgstr "最近更新："
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "在通过代码审查后在此网站上列出。自动更新由此网站处理"
 
-msgid "Status:"
-msgstr "状态："
-
 msgid "Listed Version:"
 msgstr "上架版本："
 
@@ -3103,15 +3122,6 @@ msgstr "扩展推荐计划"
 
 msgid "Contribute"
 msgstr "捐助"
-
-msgid "Review Add-ons"
-msgstr "审核附加组件"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "志愿者审核员为帮助保证附加组件的安全与可靠性而来。辛勤工作也有些奖励。"
-
-msgid "Join us!"
-msgstr "加入我们！"
 
 msgid "Write Some Code"
 msgstr "编写代码"
@@ -4081,6 +4091,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "打住典型服务条款的废话。这个聪明的扩展可助您快速了解被要求同意的内容。"
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "在网页上撰写文句时，随时为您指点语法。写帖子、写邮件、写文档都受用。"
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "更清晰，更轻松地阅读。移除网页上文本周围的混乱内容。"
@@ -4266,11 +4280,15 @@ msgstr "焕新您的 Twitter 体验。"
 
 #. editorial content for the discovery pane.
 msgid "Bring back the ability to see thumbs down!"
-msgstr "恢复差评功能！"
+msgstr "恢复显示点踩数量！"
 
 #. editorial content for the discovery pane.
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "畅听 YouTube 音乐，而免受烦人的“视频已暂停。继续观看？”中断之打扰。"
+
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "更改网页的风格。"
 
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
@@ -4437,16 +4455,16 @@ msgid "See all extensions"
 msgstr "浏览所有扩展"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr ""
+msgid "Port Authority (Developer Spotlight)"
+msgstr "开发者特辑：端口管理器（Port Authority）"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "隐私和安全扩展"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr "写作工具"
+msgid "Fantastic tab managers"
+msgstr "绝佳标签页管理器"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5079,20 +5097,6 @@ msgstr "Mozilla 附加组件"
 msgid "Back to Add-ons"
 msgstr "返回附加组件"
 
-msgid "Legal Notices"
-msgstr "法律声明"
-
-msgid "Report Trademark Abuse"
-msgstr "报告商标滥用"
-
-msgid "Report a bug"
-msgstr "报告缺陷"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr "除非另有<a href=\"https://www.mozilla.org/about/legal/\">注明</a>，否则本站的内容以 <br /><a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">知识共享 署名-相同方式 v3.0</a> 或任何更新版本授权。"
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "返回 {0} 附加组件主页"
@@ -5114,6 +5118,9 @@ msgstr "社区博客"
 
 msgid "Forum"
 msgstr "论坛"
+
+msgid "Report a bug"
+msgstr "报告缺陷"
 
 msgid "Review Guide"
 msgstr "评论指南"

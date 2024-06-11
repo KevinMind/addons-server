@@ -17,6 +17,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.formats import localize
 
+import responses
 from freezegun import freeze_time
 from lxml.html import HTMLParser, fromstring
 from pyquery import PyQuery as pq
@@ -43,6 +44,7 @@ from olympia.amo.templatetags.jinja_helpers import (
     format_datetime,
 )
 from olympia.amo.tests import (
+    APITestClientJWT,
     APITestClientSessionID,
     TestCase,
     addon_factory,
@@ -57,6 +59,7 @@ from olympia.amo.tests import (
 )
 from olympia.blocklist.models import Block, BlocklistSubmission, BlockVersion
 from olympia.blocklist.utils import block_activity_log_save
+from olympia.constants.abuse import DECISION_ACTIONS
 from olympia.constants.promoted import LINE, NOTABLE, RECOMMENDED, SPOTLIGHT, STRATEGIC
 from olympia.constants.reviewers import REVIEWER_DELAYED_REJECTION_PERIOD_DAYS_DEFAULT
 from olympia.constants.scanners import CUSTOMS, MAD, YARA
@@ -2511,6 +2514,45 @@ class TestReview(ReviewBase):
         comment_version = amo.LOG.COMMENT_VERSION
         assert ActivityLog.objects.filter(action=comment_version.id).count() == 1
 
+    @mock.patch('olympia.reviewers.utils.resolve_job_in_cinder.delay')
+    def test_comment_with_resolve_cinder_job(self, resolve_mock):
+        cinder_job = CinderJob.objects.create(
+            job_id='123', target_addon=self.addon, resolvable_in_reviewer_tools=True
+        )
+        policy = CinderPolicy.objects.create(
+            uuid='x',
+            expose_in_reviewer_tools=True,
+            default_cinder_action=DECISION_ACTIONS.AMO_IGNORE,
+        )
+        AbuseReport.objects.create(
+            guid=self.addon.guid,
+            location=AbuseReport.LOCATION.BOTH,
+            reason=AbuseReport.REASONS.POLICY_VIOLATION,
+            cinder_job=cinder_job,
+            reporter_email='foo@baa.com',
+        )
+        response = self.client.post(
+            self.url,
+            {
+                'action': 'comment',
+                'comments': 'hello sailor',
+                'resolve_cinder_jobs': [cinder_job.id],
+                'cinder_policies': [policy.id],
+            },
+        )
+        assert response.status_code == 302
+
+        assert (
+            ActivityLog.objects.filter(action=amo.LOG.COMMENT_VERSION.id).count() == 1
+        )
+        assert (
+            ActivityLog.objects.filter(action=amo.LOG.COMMENT_VERSION.id)[0].details[
+                'cinder_action'
+            ]
+            == 'AMO_IGNORE'
+        )
+        resolve_mock.assert_called_once()
+
     def test_reviewer_reply(self):
         reason = ReviewActionReason.objects.create(
             name='reason 1', is_active=True, canned_response='reason'
@@ -2616,7 +2658,7 @@ class TestReview(ReviewBase):
             str(author.get_role_display()),
             self.addon,
         )
-        with self.assertNumQueries(54):
+        with self.assertNumQueries(55):
             # FIXME: obviously too high, but it's a starting point.
             # Potential further optimizations:
             # - Remove trivial... and not so trivial duplicates
@@ -2677,8 +2719,9 @@ class TestReview(ReviewBase):
             # 50. translation for the add-on for the activity
             # 51. select all versions in channel for versions dropdown widget
             # 52. reviewer reasons for the reason dropdown
-            # 53. select users by role for this add-on (?)
-            # 54. unreviewed versions in other channel
+            # 53. cinder policies for the policy dropdown
+            # 54. select users by role for this add-on (?)
+            # 55. unreviewed versions in other channel
             response = self.client.get(self.url)
         assert response.status_code == 200
         doc = pq(response.content)
@@ -4354,6 +4397,12 @@ class TestReview(ReviewBase):
         )
 
     def test_reject_multiple_versions(self):
+        responses.add(
+            responses.POST,
+            f'{settings.CINDER_SERVER_URL}create_decision',
+            json={'uuid': '123'},
+            status=201,
+        )
         reason = ReviewActionReason.objects.create(
             name='reason 1', is_active=True, canned_response='reason'
         )
@@ -4385,6 +4434,12 @@ class TestReview(ReviewBase):
             assert not version.pending_rejection
 
     def test_reject_multiple_versions_with_no_delay(self):
+        responses.add(
+            responses.POST,
+            f'{settings.CINDER_SERVER_URL}create_decision',
+            json={'uuid': '123'},
+            status=201,
+        )
         reason = ReviewActionReason.objects.create(
             name='reason 1', is_active=True, canned_response='reason'
         )
@@ -4420,6 +4475,12 @@ class TestReview(ReviewBase):
             assert not version.pending_rejection
 
     def test_reject_multiple_versions_with_delay(self):
+        responses.add(
+            responses.POST,
+            f'{settings.CINDER_SERVER_URL}create_decision',
+            json={'uuid': '123'},
+            status=201,
+        )
         reason = ReviewActionReason.objects.create(
             name='reason 1', is_active=True, canned_response='reason'
         )
@@ -5065,10 +5126,8 @@ class TestReview(ReviewBase):
         # data-value.
         assert doc('.data-toggle.review-files')[0].attrib['data-value'] == ''
         assert doc('.data-toggle.review-tested')[0].attrib['data-value'] == ''
-        # Unlisted versions can't be rejected with a delay so the data-value of
-        # the field is empty as well.
         elm = doc('.data-toggle.review-delayed-rejection')[0]
-        assert elm.attrib['data-value'] == ''
+        assert elm.attrib['data-value'] == 'reject_multiple_versions'
 
     def test_no_data_value_attributes_unlisted_for_viewer(self):
         self.version.update(channel=amo.CHANNEL_UNLISTED)
@@ -5330,7 +5389,7 @@ class TestReview(ReviewBase):
                     results={'matchedRules': [customs_rule.name]},
                 )
 
-        with self.assertNumQueries(55):
+        with self.assertNumQueries(56):
             # See test_item_history_pagination() for more details about the
             # queries count. What's important here is that the extra versions
             # and scanner results don't cause extra queries.
@@ -5542,18 +5601,9 @@ class TestReview(ReviewBase):
             message='Its baaaad',
         )
         response = self.client.get(self.url)
-        self.assertNotContains(response, 'Show detail on 1 reports')
+        self.assertContains(response, 'Show detail on 1 reports')
+        self.assertContains(response, 'Its baaaad')
 
-        with (
-            override_switch('enable-cinder-reporting', active=True),
-            override_switch('enable-cinder-reviewer-tools-integration', active=True),
-        ):
-            response = self.client.get(self.url)
-            self.assertContains(response, 'Show detail on 1 reports')
-            self.assertContains(response, 'Its baaaad')
-
-    @override_switch('enable-cinder-reporting', active=True)
-    @override_switch('enable-cinder-reviewer-tools-integration', active=True)
     @mock.patch('olympia.reviewers.utils.resolve_job_in_cinder.delay')
     def test_abuse_reports_resolved_as_disable_addon_with_disable_action(
         self, mock_resolve_task
@@ -5597,8 +5647,6 @@ class TestReview(ReviewBase):
             log_entry_id=log_entry.id,
         )
 
-    @override_switch('enable-cinder-reporting', active=True)
-    @override_switch('enable-cinder-reviewer-tools-integration', active=True)
     @mock.patch('olympia.reviewers.utils.resolve_job_in_cinder.delay')
     @mock.patch('olympia.reviewers.utils.sign_file')
     def test_abuse_reports_resolved_as_approve_with_approve_latest_version_action(
@@ -6657,7 +6705,7 @@ class TestAddonReviewerViewSet(TestCase):
         assert version.needshumanreview_set.filter(is_active=True).count() == 1
         assert (
             version.needshumanreview_set.get().reason
-            == version.needshumanreview_set.model.REASON_MANUALLY_SET_BY_REVIEWER
+            == version.needshumanreview_set.model.REASONS.MANUALLY_SET_BY_REVIEWER
         )
         assert (
             ActivityLog.objects.filter(action=amo.LOG.NEEDS_HUMAN_REVIEW_AUTOMATIC.id)
@@ -6677,7 +6725,7 @@ class TestAddonReviewerViewSetJsonValidation(TestCase):
 
     def setUp(self):
         super().setUp()
-        self.user = user_factory()
+        self.user = user_factory(read_dev_agreement=self.days_ago(0))
         file_validation = FileValidation.objects.get(pk=1)
         self.file = file_validation.file
         self.addon = self.file.version.addon
@@ -6712,19 +6760,32 @@ class TestAddonReviewerViewSetJsonValidation(TestCase):
 
     def test_non_reviewer_cannot_see_json_results(self):
         self.client.login_api(self.user)
-        assert self.client.get(self.url).status_code == 403
+        assert self.client.get(self.url).status_code in [
+            401,
+            403,
+        ]  # JWT auth is a 401; web auth is 403
 
     @mock.patch.object(acl, 'is_reviewer', lambda user, addon: False)
     def test_wrong_type_of_reviewer_cannot_see_json_results(self):
         self.grant_permission(self.user, 'Addons:Review')
         self.client.login_api(self.user)
-        assert self.client.get(self.url).status_code == 403
+        assert self.client.get(self.url).status_code in [
+            401,
+            403,
+        ]  # JWT auth is a 401; web auth is 403
 
     def test_non_unlisted_reviewer_cannot_see_results_for_unlisted(self):
         self.grant_permission(self.user, 'Addons:Review')
         self.client.login_api(self.user)
         self.make_addon_unlisted(self.addon)
-        assert self.client.get(self.url).status_code == 403
+        assert self.client.get(self.url).status_code in [
+            401,
+            403,
+        ]  # JWT auth is a 401; web auth is 403
+
+
+class TestAddonReviewerViewSetJsonValidationJWT(TestAddonReviewerViewSetJsonValidation):
+    client_class = APITestClientJWT
 
 
 class AddonReviewerViewSetPermissionMixin:

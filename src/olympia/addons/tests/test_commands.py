@@ -1,3 +1,4 @@
+import hashlib
 import random
 from contextlib import contextmanager
 from datetime import timedelta
@@ -20,11 +21,11 @@ from olympia.addons.models import Addon, DeniedGuid
 from olympia.amo.tests import (
     TestCase,
     addon_factory,
+    create_default_webext_appversion,
     user_factory,
     version_factory,
 )
 from olympia.applications.models import AppVersion
-from olympia.constants.categories import CATEGORIES
 from olympia.files.models import FileValidation
 from olympia.ratings.models import Rating, RatingAggregate
 from olympia.reviewers.models import AutoApprovalSummary
@@ -68,13 +69,13 @@ def test_process_addons_limit_addons():
     addon_ids = [addon_factory(status=amo.STATUS_APPROVED).id for _ in range(5)]
     assert Addon.objects.count() == 5
 
-    with count_subtask_calls(process_addons.sign_addons) as calls:
-        call_command('process_addons', task='resign_addons_for_cose')
+    with count_subtask_calls(process_addons.bump_and_resign_addons) as calls:
+        call_command('process_addons', task='bump_and_resign_addons')
         assert len(calls) == 1
         assert calls[0]['kwargs']['args'] == [addon_ids]
 
-    with count_subtask_calls(process_addons.sign_addons) as calls:
-        call_command('process_addons', task='resign_addons_for_cose', limit=2)
+    with count_subtask_calls(process_addons.bump_and_resign_addons) as calls:
+        call_command('process_addons', task='bump_and_resign_addons', limit=2)
         assert len(calls) == 1
         assert calls[0]['kwargs']['args'] == [addon_ids[:2]]
 
@@ -359,10 +360,14 @@ class TestExtractColorsFromStaticThemes(TestCase):
         assert preview.colors == [{'h': 4, 's': 8, 'l': 15, 'ratio': 0.16}]
 
 
-class TestResignAddonsForCose(TestCase):
-    @mock.patch('olympia.lib.crypto.tasks.sign_file')
-    def test_basic(self, sign_file_mock):
-        file_kw = {'filename': 'webextension.xpi'}
+class TestBumpAndResignAddons(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        create_default_webext_appversion()
+
+    @mock.patch('olympia.lib.crypto.tasks.bump_addon_version')
+    def test_basic(self, bump_addon_version_mock):
+        file_kw = {'filename': 'webextension.xpi', 'is_signed': True}
         user_factory(id=settings.TASK_USER_ID)
 
         with freeze_time('2019-04-01'):
@@ -373,25 +378,31 @@ class TestResignAddonsForCose(TestCase):
             version_factory(addon=addon_with_history, file_kw=file_kw)
             version_factory(addon=addon_with_history, file_kw=file_kw)
 
-            addon_factory(file_kw=file_kw)
-            addon_factory(type=amo.ADDON_STATICTHEME, file_kw=file_kw)
+            another_extension = addon_factory(file_kw=file_kw)
+            a_theme = addon_factory(type=amo.ADDON_STATICTHEME, file_kw=file_kw)
+            a_dict = addon_factory(type=amo.ADDON_DICT, file_kw=file_kw)
+
+            # Langpacks and non-public add-ons won't be bumped.
             addon_factory(type=amo.ADDON_LPAPP, file_kw=file_kw)
-            addon_factory(type=amo.ADDON_DICT, file_kw=file_kw)
+            addon_factory(status=amo.STATUS_DISABLED, file_kw=file_kw)
+            addon_factory(status=amo.STATUS_AWAITING_REVIEW, file_kw=file_kw)
+            addon_factory(status=amo.STATUS_NULL, file_kw=file_kw)
+            addon_factory(disabled_by_user=True, file_kw=file_kw)
 
         # Don't resign add-ons created after April 4th 2019
         with freeze_time('2019-05-01'):
             addon_factory(file_kw=file_kw)
             addon_factory(type=amo.ADDON_STATICTHEME, file_kw=file_kw)
 
-        # Search add-ons won't get re-signed, same with deleted and disabled
-        # versions. Also, only public addons are being resigned
-        addon_factory(status=amo.STATUS_DISABLED, file_kw=file_kw)
-        addon_factory(status=amo.STATUS_AWAITING_REVIEW, file_kw=file_kw)
-        addon_factory(status=amo.STATUS_NULL, file_kw=file_kw)
+        call_command('process_addons', task='bump_and_resign_addons')
 
-        call_command('process_addons', task='resign_addons_for_cose')
-
-        assert sign_file_mock.call_count == 5
+        assert bump_addon_version_mock.call_count == 4
+        assert {call[0][0] for call in bump_addon_version_mock.call_args_list} == {
+            addon_with_history.current_version,
+            another_extension.current_version,
+            a_theme.current_version,
+            a_dict.current_version,
+        }
 
 
 class TestDeleteObsoleteAddons(TestCase):
@@ -565,15 +576,30 @@ def test_delete_list_theme_previews():
     assert not VersionPreview.objects.filter(id=other_old_list_preview.id).exists()
 
 
-class TestPopulateAccessibilityCategory(TestCase):
-    def test_add_new_category(self):
-        accessibility_category = CATEGORIES[amo.ADDON_EXTENSION]['accessibility']
-        shopping_category = CATEGORIES[amo.ADDON_EXTENSION]['shopping']
-        # `addon@darkreader.org` is part of the hardcoded set.
-        addon = addon_factory(guid='addon@darkreader.org', category=shopping_category)
-        extra_addon = addon_factory(category=shopping_category)
-        call_command('populate_accessibility_category')
-        addon.reload()
-        assert addon.all_categories == [accessibility_category, shopping_category]
-        extra_addon.reload()
-        assert extra_addon.all_categories == [shopping_category]
+class TestFixMissingIcons(TestCase):
+    def test_basic(self):
+        extra_addons = [addon_factory(), addon_factory()]
+        addons_with_missing_icons = [
+            addon_factory(pk=271830),
+            addon_factory(pk=823490),
+            addon_factory(pk=805933),
+            addon_factory(pk=583250),
+            addon_factory(pk=790974),
+            addon_factory(pk=3006),
+        ]
+        call_command('fix_missing_icons')
+
+        for addon in extra_addons:
+            addon.reload()
+            assert not addon.icon_hash
+            for size in ['original'] + list(amo.ADDON_ICON_SIZES):
+                assert not self.root_storage.exists(addon.get_icon_path(size))
+
+        for addon in addons_with_missing_icons:
+            addon.reload()
+            for size in ['original'] + list(amo.ADDON_ICON_SIZES):
+                assert self.root_storage.exists(addon.get_icon_path(size))
+            backup_path = f'{settings.ROOT}/static/img/addon-icons/{addon.pk}-64.png'
+            with open(backup_path, 'rb') as f:
+                icon_hash = hashlib.md5(f.read()).hexdigest()[:8]
+            assert addon.icon_hash == icon_hash

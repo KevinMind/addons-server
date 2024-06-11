@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: REMORA 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-22 08:15+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-06-05 16:37+0000\n"
 "Last-Translator: Google Translate <pontoon-gt@example.com>\n"
 "Language-Team: Mozilla.cz <info@mozilla.cz>\n"
 "Language: cs\n"
@@ -978,8 +978,8 @@ msgstr "Zamítnutí {addon} {version} naplánováno."
 msgid "Rejection scheduled"
 msgstr "Zamítnutí naplánováno"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "Doplněk {addon} {version} znovu podepsán (původně {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "Doplněk {addon} {version} automaticky vytvořený a podepsaný od {0}."
 
 msgid "Version re-signed"
 msgstr "Verze znovu podepsána"
@@ -1043,6 +1043,18 @@ msgstr "Obsah uživatele {user} byl obnoven."
 
 msgid "User {user} unbanned."
 msgstr "Uživatel {user} byl odblokován."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr "{addon} {version} byl automaticky odmítnut po vypršení prodlevy."
+
+msgid "Rejected automatically after delay expired"
+msgstr "Zamítnuto automaticky po vypršení prodlevy"
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr "Obsah doplňku {addon} {version} byl po vypršení prodlevy automaticky odmítnut."
+
+msgid "Content rejected automatically after delay expired"
+msgstr "Obsah byl po vypršení prodlevy automaticky odmítnut"
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1123,8 +1135,8 @@ msgstr "Zastaralý zásuvný modul"
 msgid "Deprecated LWT"
 msgstr "Zastaralý odlehčený motiv vzhledu"
 
-msgid "Theme (Static)"
-msgstr "Vzhled (statický)"
+msgid "Theme"
+msgstr "Motiv vzhledu"
 
 msgid "Deprecated Site Permission"
 msgstr "Zastaralé oprávnění serveru"
@@ -1155,21 +1167,11 @@ msgstr "Zastaralé zásuvné moduly"
 msgid "Deprecated LWTs"
 msgstr "Zastaralé odlehčené motivy vzhledu"
 
-msgid "Themes (Static)"
-msgstr "Vzhledy (statické)"
+msgid "Themes"
+msgstr "Motivy vzhledu"
 
 msgid "Deprecated Site Permissions"
 msgstr "Zastaralá oprávnění serveru"
-
-msgid "Accessibility"
-msgstr "Přístupnost"
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
-"Stáhněte si rozšíření pro přístupnost, která vám pomohou sledovat obsah a pohybovat se na internetu způsobem, který vám vyhovuje. Objevte rozšíření, která odstraňují nebo omezují překážky v přístupu"
-" tím, že mění jas obrazovky, hlasité čtení webových stránek, přesné zobrazení a další."
 
 msgid "Alerts & Updates"
 msgstr "Upozornění a aktualizace"
@@ -1450,9 +1452,6 @@ msgstr "Schválit"
 
 msgid "All"
 msgstr "Vše"
-
-msgid "Theme"
-msgstr "Motiv vzhledu"
 
 msgid "No action"
 msgstr "Žádná akce"
@@ -1883,9 +1882,6 @@ msgstr "Dokumentace"
 msgid "Extension Development"
 msgstr "Vývoj rozšíření"
 
-msgid "Themes"
-msgstr "Motivy vzhledu"
-
 msgid "Developer Policies"
 msgstr "Pravidla pro vývojáře"
 
@@ -1943,20 +1939,26 @@ msgstr "Kontrolováno dne:"
 msgid "Email Address Verification"
 msgstr "Ověření e-mailové adresy"
 
+msgid "Status:"
+msgstr "Stav:"
+
 msgid "Your email address is verified."
 msgstr "Vaše e-mailová adresa je ověřena."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Ověřte prosím svou e-mailovou adresu klepnutím na \"Ověřit e-mailovou adresu\" výše."
+msgid "Please verify your email."
+msgstr "Ověřte prosím svou e-mailovou adresu."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "Nelze ověřit e-mailovou adresu. Platnost ověřovacího odkazu vypršela."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr "Posíláme vám e-mail, může to chvíli trvat. Stránka se automaticky obnoví."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "Posíláme e-mail na vaši adresu, buďte prosím trpěliví... <div class=\"loader\"></div> Stránka se automaticky obnoví."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr "Potvrzení o doručení ověřovacího e-mailu trvá déle než obvykle. Zkuste to prosím znovu."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "Potvrzení o doručení vašeho ověřovacího e-mailu trvá déle než obvykle. Zkuste to prosím znovu později."
+
+msgid "Success!"
+msgstr "Hotovo!"
 
 #, python-format
 msgid ""
@@ -1973,8 +1975,8 @@ msgid ""
 msgstr ""
 "Zadaný kód je neplatný, neautorizovaný, vypršel nebo neúplný. Použijte prosím odkaz v e-mailu zaslaném na vaši e-mailovou adresu %(email)s. Pokud kód stále nefunguje, vyžádejte si nový e-mail."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr "Pokusili jsme se odeslat váš ověřovací e-mail. Níže jsou nalezené potvrzovací záznamy a přidružené stavy doručení."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>Historie e-mailů:</strong> V tabulce níže jsou uvedeny všechny e-mailové zprávy, které jsme se vám pokusili poslat v posledních 2 dnech."
 
 msgid "Date"
 msgstr "Datum"
@@ -1990,6 +1992,16 @@ msgstr "Předmět"
 
 msgid "Status"
 msgstr "Stav"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "Za poslední 2 dny jsme pro vás nenašli žádné záznamy o odeslaných e-mailech."
+
+msgid "Refresh results"
+msgstr "Aktualizovat výsledky"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Pokud narazíte na problémy, podívejte se na naše <a %(a_attrs)s>návrhy řešení problémů</a> na stránkách Firefox Extension Workshop."
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Nedávná aktivita pro mé doplňky"
@@ -2983,9 +2995,6 @@ msgstr "Naposledy aktualizován:"
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Zveřejněno na této stránce, jakmile úspěšně projde kontrolou. O aktualizace se automaticky stará tato stránka"
 
-msgid "Status:"
-msgstr "Stav:"
-
 msgid "Listed Version:"
 msgstr "Veřejná verze:"
 
@@ -3188,15 +3197,6 @@ msgstr "Program doporučených rozšíření"
 
 msgid "Contribute"
 msgstr "Přispějte"
-
-msgid "Review Add-ons"
-msgstr "Kontrola doplňků"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Dobrovolní kontroloři pomáhají udržet doplňky bezpečné a spolehlivé. Mají také skvělé výhody!"
-
-msgid "Join us!"
-msgstr "Přidejte se!"
 
 msgid "Write Some Code"
 msgstr "Psát kód"
@@ -4176,6 +4176,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Vynechte všechny ty nesmysly v Podmínkách poskytování služeb. Toto inteligentní rozšíření vám pomůže rychle porozumět tomu, s čím že se po vás chce, abyste souhlasili."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Nechte si při psaní pomoci s gramatikou. Na sociálních sítích, při psaní e-mailů, dokumentů i jinde."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Čtěte s větší snadností a soustředěním. Odstraňte rušivé elementy kolem textu na webových stránkách."
@@ -4367,6 +4371,10 @@ msgstr "Přineste si zpět možnost vidět palec dole!"
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Poslouchejte hudbu na YouTube bez otravného přerušování textem „Video pozastaveno. Pokračovat ve sledování?“."
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Změňte si vzhled webu."
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "Některé weby mají potíže s přehráváním videí v systému Android. Tady je oprava."
@@ -4532,16 +4540,16 @@ msgid "See all extensions"
 msgstr "Zobrazit všechna rozšíření"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr "Nástroj na opravu vyhledávání na YouTube (Vývojář Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
+msgstr "Port Authority (blog Developer Spotlight)"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "Rozšíření zaměřená na bezpečnost a soukromí"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr "Psací potřeby"
+msgid "Fantastic tab managers"
+msgstr "Fantastický správce panelů"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5179,22 +5187,6 @@ msgstr "Doplňky Mozilly"
 msgid "Back to Add-ons"
 msgstr "Zpět na doplňky"
 
-msgid "Legal Notices"
-msgstr "Právní omezení"
-
-msgid "Report Trademark Abuse"
-msgstr "Nahlásit zneužití ochranné známky"
-
-msgid "Report a bug"
-msgstr "Nahlásit chybu"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Není-li <a href=\"https://www.mozilla.org/about/legal/\">řečeno jinak</a>, obsah této stránky je dostupný pod licencí <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> Creative "
-"Commons Attribution Share-Alike License v3.0 </a> nebo jakoukoli novější verzí."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Návrat na titulní stránku doplňků aplikace {0}"
@@ -5216,6 +5208,9 @@ msgstr "Komunitní blog"
 
 msgid "Forum"
 msgstr "Fórum"
+
+msgid "Report a bug"
+msgstr "Nahlásit chybu"
 
 msgid "Review Guide"
 msgstr "Příručka recenzenta"

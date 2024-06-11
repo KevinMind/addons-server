@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: REMORA 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
-"PO-Revision-Date: 2024-03-22 08:25+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
+"PO-Revision-Date: 2024-06-06 06:48+0000\n"
 "Last-Translator: Mark Heijl <markh@babelzilla.org>\n"
 "Language-Team: DUTCH <LL@li.org>\n"
 "Language: nl\n"
@@ -984,8 +984,8 @@ msgstr "Afwijzing {addon} {version} ingepland."
 msgid "Rejection scheduled"
 msgstr "Afwijzing ingepland"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} opnieuw ondertekend (voorheen {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr "{addon} {version} automatisch aangemaakt en ondertekend vanaf {0}."
 
 msgid "Version re-signed"
 msgstr "Versie opnieuw ondertekend"
@@ -1049,6 +1049,18 @@ msgstr "Inhoud van gebruiker {user} hersteld."
 
 msgid "User {user} unbanned."
 msgstr "Ban van gebruiker {user} ongedaan gemaakt."
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr "{addon} {version} automatisch afgewezen na het verstrijken van de vertraging."
+
+msgid "Rejected automatically after delay expired"
+msgstr "Automatisch afgewezen na het verstrijken van de vertraging"
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr "Inhoud van {addon} {version} automatisch afgewezen na het verstrijken van de vertraging."
+
+msgid "Content rejected automatically after delay expired"
+msgstr "Inhoud automatisch afgewezen na het verstrijken van vertraging"
 
 msgid "Firefox"
 msgstr "Firefox"
@@ -1129,8 +1141,8 @@ msgstr "Verouderde plug-in"
 msgid "Deprecated LWT"
 msgstr "Verouderde LWT"
 
-msgid "Theme (Static)"
-msgstr "Thema (statisch)"
+msgid "Theme"
+msgstr "Thema"
 
 msgid "Deprecated Site Permission"
 msgstr "Verouderde websitemachtiging"
@@ -1161,21 +1173,11 @@ msgstr "Verouderde plug-ins"
 msgid "Deprecated LWTs"
 msgstr "Verouderde LWT’s"
 
-msgid "Themes (Static)"
-msgstr "Thema’s (statisch)"
+msgid "Themes"
+msgstr "Thema’s"
 
 msgid "Deprecated Site Permissions"
 msgstr "Verouderde websitemachtigingen"
-
-msgid "Accessibility"
-msgstr "Toegankelijkheid"
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
-msgstr ""
-"Download toegankelijkheidsextensies voor Firefox om u te helpen inhoud te gebruiken en online te navigeren op een manier die voor u het beste werkt. Ontdek extensies die belemmeringen voor toegang "
-"wegnemen of verminderen door de helderheid van het scherm te wijzigen, webpagina’s hardop te lezen, nauwkeurige vergroting te bieden, en meer."
 
 msgid "Alerts & Updates"
 msgstr "Waarschuwingen en updates"
@@ -1452,9 +1454,6 @@ msgstr "Goedkeuren"
 
 msgid "All"
 msgstr "Alle"
-
-msgid "Theme"
-msgstr "Thema"
 
 msgid "No action"
 msgstr "Geen actie"
@@ -1883,9 +1882,6 @@ msgstr "Documentatie"
 msgid "Extension Development"
 msgstr "Extensieontwikkeling"
 
-msgid "Themes"
-msgstr "Thema’s"
-
 msgid "Developer Policies"
 msgstr "Ontwikkelaarsbeleid"
 
@@ -1943,20 +1939,26 @@ msgstr "Gevalideerd op:"
 msgid "Email Address Verification"
 msgstr "E-mailadresverificatie"
 
+msgid "Status:"
+msgstr "Status:"
+
 msgid "Your email address is verified."
 msgstr "Uw e-mailadres is geverifieerd."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Verifieer uw e-mailadres door hierboven op ‘E-mailadres verifiëren’ te klikken."
+msgid "Please verify your email."
+msgstr "Verifieer uw e-mailadres."
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr "Kan e-mailadres niet verifiëren. De verificatiekoppeling is verlopen."
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
-msgstr "We sturen u een e-mailbericht, dit kan even duren. De pagina wordt automatisch vernieuwd."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
+msgstr "We sturen u een e-mailbericht, even geduld… <div class=\"loader\"></div> De pagina wordt automatisch vernieuwd."
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
-msgstr "Het duurt langer dan verwacht om de aflevering van uw verificatiebericht te bevestigen. Probeer het opnieuw."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr "Het duurt langer dan verwacht om de levering van uw verificatiebericht te bevestigen. Probeer het later opnieuw."
+
+msgid "Success!"
+msgstr "Gelukt!"
 
 #, python-format
 msgid ""
@@ -1974,8 +1976,8 @@ msgstr ""
 "De opgegeven code is ongeldig, niet geautoriseerd, verlopen of onvolledig. Gebruik de koppeling in het e-mailbericht dat naar uw e-mailadres %(email)s is verzonden. Als de code nog steeds niet "
 "werkt, vraag dan een nieuw e-mailbericht aan."
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
-msgstr "We hebben geprobeerd uw verificatie-e-mailbericht te verzenden. Hieronder staan de gevonden bevestigingsrecords en de bijbehorende afleverstatussen."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
+msgstr "<strong>E-mailgeschiedenis:</strong> de onderstaande tabel toont alle e-mailberichten die we de afgelopen 2 dagen hebben geprobeerd naar u te verzenden."
 
 msgid "Date"
 msgstr "Datum"
@@ -1991,6 +1993,16 @@ msgstr "Onderwerp"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr "We hebben geen e-mailrecords van de afgelopen 2 dagen voor u gevonden."
+
+msgid "Refresh results"
+msgstr "Resultaten vernieuwen"
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr "Als u problemen ondervindt, lees dan onze <a %(a_attrs)s>suggesties voor probleemoplossing</a> op Firefox Extension Workshop."
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Recente activiteit voor mijn add-ons"
@@ -2990,9 +3002,6 @@ msgstr "Laatst bijgewerkt:"
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Vermeld op deze website na succesvolle codebeoordeling. Automatische updates worden door deze website verzorgd"
 
-msgid "Status:"
-msgstr "Status:"
-
 msgid "Listed Version:"
 msgstr "Vermelde versie:"
 
@@ -3199,15 +3208,6 @@ msgstr "Programma Aanbevolen extensies"
 
 msgid "Contribute"
 msgstr "Bijdragen"
-
-msgid "Review Add-ons"
-msgstr "Add-ons beoordelen"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Vrijwillige vertalers helpen bij het veilig en betrouwbaar houden van add-ons. En ze krijgen geweldige voordelen!"
-
-msgid "Join us!"
-msgstr "Doe mee!"
 
 msgid "Write Some Code"
 msgstr "Code schrijven"
@@ -4188,6 +4188,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Doorgrond de nonsens van typische TOS-overeenkomsten. Deze slimme extensie helpt u snel te begrijpen waarmee u akkoord gaat."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr "Verkrijg hulp met grammatica, overal waar u op het web schrijft – sociale media, e-mail, documenten en meer."
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Lees met meer duidelijkheid en gemak. Verwijder de rommel rond tekst op webpagina’s."
@@ -4379,6 +4383,10 @@ msgstr "Breng de mogelijkheid terug om afkeurreacties te zien!"
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr "Luister naar muziek op YouTube zonder die vervelende ‘Video gepauzeerd. Doorgaan met kijken?’-onderbrekingen."
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr "Wijzig het uiterlijk van het web."
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "Sommige websites hebben moeite met het afspelen van video’s op Android. Deze extensie biedt een oplossing."
@@ -4544,16 +4552,16 @@ msgid "See all extensions"
 msgstr "Alle extensies bekijken"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
-msgstr "YouTube Search Fixer (Ontwikkelaarsspotlight)"
+msgid "Port Authority (Developer Spotlight)"
+msgstr "Havenbedrijf (Ontwikkelaarsspotlight)"
 
 #. editorial content for the secondary hero shelves.
 msgid "Privacy & Security extensions"
 msgstr "Extensies voor privacy en beveiliging"
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
-msgstr "Schrijfhulpmiddelen"
+msgid "Fantastic tab managers"
+msgstr "Fantastische tabbladbeheerders"
 
 #. editorial content for the secondary hero shelves.
 msgid "See staff picks"
@@ -5189,22 +5197,6 @@ msgstr "Mozilla-add-ons"
 msgid "Back to Add-ons"
 msgstr "Terug naar add-ons"
 
-msgid "Legal Notices"
-msgstr "Juridische kennisgevingen"
-
-msgid "Report Trademark Abuse"
-msgstr "Misbruik van handelsmerk melden"
-
-msgid "Report a bug"
-msgstr "Een bug melden"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Tenzij anders <a href=\"https://www.mozilla.org/about/legal/\">vermeld</a>, is op de inhoud van deze website de <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> Creative Commons "
-"Attribution Share-Alike License v3.0 </a> of latere versie van toepassing."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Terug naar de {0}-add-ons-startpagina"
@@ -5226,6 +5218,9 @@ msgstr "Gemeenschapsblog"
 
 msgid "Forum"
 msgstr "Forum"
+
+msgid "Report a bug"
+msgstr "Een bug melden"
 
 msgid "Review Guide"
 msgstr "Beoordelingsrichtlijnen"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AMO (olympia)\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-22 07:57+0000\n"
+"POT-Creation-Date: 2024-06-05 16:28+0000\n"
 "PO-Revision-Date: 2024-03-05 02:30+0000\n"
 "Last-Translator: Cláudio Esperança <cesperanc@gmail.com>\n"
 "Language-Team: pt-PT <portuguese european>\n"
@@ -447,16 +447,16 @@ msgstr "Não encontrado"
 #, python-format
 msgid ""
 "<h1>We're sorry, but we can't find what you're looking for.</h1> <p> The page or file you requested wasn't found on our site. It's possible that you clicked a link that's out of date, or typed in "
-"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an issue"
-"%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our website."
-"</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a href=\"%(search)s"
-"\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
+"the address incorrectly. </p> <ul> <li>If you typed in the address, please double check the spelling.</li> <li> If you followed a link from somewhere, please %(open_bug_link)sfile an "
+"issue%(close_bug_link)s. Tell us where you came from and what you were looking for, and we'll do our best to fix it. </li> </ul> <p>Or you can just jump over to some of the popular pages on our "
+"website.</p> <ul> <li>Are you interested in a <a href=\"%(rec)s\">list of featured add-ons</a>?</li> <li> Do you want to <a href=\"%(search)s\">search for add-ons</a>? You may go to the <a "
+"href=\"%(search)s\">search page</a> or just use the search field above. </li> <li> If you prefer to start over, just go to the <a href=\"%(home)s\">add-ons front page</a>. </li> </ul>"
 msgstr ""
 "<h1>Lamentamos, mas não encontrámos o que procura.</h1> <p> A página ou ficheiro que solicitou não foi encontrado no nosso site. É possível que tenha clicado numa ligação desatualizada ou tenha "
 "digitado o endereço incorretamente. </p> <ul> <li>Se digitou o endereço, por favor verifique a ortografia.</li> <li> Se seguiu uma ligação de um outro local, por favor %(open_bug_link)ssubmeta um "
 "problema%(close_bug_link)s. Diga-nos de onde veio e o que estava à procura, e nós faremos os possíveis para o corrigir. </li> </ul> <p>Ou pode simplesmente saltar para algumas das páginas populares "
-"do nosso site.</p> <ul> <li>Está interessado(a) numa <a href=\"%(rec)s\">lista de extras em destaque</a>?</li> <li>Pretende <a href=\"%(search)s\">pesquisar por extras</a>? Pode ir para a <a href="
-"\"%(search)s\">página de pesquisa</a> ou para o campo de pesquisa acima. </li> <li> Se preferir recomeçar, simplesmente vá para a <a href=\"%(home)s\">página inicial dos extras</a>. </li> </ul>"
+"do nosso site.</p> <ul> <li>Está interessado(a) numa <a href=\"%(rec)s\">lista de extras em destaque</a>?</li> <li>Pretende <a href=\"%(search)s\">pesquisar por extras</a>? Pode ir para a <a "
+"href=\"%(search)s\">página de pesquisa</a> ou para o campo de pesquisa acima. </li> <li> Se preferir recomeçar, simplesmente vá para a <a href=\"%(home)s\">página inicial dos extras</a>. </li> </ul>"
 
 msgid "Oops"
 msgstr "Ups"
@@ -939,8 +939,8 @@ msgstr "Rejeição de {addon} {version} agendada."
 msgid "Rejection scheduled"
 msgstr "Agendamento da rejeição"
 
-msgid "{addon} {version} re-signed (previously {0})."
-msgstr "{addon} {version} reassinado (anteriormente {0})."
+msgid "{addon} {version} automatically created and signed from {0}."
+msgstr ""
 
 msgid "Version re-signed"
 msgstr "Versão reassinada"
@@ -1003,6 +1003,18 @@ msgid "User {user} content restored."
 msgstr "Conteúdo do utilizador {user} restaurado."
 
 msgid "User {user} unbanned."
+msgstr ""
+
+msgid "{addon} {version} rejected automatically after delay expired."
+msgstr ""
+
+msgid "Rejected automatically after delay expired"
+msgstr ""
+
+msgid "{addon} {version} content rejected automatically after delay expired."
+msgstr ""
+
+msgid "Content rejected automatically after delay expired"
 msgstr ""
 
 msgid "Firefox"
@@ -1086,8 +1098,8 @@ msgstr "Complemento Descontinuado"
 msgid "Deprecated LWT"
 msgstr "LWT descontinuado"
 
-msgid "Theme (Static)"
-msgstr "Tema (estático)"
+msgid "Theme"
+msgstr "Tema"
 
 msgid "Deprecated Site Permission"
 msgstr ""
@@ -1118,18 +1130,10 @@ msgstr ""
 msgid "Deprecated LWTs"
 msgstr "LWTs descontinuados"
 
-msgid "Themes (Static)"
-msgstr "Temas (estáticos)"
+msgid "Themes"
+msgstr "Temas"
 
 msgid "Deprecated Site Permissions"
-msgstr ""
-
-msgid "Accessibility"
-msgstr ""
-
-msgid ""
-"Download Firefox accessibility extensions to help you consume content and navigate online in ways that work best for you. Discover extensions that remove or reduce barriers to access by changing "
-"screen brightness, reading web pages aloud, providing precision magnification, and more."
 msgstr ""
 
 msgid "Alerts & Updates"
@@ -1417,9 +1421,6 @@ msgstr "Aprovar"
 
 msgid "All"
 msgstr "Tudo"
-
-msgid "Theme"
-msgstr "Tema"
 
 msgid "No action"
 msgstr "Sem ação"
@@ -1848,9 +1849,6 @@ msgstr "Documentação"
 msgid "Extension Development"
 msgstr "Desenvolvimento de extensões"
 
-msgid "Themes"
-msgstr "Temas"
-
 msgid "Developer Policies"
 msgstr "Políticas de programador"
 
@@ -1908,19 +1906,25 @@ msgstr "Validado a:"
 msgid "Email Address Verification"
 msgstr "Verificação de endereço de e-mail"
 
+msgid "Status:"
+msgstr "Estado:"
+
 msgid "Your email address is verified."
 msgstr "O seu endereço de e-mail está verificado."
 
-msgid "Please verify your email by clicking \"Verify email\" above."
-msgstr "Por favor, verifique o seu endereço de e-mail, clicando em \"Verificar e-mail\" acima."
+msgid "Please verify your email."
+msgstr ""
 
 msgid "Could not verify email address. The verification link has expired."
 msgstr ""
 
-msgid "We are sending an email to you, this might take a minute. The page will automatically refresh."
+msgid "We are sending an email to you, please be patient... <div class=\"loader\"></div> The page will automatically refresh."
 msgstr ""
 
-msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again."
+msgid "It is taking longer than expected to confirm delivery of your verification email. Please try again later."
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 #, python-format
@@ -1935,7 +1939,7 @@ msgid ""
 "email."
 msgstr ""
 
-msgid "We have attempted to send your verification email. Below are the confirmation records we found and their associated delivery statuses."
+msgid "<strong>Email history:</strong> The table below shows all emails we have attempted to send to you in the last 2 days."
 msgstr ""
 
 msgid "Date"
@@ -1952,6 +1956,16 @@ msgstr ""
 
 msgid "Status"
 msgstr "Estado"
+
+msgid "We have not found any email records for you in the last 2 days."
+msgstr ""
+
+msgid "Refresh results"
+msgstr ""
+
+#, python-format
+msgid "If you encounter issues, please see our <a %(a_attrs)s>troubleshooting suggestions</a> on Firefox Extension Workshop."
+msgstr ""
 
 msgid "Recent Activity for My Add-ons"
 msgstr "Atividade recente para os meus extras"
@@ -2576,8 +2590,8 @@ msgid ""
 "You’re done! ✨ You will receive a confirmation email when this version is published on %(site_domain)s. Note that it may take up to 24 hours before publication occurs, or longer if your add-on is "
 "selected for manual review. If you do not see an email after 24 hours, please check your spam folder."
 msgstr ""
-"Está feito! ✨ Irá receber um e-mail de confirmação quando esta versão for publicada em %(site_domain)s. Note que esta publicação pode demorar até 24 horas, ou até mais na eventualidade do seu extra "
-"ser selecionado para um análise manual. Se não encontrar um e-mail após 24 horas, consulte a sua pasta de correio não-solicitado."
+"Está feito! ✨ Irá receber um e-mail de confirmação quando esta versão for publicada em %(site_domain)s. Note que esta publicação pode demorar até 24 horas, ou até mais na eventualidade do seu "
+"extra ser selecionado para um análise manual. Se não encontrar um e-mail após 24 horas, consulte a sua pasta de correio não-solicitado."
 
 msgid "Your listing will be more successful by adding a detailed description. Get your listing ready for publication:"
 msgstr "A sua entrada será mais bem sucedida adicionando uma descrição detalhada. Tenha a sua entrada pronta para publicação:"
@@ -2759,11 +2773,11 @@ msgstr "Segredo JWT"
 
 #, python-format
 msgid ""
-"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a href=\"%(docs_url)s"
-"\">API documentation</a>."
+"To make API requests, send a <a href=\"%(jwt_url)s\">JSON Web Token (JWT)</a> as the authorization header. You'll need to generate a JWT for every request as explained in the <a "
+"href=\"%(docs_url)s\">API documentation</a>."
 msgstr ""
-"Para fazer pedidos à API, envie um <a href=\"%(jwt_url)s\">Token Web JSON (JWT)</a> como o cabeçalho da autorização. Precisa de gerar um JWT para cada pedido tal como é explicado na <a href="
-"\"%(docs_url)s\">documentação da API</a>."
+"Para fazer pedidos à API, envie um <a href=\"%(jwt_url)s\">Token Web JSON (JWT)</a> como o cabeçalho da autorização. Precisa de gerar um JWT para cada pedido tal como é explicado na <a "
+"href=\"%(docs_url)s\">documentação da API</a>."
 
 #, python-format
 msgid "Please click the confirm button below to generate API credentials for user <strong>%(name)s</strong>."
@@ -2935,9 +2949,6 @@ msgstr "Última atualização:"
 #. {0} is a date. dennis-ignore: E201,E202,W202
 msgid "Listed on this site after passing code review. Automatic updates are handled by this site"
 msgstr "Listado neste site após passar a revisão de código. As atualizações automáticas são manuseadas por este site"
-
-msgid "Status:"
-msgstr "Estado:"
 
 msgid "Listed Version:"
 msgstr "Versão listada:"
@@ -3146,15 +3157,6 @@ msgstr "Programa de extensões recomendadas"
 
 msgid "Contribute"
 msgstr "Contribuir"
-
-msgid "Review Add-ons"
-msgstr "Rever extras"
-
-msgid "Volunteer reviewers help keep add-ons safe and reliable to use. They enjoy great perks too!"
-msgstr "Os revisores voluntários ajudam a garantir que os extras são seguros e confiáveis para serem utilizados. Eles também têm excelentes benefícios!"
-
-msgid "Join us!"
-msgstr "Juntar-se a nós!"
 
 msgid "Write Some Code"
 msgstr "Escrever algum código"
@@ -4132,6 +4134,10 @@ msgid "Cut through the nonsense of typical TOS agreements. This clever extension
 msgstr "Evite a confusão dos termos dos acordos típicos de licenciamento. Uma extensão inteligente que o ajuda a perceber rapidamente o que lhe estão a pedir para concordar."
 
 #. editorial content for the discovery pane.
+msgid "Get grammar help anywhere you write on the web — social media, email, docs, and more."
+msgstr ""
+
+#. editorial content for the discovery pane.
 #. editorial content for the primary hero shelves.
 msgid "Read with more clarity and ease. Remove the clutter around text on web pages."
 msgstr "Leia com mais clareza e facilidade. Remova a confusão à volta do texto nas páginas de Internet."
@@ -4323,6 +4329,10 @@ msgstr ""
 msgid "Listen to music on YouTube without those annoying \"Video paused. Continue watching?\" interruptions."
 msgstr ""
 
+#. editorial content for the discovery pane.
+msgid "Change the way the web looks."
+msgstr ""
+
 #. editorial content for the primary hero shelves.
 msgid "Some websites have difficulty playing videos on Android. Here's a fix."
 msgstr "Alguns sites têm dificuldade em reproduzir vídeos no Android. Existe uma correção."
@@ -4493,7 +4503,7 @@ msgid "See all extensions"
 msgstr "Ver todas as extensões"
 
 #. editorial content for the secondary hero shelves.
-msgid "YouTube Search Fixer (Developer Spotlight)"
+msgid "Port Authority (Developer Spotlight)"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -4501,7 +4511,7 @@ msgid "Privacy & Security extensions"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
-msgid "Writing tools"
+msgid "Fantastic tab managers"
 msgstr ""
 
 #. editorial content for the secondary hero shelves.
@@ -5147,22 +5157,6 @@ msgstr "Extras da Mozilla"
 msgid "Back to Add-ons"
 msgstr "Voltar aos extras"
 
-msgid "Legal Notices"
-msgstr "Avisos legais"
-
-msgid "Report Trademark Abuse"
-msgstr "Reportar abuso de marca registada"
-
-msgid "Report a bug"
-msgstr "Reportar um bug"
-
-msgid ""
-"Except where otherwise <a href=\"https://www.mozilla.org/about/legal/\">noted</a>, content on this site is licensed under the <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"Creative Commons Attribution Share-Alike License v3.0 </a> or any later version."
-msgstr ""
-"Exceto onde <a href=\"https://www.mozilla.org/about/legal/\">anotado</a> o contrário, o conteúdo neste site está licenciado sob a <br /> <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\"> "
-"licença Creative Commons Atribuição-CompartilhaIgual v3.0 </a> ou qualquer versão mais recente."
-
 # {0} is the application name.  Example:  Firefox
 msgid "Return to the {0} Add-ons homepage"
 msgstr "Voltar à página inicial dos extras do {0}"
@@ -5184,6 +5178,9 @@ msgstr ""
 
 msgid "Forum"
 msgstr "Fórum"
+
+msgid "Report a bug"
+msgstr "Reportar um bug"
 
 msgid "Review Guide"
 msgstr ""
