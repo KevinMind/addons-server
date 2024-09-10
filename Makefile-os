@@ -104,8 +104,8 @@ docker_use_builder: ## Specify a docker builder to use. defaults to "default"
 docker_compose_config: ## Show the docker compose configuration
 	@docker compose config web --format json
 
-.PHONY: docker_build_web
-docker_build_web: docker_use_builder ## Build the docker images using buildx bake
+.PHONY: docker_build
+docker_build: docker_use_builder ## Build the docker images using buildx bake
 	docker buildx bake $(DOCKER_BAKE_ARGS) $(ARGS)
 
 .PHONY: docker_pull_web
@@ -124,7 +124,7 @@ docker_pull_or_build:
 	@IMAGE=$$(docker compose config web --format json | jq -r '.services.web.image'); \
 	echo "image: $$IMAGE"; \
 	if echo "$$IMAGE" | grep -q ":local"; then \
-		$(MAKE) docker_build_web; \
+		$(MAKE) docker_build; \
 	else \
 		$(MAKE) docker_pull_web; \
 	fi

@@ -1,5 +1,5 @@
 group "default" {
-  targets = ["web"]
+  targets = ["web", "web_frontend"]
 }
 
 variable DOCKER_BUILD {}
@@ -7,6 +7,17 @@ variable DOCKER_COMMIT {}
 variable DOCKER_VERSION {}
 variable DOCKER_TARGET {}
 variable DOCKER_TAG {}
+
+target "web_frontend" {
+  context = "./web"
+  dockerfile = "Dockerfile"
+  platforms = ["linux/amd64"]
+  tags = ["mozilla/addons-server-next:latest"]
+
+  output = [
+    "type=docker",
+  ]
+}
 
 target "web" {
   context = "."

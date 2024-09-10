@@ -52,7 +52,7 @@ describe('docker-bake.hcl', () => {
     runSetup(env);
     const { stdout: output } = spawnSync(
       'make',
-      ['docker_build_web', 'ARGS=--print'],
+      ['docker_build', 'ARGS=--print'],
       {
         encoding: 'utf-8',
         env: { ...process.env, ...env },

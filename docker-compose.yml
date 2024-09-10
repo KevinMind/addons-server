@@ -78,6 +78,14 @@ services:
     command:
       - uwsgi --ini /data/olympia/docker/uwsgi.ini
 
+  web_frontend:
+    image: mozilla/addons-server-next:latest
+    pull_policy: never
+    platform: linux/amd64
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+
   nginx:
     image: nginx
     volumes:

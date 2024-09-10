@@ -48,7 +48,7 @@ The **addons-server** project uses BuildKit and Bake to streamline the image-bui
 To build the Docker images for the project, use the following command:
 
 ```sh
-make docker_build_web
+make docker_build
 ```
 
 This command leverages BuildKit and Bake to efficiently build the required images.
@@ -74,7 +74,7 @@ These arguments allow you to customize various aspects of the build process,
 from controlling output verbosity to setting specific image metadata.
 
 When running local builds you can largely ignore these arguments
-and just use `make docker_build_web` to build the image.
+and just use `make docker_build` to build the image.
 
 ### Clearing Cache
 

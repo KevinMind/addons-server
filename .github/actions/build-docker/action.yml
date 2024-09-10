@@ -71,7 +71,7 @@ runs:
       id: build
       shell: bash
       run: |
-        make docker_build_web \
+        make docker_build \
           ARGS="--file ${{ env.TAGS_FILE }} --file ${{ env.ANNOTATIONS_FILE }}" \
           DOCKER_PUSH=${{ inputs.push }}
 
