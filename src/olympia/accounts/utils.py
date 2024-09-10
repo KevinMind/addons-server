@@ -60,7 +60,7 @@ def fxa_login_url(
             query['prompt'] = 'none'
             query['login_hint'] = login_hint
     if use_fake_fxa():
-        base_url = reverse('fake-fxa-authorization')
+        base_url = 'http://olympia.test/next/login'
     else:
         base_url = f'{settings.FXA_OAUTH_HOST}/authorization'
     return f'{base_url}?{urlencode(query)}'
