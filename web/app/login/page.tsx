@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+import { getProfile } from "../actions";
+
 interface SearchParams {
   client_id: string;
   scope: string;
@@ -15,7 +18,13 @@ enum FieldNames {
   FAKE_TWO_FACTOR_AUTHENTICATION = 'fake_two_factor_authentication',
 }
 
-export default function Login({searchParams}: {searchParams: SearchParams}) {
+export default async function Login({searchParams}: {searchParams: SearchParams}) {
+  const { profile } = await getProfile();
+
+  if (profile) {
+    return redirect('/addons');
+  }
+
   return (
     <div className="max-w-md mx-auto p-6 font-sans">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Register or Log in</h2>
